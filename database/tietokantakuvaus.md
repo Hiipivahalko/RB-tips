@@ -1,4 +1,4 @@
-Tietokannassa on nyt vain yksi taulu nimeltä artikkelit: 
+Tietokannassa on nyt vain yksi taulu nimeltä Artikkelit: 
 
 **id** | **otsikko** | **kirjoittaja**
 -------|-------------|----------------
