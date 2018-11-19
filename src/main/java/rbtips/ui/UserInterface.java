@@ -44,7 +44,9 @@ public class UserInterface {
         String headline = scanner.nextLine();
         System.out.println("author: ");
         String author = scanner.nextLine();
-        articles.add(new Article(headline, author));
+        System.out.println("url: ");
+        String url = scanner.nextLine();
+        articles.add(new Article(headline, author, url));
     }
 
     private void showTips() {

@@ -20,6 +20,7 @@ public class Database {
                     + "id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                     + "otsikko TEXT NOT NULL,"
                     + "kirjoittaja TEXT NOT NULL"
+                    + "url VARCHAR(255)"
                     + ");"
             );
         } catch (Exception e) {
