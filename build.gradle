@@ -4,6 +4,11 @@ apply plugin: 'checkstyle'
 
 mainClassName = 'rbtips.domain.Main'
 
+project.ext {
+    cucumberVersion = '1.2.5'
+    junitVersion = '4.12'
+}
+
 repositories {
     jcenter()
 }
@@ -16,5 +21,21 @@ jar {
 
 run {
     standardInput = System.in
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
+    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    testCompile 'junit:junit:' + junitVersion
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
 
