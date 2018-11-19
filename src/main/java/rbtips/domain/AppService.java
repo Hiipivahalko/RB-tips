@@ -13,7 +13,7 @@ public class AppService {
         this.articleDao = articleDao;
     }
     
-    public boolean saveArticle(String author, String headline, String url) {
+    public boolean saveArticle(String headline, String author, String url) {
         try {
             Article a = new Article(headline, author, url);
             articleDao.create(a);
