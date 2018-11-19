@@ -1,8 +1,13 @@
-
 package rbtips.domain;
 
+import java.util.Scanner;
+import rbtips.ui.UserInterface;
+
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("Hello RB!");
+        Scanner scanner = new Scanner(System.in);
+        UserInterface ui = new UserInterface(scanner);
+        ui.start();
     }
 }

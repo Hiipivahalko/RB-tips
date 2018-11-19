@@ -1,9 +1,7 @@
-
 package rbtips.domain;
 
-
 public class Article {
-    
+
     private String headline;
     private String author;
 
@@ -19,5 +17,5 @@ public class Article {
     public String getHeadline() {
         return headline;
     }
-    
+
 }
