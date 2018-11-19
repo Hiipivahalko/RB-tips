@@ -20,12 +20,13 @@ public class UserInterface {
     }
 
     private void mainMenu() {
-        while (true) {
+        String command = "";
+        while (!command.equals("quit")) {
             System.out.println("Choose command: ");
             System.out.println("new tip");
             System.out.println("show tips");
-
-            String command = scanner.nextLine();
+            System.out.println("quit");
+            command = scanner.nextLine();
             switch (command) {
                 case "new tip":
                     newTip();
@@ -52,9 +53,9 @@ public class UserInterface {
     private void showTips() {
         ArrayList<Article> articles = app.getAllArticles();
         if (articles.size() > 0) {
-            articles.forEach((article) -> {
-                    System.out.println(article);
-                });
+            for (Article article : articles) {
+                System.out.println(article);
+            }
         } else {
             System.out.println("no tips yet");
         }
