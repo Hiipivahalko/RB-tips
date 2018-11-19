@@ -1,6 +1,7 @@
 
 package rbtips.domain;
 
+import java.util.ArrayList;
 import rbtips.dao.ArticleDao;
 
 public class AppService {
@@ -20,5 +21,15 @@ public class AppService {
         } catch(Exception e) {
             return false;
         }
+    }
+    
+    public ArrayList<Article> getAllArticles() {
+        ArrayList<Article> articles = new ArrayList<>();
+        try {
+            articles = articleDao.getAll();
+        } catch(Exception e) {
+            
+        }
+        return articles;
     }
 }
