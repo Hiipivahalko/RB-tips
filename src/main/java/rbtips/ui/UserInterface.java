@@ -1,9 +1,8 @@
 package rbtips.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-import rbtips.dao.ArticleDao;
-import rbtips.dao.Database;
-import rbtips.domain.AppService;
+import rbtips.domain.*;
 
 public class UserInterface {
 
@@ -47,16 +46,17 @@ public class UserInterface {
         String author = scanner.nextLine();
         System.out.println("url: ");
         String url = scanner.nextLine();
-        app.saveArticle(author, headline, url)
+        app.saveArticle(author, headline, url);
     }
 
     private void showTips() {
-        /*if (articles.size() > 0) {
+        ArrayList<Article> articles = app.getAllArticles();
+        if (articles.size() > 0) {
             articles.forEach((article) -> {
-                System.out.println(article.getAuthor() + ": " + article.getHeadline());
-            });
+                    System.out.println(article);
+                });
         } else {
             System.out.println("no tips yet");
-        }*/
+        }
     }
 }

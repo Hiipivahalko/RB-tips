@@ -12,7 +12,6 @@ public class Main {
         Database db = new Database("jdbc:sqlite:tips.db");
         ArticleDao dao = new ArticleDao(db);
         AppService app = new AppService(dao);
-        //ylläoleva app täytyy injektoida käyttöliittymäluokalle metodien kutsumista varten
         UserInterface ui = new UserInterface(scanner, app);
         ui.start();
     }

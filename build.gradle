@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'checkstyle'
 
-mainClassName = 'rbtips.domain.Main'
+mainClassName = 'rbtips.ui.Main'
 
 project.ext {
     cucumberVersion = '1.2.5'
@@ -11,32 +11,24 @@ project.ext {
 
 repositories {
     jcenter()
+    //mavenCentral()
 }
 
 dependencies {
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
-
+    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
+    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    testCompile 'junit:junit:' + junitVersion
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'rbtips.domain.Main'
+        attributes 'Main-Class': 'rbtips.ui.Main'
     }
 }
 
 run {
     standardInput = System.in
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
-}
-
-dependencies {
-    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
-    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
-    testCompile 'junit:junit:' + junitVersion
 }
 
 test {
