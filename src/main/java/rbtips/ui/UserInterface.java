@@ -2,16 +2,17 @@ package rbtips.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import rbtips.domain.AppService;
 import rbtips.domain.Article;
 
 public class UserInterface {
 
     private final Scanner scanner;
-    private final ArrayList<Article> articles;
+    private AppService app;
 
-    public UserInterface(Scanner scanner) {
+    public UserInterface(Scanner scanner, AppService app) {
         this.scanner = scanner;
-        this.articles = new ArrayList<>();
+        this.app = app;
     }
 
     public void start() {
@@ -46,16 +47,15 @@ public class UserInterface {
         String author = scanner.nextLine();
         System.out.println("url: ");
         String url = scanner.nextLine();
-        articles.add(new Article(headline, author, url));
     }
 
     private void showTips() {
-        if (articles.size() > 0) {
+        /*if (articles.size() > 0) {
             articles.forEach((article) -> {
                 System.out.println(article.getAuthor() + ": " + article.getHeadline());
             });
         } else {
             System.out.println("no tips yet");
-        }
+        }*/
     }
 }

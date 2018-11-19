@@ -16,11 +16,11 @@ public class Database {
             Connection conn = DriverManager.getConnection(databaseAddress);
             Statement stmt = conn.createStatement();
             stmt.execute("CREATE TABLE IF NOT EXISTS"
-                    + "Artikkelit("
-                    + "id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-                    + "otsikko TEXT NOT NULL,"
-                    + "kirjoittaja TEXT NOT NULL"
-                    + "url VARCHAR(255)"
+                    + " Artikkelit("
+                    + " id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                    + " otsikko TEXT NOT NULL,"
+                    + " kirjoittaja TEXT NOT NULL,"
+                    + " url VARCHAR(255)"
                     + ");"
             );
         } catch (Exception e) {

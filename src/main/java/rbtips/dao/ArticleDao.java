@@ -37,9 +37,7 @@ public class ArticleDao implements ArticleDaoApi {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            System.out.println("täällä ollaaan");
             Article article = new Article(rs.getString("otsikko"), rs.getString("kirjoittaja"), rs.getString("url"));
-            System.out.println(article.getAuthor());
             articles.add(article);
         }
         
