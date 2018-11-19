@@ -1,7 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'checkstyle'
 
 mainClassName = 'rbtips.domain.Main'
+
+repositories {
+    jcenter()
+}
 
 jar {
     manifest {
