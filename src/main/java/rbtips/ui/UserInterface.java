@@ -1,54 +1,58 @@
 package rbtips.ui;
 
+import static java.lang.System.exit;
 import java.util.ArrayList;
-import java.util.Scanner;
 import rbtips.domain.*;
 
 public class UserInterface {
 
-    private final Scanner scanner;
+    private IO io;
     private final AppService app;
 
-    public UserInterface(Scanner scanner, AppService app) {
-        this.scanner = scanner;
+    public UserInterface(IO io, AppService app) {
+        this.io = io;
         this.app = app;
     }
 
     public void start() {
-        System.out.println("Welcome to RB-tips!");
+        System.out.println("-------------------\nWelcome to RB-tips!\n-------------------\n");
         mainMenu();
     }
 
     private void mainMenu() {
         String command = "";
-        while (!command.equals("quit")) {
-            System.out.println("Choose command: ");
-            System.out.println("new tip");
-            System.out.println("show tips");
-            System.out.println("quit");
-            command = scanner.nextLine();
+        while (true) {
+            System.out.println("\nChoose command: ");
+            System.out.println("  > [n] new tip");
+            System.out.println("  > [s] show tips");
+            System.out.println("  > [q] quit");
+            command = io.nextCommand();//scanner.nextLine();
             switch (command) {
-                case "new tip":
+                case "n":
                     newTip();
                     break;
-                case "show tips":
+                case "s":
                     showTips();
                     break;
-                case "quit":
-                    break;
+                case "q":
+                    System.out.println("Shutting the program, see you later!");
+                    exit(0);
                 default:
                     System.out.println("invalid command");
             }
         }
     }
-
+    
+    /**
+     * Creating new tip from inputs from user
+     */
     private void newTip() {
-        System.out.println("headline: ");
-        String headline = scanner.nextLine();
+        System.out.println("\nheadline: ");
+        String headline = io.nextCommand();
         System.out.println("author: ");
-        String author = scanner.nextLine();
+        String author = io.nextCommand();
         System.out.println("url: ");
-        String url = scanner.nextLine();
+        String url = io.nextCommand();
         app.saveArticle(author, headline, url);
     }
 

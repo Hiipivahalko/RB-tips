@@ -12,7 +12,8 @@ public class Main {
         Database db = new Database("jdbc:sqlite:tips.db");
         ArticleDao dao = new ArticleDao(db);
         AppService app = new AppService(dao);
-        UserInterface ui = new UserInterface(scanner, app);
+        CommandlineIO io = new CommandlineIO(scanner);
+        UserInterface ui = new UserInterface(io, app);
         ui.start();
     }
 }

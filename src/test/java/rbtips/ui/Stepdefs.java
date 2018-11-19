@@ -1,13 +1,19 @@
-package rbtips;
+package rbtips.ui;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import rbtips.dao.ArticleDao;
+import rbtips.dao.Database;
+import rbtips.domain.AppService;
+
 import static org.junit.Assert.*;
 
 public class Stepdefs {
     
-    
+    Database db = new Database("jdbc:sqlite:testDb.db");
+    ArticleDao dao = new ArticleDao(db);
+    AppService app = new AppService(dao);
     
     @Given("^new tip command is given$")
     public void new_tip_command_is_given() throws Throwable {

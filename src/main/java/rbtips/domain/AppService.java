@@ -19,6 +19,7 @@ public class AppService {
             articleDao.create(a);
             return true;
         } catch(Exception e) {
+            System.out.println("Something went wrong when creating new Article :(");
             return false;
         }
     }
