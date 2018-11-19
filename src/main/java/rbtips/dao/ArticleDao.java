@@ -9,6 +9,10 @@ public class ArticleDao implements ArticleDaoApi {
 
     private Database db;
 
+    public ArticleDao(Database db) {
+        this.db = db;
+    }
+
     @Override
     public void create(Article article) throws SQLException {
         Connection conn = db.getConnection();
