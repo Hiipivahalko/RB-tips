@@ -1,9 +1,9 @@
 package rbtips.ui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+import rbtips.dao.ArticleDao;
+import rbtips.dao.Database;
 import rbtips.domain.AppService;
-import rbtips.domain.Article;
 
 public class UserInterface {
 
@@ -57,5 +57,15 @@ public class UserInterface {
         } else {
             System.out.println("no tips yet");
         }*/
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Database db = new Database("jdbc:sqlite:tips.db");
+        ArticleDao dao = new ArticleDao(db);
+        AppService app = new AppService(dao);
+        //ylläoleva app täytyy injektoida käyttöliittymäluokalle metodien kutsumista varten
+        UserInterface ui = new UserInterface(scanner, app);
+        ui.start();
     }
 }
