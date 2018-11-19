@@ -23,4 +23,9 @@ public class Article {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public String toString() {
+        return this.author + ": " + this.headline + " url: " + this.url;
+    }
 }
