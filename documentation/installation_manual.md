@@ -12,7 +12,7 @@ git clone https://github.com/Hiipivahalko/RB-tips.git
 gradle build
 ```
 
-3. 
+3. Ohjelman voi suorittaa komennolla
 ```
 java -jar build/libs/RB-tips.jar
 ```
