@@ -4,7 +4,7 @@ import static java.lang.System.exit;
 import java.util.ArrayList;
 import rbtips.domain.*;
 
-public class UserInterface {
+public class UserInterface implements UI {
 
     private IO io;
     private final AppService app;
@@ -19,7 +19,8 @@ public class UserInterface {
         mainMenu();
     }
 
-    private void mainMenu() {
+    @Override
+    public void mainMenu() {
         String command = "";
         while (true) {
             System.out.println("\nChoose command: ");
@@ -46,7 +47,8 @@ public class UserInterface {
     /**
      * Creating new tip from inputs from user
      */
-    private void newTip() {
+    @Override
+    public void newTip() {
         System.out.println("\nheadline: ");
         String headline = io.nextCommand();
         System.out.println("author: ");
@@ -55,8 +57,9 @@ public class UserInterface {
         String url = io.nextCommand();
         app.saveArticle(author, headline, url);
     }
-
-    private void showTips() {
+    
+    @Override
+    public void showTips() {
         ArrayList<Article> articles = app.getAllArticles();
         if (articles.size() > 0) {
             for (Article article : articles) {
