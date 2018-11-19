@@ -8,7 +8,7 @@ import rbtips.domain.AppService;
 public class UserInterface {
 
     private final Scanner scanner;
-    private AppService app;
+    private final AppService app;
 
     public UserInterface(Scanner scanner, AppService app) {
         this.scanner = scanner;
@@ -47,6 +47,7 @@ public class UserInterface {
         String author = scanner.nextLine();
         System.out.println("url: ");
         String url = scanner.nextLine();
+        app.saveArticle(author, headline, url)
     }
 
     private void showTips() {
