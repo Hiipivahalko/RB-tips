@@ -3,3 +3,6 @@ build/
 /.nb-gradle/
 .DS_Store
 tips.db
+testDb.db
+/.idea
+
