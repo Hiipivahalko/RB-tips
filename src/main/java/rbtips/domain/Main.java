@@ -1,8 +1,7 @@
 package rbtips.domain;
 
 import java.util.Scanner;
-import rbtips.dao.ArticleDao;
-import rbtips.dao.Database;
+import rbtips.dao.*;
 import rbtips.ui.UserInterface;
 
 public class Main {
@@ -11,7 +10,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Database db = new Database("/database/tips.db");
         ArticleDao dao = new ArticleDao(db);
-        //ylläoleva dao täytyy injektoida käyttöliittymä/sovelluslogiikkaluokalle
+        AppService app = new AppService(dao);
+        //ylläoleva app täytyy injektoida käyttöliittymäluokalle metodien kutsumista varten
         UserInterface ui = new UserInterface(scanner);
         ui.start();
     }
