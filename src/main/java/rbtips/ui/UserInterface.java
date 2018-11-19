@@ -34,6 +34,8 @@ public class UserInterface {
                 case "show tips":
                     showTips();
                     break;
+                case "quit":
+                    break;
                 default:
                     System.out.println("invalid command");
             }
