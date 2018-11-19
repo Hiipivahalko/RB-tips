@@ -13,9 +13,14 @@ repositories {
     jcenter()
 }
 
+dependencies {
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
+
+}
+
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'rbtips.domain.Main'
     }
 }
 

@@ -1,6 +1,7 @@
 
 package rbtips.domain;
 
+import java.util.ArrayList;
 import rbtips.dao.ArticleDao;
 
 public class AppService {
@@ -12,7 +13,7 @@ public class AppService {
         this.articleDao = articleDao;
     }
     
-    public boolean saveArticle(String author, String headline, String url) {
+    public boolean saveArticle(String headline, String author, String url) {
         try {
             Article a = new Article(headline, author, url);
             articleDao.create(a);
@@ -20,5 +21,15 @@ public class AppService {
         } catch(Exception e) {
             return false;
         }
+    }
+    
+    public ArrayList<Article> getAllArticles() {
+        ArrayList<Article> articles = new ArrayList<>();
+        try {
+            articles = articleDao.getAll();
+        } catch(Exception e) {
+            
+        }
+        return articles;
     }
 }
