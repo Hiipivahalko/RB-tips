@@ -11,12 +11,17 @@ public class ArticleDao implements ArticleDaoApi {
 
     private Database db;
 
+    public ArticleDao(Database db) {
+        this.db = db;
+    }
+
     @Override
     public void create(Article article) throws SQLException {
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Artikkelit(otsikko, kirjoittaja) VALUES (?, ?)");
-        stmt.setString(0, article.getHeadline());
-        stmt.setString(1, article.getAuthor());
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Artikkelit(otsikko, kirjoittaja, url) VALUES (?, ?, ?)");
+        stmt.setString(1, article.getHeadline());
+        stmt.setString(2, article.getAuthor());
+        stmt.setString(3, article.getUrl());
         stmt.executeUpdate();
         stmt.close();
         conn.close();
@@ -33,7 +38,7 @@ public class ArticleDao implements ArticleDaoApi {
 
         while (rs.next()) {
             System.out.println("täällä ollaaan");
-            Article article = new Article(rs.getString("otsikko"), rs.getString("kirjoittaja"));
+            Article article = new Article(rs.getString("otsikko"), rs.getString("kirjoittaja"), rs.getString("url"));
             System.out.println(article.getAuthor());
             articles.add(article);
         }
