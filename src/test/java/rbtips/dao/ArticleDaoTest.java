@@ -17,7 +17,7 @@ public class ArticleDaoTest {
     @Before
     public void setUp() throws Exception {
         database = new Database("jdbc:sqlite:test.db");
-        articleDao = new ArticleDao(database);
+        articleDao = new ArticleDao(database, "Articles");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ArticleDaoTest {
     @After
     public void tearDown() throws Exception {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DROP TABLE Artikkelit");
+        PreparedStatement statement = connection.prepareStatement("DROP TABLE Articles");
         statement.execute();
         statement.close();
         connection.close();
