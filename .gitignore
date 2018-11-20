@@ -5,4 +5,4 @@ build/
 tips.db
 testDb.db
 /.idea
-
+test.db
