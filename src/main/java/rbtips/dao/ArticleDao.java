@@ -10,15 +10,17 @@ import rbtips.domain.Article;
 public class ArticleDao implements ArticleDaoApi {
 
     private Database db;
+    private String tableName;
 
-    public ArticleDao(Database db) {
+    public ArticleDao(Database db, String tableName) {
         this.db = db;
+        this.tableName = tableName;
     }
 
     @Override
     public void create(Article article) throws SQLException {
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Artikkelit(otsikko, kirjoittaja, url) VALUES (?, ?, ?)");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(headline, author, url) VALUES (?, ?, ?)");
         stmt.setString(1, article.getHeadline());
         stmt.setString(2, article.getAuthor());
         stmt.setString(3, article.getUrl());
@@ -32,12 +34,12 @@ public class ArticleDao implements ArticleDaoApi {
         ArrayList<Article> articles = new ArrayList<>();
         
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Artikkelit");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName);
 
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            Article article = new Article(rs.getString("otsikko"), rs.getString("kirjoittaja"), rs.getString("url"));
+            Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
             articles.add(article);
         }
         

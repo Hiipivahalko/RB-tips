@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import rbtips.domain.Article;
 
 public class Database {
 
@@ -15,14 +14,7 @@ public class Database {
         try {
             Connection conn = DriverManager.getConnection(databaseAddress);
             Statement stmt = conn.createStatement();
-            stmt.execute("CREATE TABLE IF NOT EXISTS"
-                    + " Artikkelit("
-                    + " id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-                    + " otsikko TEXT NOT NULL,"
-                    + " kirjoittaja TEXT NOT NULL,"
-                    + " url VARCHAR(255)"
-                    + ");"
-            );
+            stmt.execute(createTableArticles());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -30,6 +22,29 @@ public class Database {
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(databaseAddress);
+    }
+
+    public void initializeDatabase() {
+        try {
+            Connection conn = DriverManager.getConnection(databaseAddress);
+            Statement stmt = conn.createStatement();
+            stmt.execute("DROP TABLE Articles");
+            stmt.execute(createTableArticles());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+    }
+
+    private String createTableArticles() {
+        return "CREATE TABLE IF NOT EXISTS"
+                + " Articles("
+                + " id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                + " headline TEXT NOT NULL,"
+                + " author TEXT NOT NULL,"
+                + " url VARCHAR(255)"
+                + ");";
     }
 
 }
