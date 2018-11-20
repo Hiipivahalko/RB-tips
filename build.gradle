@@ -5,6 +5,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'checkstyle'
+apply plugin: "jacoco" 
 
 mainClassName = 'rbtips.ui.Main'
 
