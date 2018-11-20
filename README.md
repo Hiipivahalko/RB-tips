@@ -11,3 +11,7 @@ Työpöytäsovellus lukuvinkkien listaamiseen.
 * [Asennusohje](https://github.com/Hiipivahalko/RB-tips/blob/master/documentation/installation_manual.md)
 * [Käyttöohje](https://github.com/Hiipivahalko/RB-tips/blob/master/documentation/user_manual.md)
 
+
+## Definition of Done
+* Sprintti 1
+  * [User Story 1](https://github.com/Hiipivahalko/RB-tips/blob/master/src/test/resources/rbtips/ui/new_article.feature)
