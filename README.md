@@ -1,6 +1,7 @@
 # RB-tips
 
 [![Build Status](https://travis-ci.org/Hiipivahalko/RB-tips.svg?branch=master)](https://travis-ci.org/Hiipivahalko/RB-tips)
+[![codecov](https://codecov.io/gh/Hiipivahalko/RB-tips/branch/master/graph/badge.svg)](https://codecov.io/gh/Hiipivahalko/RB-tips)
 
 Helsingin Yliopiston Ohjelmistotuotanto kurssin miniprojekti
 
