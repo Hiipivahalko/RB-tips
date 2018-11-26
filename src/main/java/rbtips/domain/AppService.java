@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rbtips.dao.ArticleDao;
+import rbtips.dao.TagDao;
 
 public class AppService {
     //Sovelluslogiikkaluokka, näitä metodeja kutsutaan UI:sta
     
     private ArticleDao articleDao;
+    private TagDao tagDao;
 
-    public AppService(ArticleDao articleDao) {
+    public AppService(ArticleDao articleDao, TagDao tagDao) {
         this.articleDao = articleDao;
+        this.tagDao = tagDao;
     }
 
     /**
@@ -22,13 +25,16 @@ public class AppService {
      * @param url article url
      * @return
      */
-    public boolean saveArticle(String headline, String author, String url) {
+    public boolean saveArticle(String headline, String author, String url, String tagNames) {
         List<String> allErrors = validateNewAricleUserInputs(headline, author, url);
+        ArrayList<Integer> tagIds;
 
         if (allErrors.isEmpty()) {
             try {
                 Article a = new Article(headline, author, url);
                 articleDao.create(a);
+                tagDao.addTagsIfNotAlreadyExist(tagNames);
+                tagIds = tagDao.findByName(tagNames);
                 return true;
             } catch(Exception e) {
                 System.out.println("Something went wrong when creating new Article :(");

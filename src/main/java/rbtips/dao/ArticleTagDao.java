@@ -10,5 +10,5 @@ package rbtips.dao;
  * @author ogrousu
  */
 public class ArticleTagDao {
-    
+
 }

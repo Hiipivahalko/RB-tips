@@ -30,12 +30,17 @@ public class UIStub implements UI {
         String headline = io.nextCommand();
         String author = io.nextCommand();
         String url = io.nextCommand();
-        app.saveArticle(headline, author, url);
+        app.saveArticle(headline, author, url, "tagi");
     }
 
     @Override
     public void showTips() {
         
     }
-    
+
+    @Override
+    public void search() {
+
+    }
+
 }

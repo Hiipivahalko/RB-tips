@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import rbtips.dao.ArticleDao;
 import rbtips.dao.Database;
+import rbtips.dao.TagDao;
 import rbtips.domain.AppService;
 
 import static org.junit.Assert.*;
@@ -17,7 +18,8 @@ public class Stepdefs {
     
     Database db = new Database("jdbc:sqlite:testDb.db");
     ArticleDao dao = new ArticleDao(db, "Articles");
-    AppService app = new AppService(dao);
+    TagDao tagDao = new TagDao(db, "Tag");
+    AppService app = new AppService(dao, tagDao);
     IOStub io = new IOStub(new String[1]);
     UIStub ui = new UIStub(io, app);
     
