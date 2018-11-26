@@ -32,7 +32,7 @@ public class ArticleDao implements ArticleDaoApi {
     @Override
     public ArrayList<Article> getAll() throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
-        
+
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName);
 
@@ -42,11 +42,31 @@ public class ArticleDao implements ArticleDaoApi {
             Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
             articles.add(article);
         }
-        
+
         stmt.close();
         rs.close();
         conn.close();
-        
+
+        return articles;
+    }
+
+    @Override
+    public ArrayList<Article> searchHeadline(String headline) throws SQLException {
+        ArrayList<Article> articles = new ArrayList<>();
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline = ? ");
+        stmt.setString(1, headline);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
+            articles.add(article);
+        }
+
+        stmt.close();
+        rs.close();
+        conn.close();
+
         return articles;
     }
 

@@ -10,4 +10,5 @@ public interface ArticleDaoApi {
     
     void create (Article article) throws SQLException;
     ArrayList<Article> getAll() throws SQLException;
+    ArrayList<Article> searchHeadline(String headline) throws SQLException;
 }
