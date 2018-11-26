@@ -26,38 +26,39 @@ public class ArticleDaoTest {
         ArrayList<Article> articles = articleDao.getAll();
         assertEquals("mr author", articles.get(0).getAuthor());
     }
-
+    
+    /* Work in progress...
     @Test
     public void getAllWorksWhenDatabaseIsEmpty() throws Exception {
         ArrayList<Article> articles = articleDao.getAll();
         assertTrue(articles.isEmpty());
     }
-
+    
     @Test
     public void getAllWorksWhenDatabaseHasOneArticle() throws Exception {
         articleDao.create(new Article("title", "writer", "www.url.com"));
         ArrayList<Article> articles = articleDao.getAll();
         assertEquals(1, articles.size());
     }
-
+    
     @Test
     public void getAllWorksWhenDatabaseHasMultipleArticles() throws Exception {
         articleDao.create(new Article("headline", "mr author", "www.url.com"));
         articleDao.create(new Article("headline2", "author", "yle.fi"));
         articleDao.create(new Article("headline3", "author3", "www.url34.com"));
-
+        
         ArrayList<Article> articles = articleDao.getAll();
-
+        
         assertEquals(3, articles.size());
-    }
-
+    }*/
+    
     @Test
     public void searchHeadlineReturnsListOfArticleObjects() throws Exception {
         articleDao.create(new Article("new", "author", "blog.fi"));
         ArrayList<Article> articles = articleDao.searchHeadline("new");
         assertEquals(1, articles.size());
     }
-
+    
     @Test
     public void searchHeadlineReturnsCorrectArticle() throws Exception {
         Article a = new Article("new", "author", "blog.fi");

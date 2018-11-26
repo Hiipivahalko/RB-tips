@@ -12,7 +12,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Database db = new Database("jdbc:sqlite:tips.db");
         ArticleDao dao = new ArticleDao(db, "Articles");
-        TagDao tagDao = new TagDao(db, "Tags");
+        TagDao tagDao = new TagDao(db, "Tag");
         AppService app = new AppService(dao, tagDao);
         CommandlineIO io = new CommandlineIO(scanner);
         UserInterface ui = new UserInterface(io, app);

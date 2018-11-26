@@ -28,4 +28,5 @@ public class Article {
     public String toString() {
         return this.author + ": " + this.headline + " url: " + this.url;
     }
+
 }

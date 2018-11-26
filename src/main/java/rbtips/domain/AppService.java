@@ -33,8 +33,11 @@ public class AppService {
             try {
                 Article a = new Article(headline, author, url);
                 articleDao.create(a);
+                //adding new tags to database:
                 tagDao.addTagsIfNotAlreadyExist(tagNames);
+                //getting tag id's:
                 tagIds = tagDao.findByName(tagNames);
+                //do something here...
                 return true;
             } catch (Exception e) {
                 System.out.println("Something went wrong when creating new Article :(");

@@ -25,7 +25,10 @@ public class TagDao {
 
         for (String tag : tags) {
             try {
-                checkIfTagAlreadyExistsIf(tag);
+                if (!alreadyExists(tag)) {
+                    Tag newTag = new Tag(tag);
+                    add(newTag);
+                }
             } catch (Exception e) {
                 System.out.println("Something went wrong, when trying to check tag from database");
             }
@@ -39,17 +42,14 @@ public class TagDao {
         return tags;
     }
 
-    private void checkIfTagAlreadyExistsIf(String tagName) throws SQLException {
+    private boolean alreadyExists(String tagName) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SEARCH * FROM " + tableName + " WHERE name = ?");
         stmt.setString(1, tagName);
 
         ResultSet rs = stmt.executeQuery();
 
-        if (!rs.next()) {
-            Tag newTag = new Tag(tagName);
-            add(newTag);
-        }
+        return rs.next();
     }
 
     public void add(Tag tag) throws SQLException {
@@ -85,7 +85,7 @@ public class TagDao {
 
     public ArrayList<Article> searchTag(String tagNames) throws SQLException {
         ArrayList<Integer> tagIds = findByName(tagNames);
-        //Use ArticleTagDao to find and return the matching articles to the list of tags (tagIds)
+
         return new ArrayList<Article>();
     }
 
