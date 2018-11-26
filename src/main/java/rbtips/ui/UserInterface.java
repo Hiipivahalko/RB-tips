@@ -36,7 +36,7 @@ public class UserInterface implements UI {
                 case "l":
                     showTips();
                     break;
-                case "s": 
+                case "s":
                     search();
                     break;
                 case "q":
@@ -47,7 +47,7 @@ public class UserInterface implements UI {
             }
         }
     }
-    
+
     /**
      * Creating new tip from inputs from user
      */
@@ -60,10 +60,10 @@ public class UserInterface implements UI {
         System.out.println("url: ");
         String url = io.nextCommand();
         System.out.println("tag: ");
-        String tag = io.nextCommand();
-        app.saveArticle(author, headline, url);
+        String tags = io.nextCommand();
+        app.saveArticle(author, headline, url, tags);
     }
-    
+
     @Override
     public void showTips() {
         ArrayList<Article> articles = app.getAllArticles();
@@ -91,7 +91,7 @@ public class UserInterface implements UI {
                 searchTag();
                 break;
             default:
-                System.out.println("invalid command");        
+                System.out.println("invalid command");
         }
     }
 
@@ -99,13 +99,13 @@ public class UserInterface implements UI {
         String headline = "";
         System.out.println("headline:");
         headline = io.nextCommand();
-        //app.searchHeadline(command);
+        //app.searchHeadline(headline);
     }
 
     public void searchTag() {
         String tag = "";
         System.out.println("tags:");
         tag = io.nextCommand();
-        //app.searchTag();
+        //app.searchTag(tag);
     }
 }

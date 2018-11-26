@@ -30,7 +30,7 @@ public class UIStub implements UI {
         String headline = io.nextCommand();
         String author = io.nextCommand();
         String url = io.nextCommand();
-        app.saveArticle(headline, author, url);
+        app.saveArticle(headline, author, url, "tagi");
     }
 
     @Override
@@ -40,7 +40,8 @@ public class UIStub implements UI {
 
     @Override
     public void search() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
-    
+
+
 }
