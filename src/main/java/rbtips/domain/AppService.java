@@ -26,7 +26,7 @@ public class AppService {
      * @return
      */
     public boolean saveArticle(String headline, String author, String url, String tagNames) {
-        List<String> allErrors = validateNewAricleUserInputs(headline, author, url);
+        List<String> allErrors = validateNewArticleUserInputs(headline, author, url);
         ArrayList<Integer> tagIds;
 
         if (allErrors.isEmpty()) {
@@ -105,7 +105,7 @@ public class AppService {
      * @param url new article url
      * @return error ArrayList
      */
-    private List<String> validateNewAricleUserInputs(String headline, String author, String url) {
+    private List<String> validateNewArticleUserInputs(String headline, String author, String url) {
         List<String> errors = new ArrayList<>();
 
         if (headline.length() < 5) {
