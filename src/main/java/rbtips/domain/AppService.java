@@ -5,14 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rbtips.dao.ArticleDao;
+import rbtips.dao.ArticleTagDao;
+import rbtips.dao.TagDao;
 
 public class AppService {
     //Sovelluslogiikkaluokka, näitä metodeja kutsutaan UI:sta
     
     private ArticleDao articleDao;
+    private TagDao tagDao;
+    private ArticleTagDao articleTagDao;
 
     public AppService(ArticleDao articleDao) {
         this.articleDao = articleDao;
+        this.tagDao = tagDao;
+        this.articleTagDao = articleTagDao;
     }
 
     /**
@@ -29,6 +35,10 @@ public class AppService {
             try {
                 Article a = new Article(headline, author, url);
                 articleDao.create(a);
+                int articleId = articleDao.getIdByHeadline(headline);
+                
+                
+                
                 return true;
             } catch(Exception e) {
                 System.out.println("Something went wrong when creating new Article :(");

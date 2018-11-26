@@ -24,4 +24,8 @@ public class TagDao {
         stmt.close();
         conn.close();
     }
+    
+//    public int getIdByTagName(String tagName) throws SQLException {
+//        
+//    }
 }
