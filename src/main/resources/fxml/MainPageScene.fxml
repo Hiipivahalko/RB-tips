@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.4" fx:controller="rbtips.ui.MainPageSceneController">
+   <children>
+      <HBox layoutY="-1.0" prefHeight="30.0" prefWidth="601.0" />
+      <HBox layoutY="31.0" prefHeight="368.0" prefWidth="603.0">
+         <children>
+            <VBox prefHeight="368.0" prefWidth="170.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="170.0" text="Input article information:" />
+                  <TextField fx:id="headline" promptText="Headline" />
+                  <TextField fx:id="author" promptText="Author" />
+                  <TextField fx:id="url" promptText="URL" />
+                  <TextArea fx:id="tags" prefHeight="66.0" prefWidth="170.0" promptText="Tags" />
+                  <Button fx:id="addNewTip" mnemonicParsing="false" onAction="#handleAddNewTip" prefHeight="27.0" prefWidth="187.0" text="Add tip" />
+               </children>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+            <TableView fx:id="tableView" prefHeight="368.0" prefWidth="431.0">
+              <columns>
+                  <TableColumn prefWidth="75.0" text="Headline">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="headline"/>
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Author" >
+                      <cellValueFactory>
+                          <PropertyValueFactory property="author" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="URL" >
+                      <cellValueFactory>
+                          <PropertyValueFactory property="url" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="205.0" text="Tags" />
+              </columns>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+            </TableView>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="3.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>
