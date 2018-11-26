@@ -43,6 +43,21 @@ public class AppService {
         }
 
     }
+    
+    /**
+     * Search articles in the database for with matching headline
+     * @return ArrayList of articles with wanted headline if found any
+     */
+    public ArrayList<Article> searchArticleWithHeadline(String headline) {
+        ArrayList<Article> articles = new ArrayList<>();
+        try {
+            articles = articleDao.searchHeadline(headline);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return articles;
+    }
 
     /**
      * Find all articles at database and return it
