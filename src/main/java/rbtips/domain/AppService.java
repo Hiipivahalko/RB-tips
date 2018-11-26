@@ -1,4 +1,3 @@
-
 package rbtips.domain;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import rbtips.dao.TagDao;
 
 public class AppService {
     //Sovelluslogiikkaluokka, näitä metodeja kutsutaan UI:sta
-    
+
     private ArticleDao articleDao;
     private TagDao tagDao;
 
@@ -20,6 +19,7 @@ public class AppService {
 
     /**
      * Try to same new article to database if it is valid
+     *
      * @param headline article headline
      * @param author article author
      * @param url article url
@@ -36,52 +36,71 @@ public class AppService {
                 tagDao.addTagsIfNotAlreadyExist(tagNames);
                 tagIds = tagDao.findByName(tagNames);
                 return true;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println("Something went wrong when creating new Article :(");
                 return false;
             }
         } else {
             System.out.println("Article is not saved to RB-tips because some errors at input:\n");
-            for (String error :allErrors) {
+            for (String error : allErrors) {
                 System.out.println(error);
             }
             return false;
         }
 
     }
-    
+
     /**
-     * Search articles in the database for with matching headline
+     * Search articles in the database with matching headline
+     *
      * @return ArrayList of articles with wanted headline if found any
      */
-    public ArrayList<Article> searchArticleWithHeadline(String headline) {
+    public ArrayList<Article> searchHeadline(String headline) {
         ArrayList<Article> articles = new ArrayList<>();
         try {
             articles = articleDao.searchHeadline(headline);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
+        return articles;
+    }
+
+    /**
+     * Search articles in the database with matching tags
+     *
+     * @return ArrayList of articles with wanted tags if found any
+     */
+    public ArrayList<Article> searchTag(String tagNames) {
+        ArrayList<Article> articles = new ArrayList<>();
+        try {
+            articles = tagDao.searchTag(tagNames);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         return articles;
     }
 
     /**
      * Find all articles at database and return it
+     *
      * @return ArrayList of articles if there is any
      */
     public ArrayList<Article> getAllArticles() {
         ArrayList<Article> articles = new ArrayList<>();
         try {
             articles = articleDao.getAll();
-        } catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
         return articles;
     }
 
     /**
      * Validate new
-      * @param headline new article headline
+     *
+     * @param headline new article headline
      * @param author new author author
      * @param url new article url
      * @return error ArrayList

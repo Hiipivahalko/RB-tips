@@ -38,7 +38,6 @@ public class Database {
     }
 
     private void createTables(Statement stmt) throws SQLException {
-
         stmt.execute(createTableArticles());
         stmt.execute(createTableTag());
         stmt.execute(createTableArticleTag());

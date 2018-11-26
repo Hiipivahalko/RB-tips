@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import rbtips.domain.Article;
 
 import rbtips.domain.Tag;
 
@@ -38,13 +39,12 @@ public class TagDao {
         return tags;
     }
 
-    private void checkIfTagAlreadyExistsIf(String  tagName) throws SQLException {
+    private void checkIfTagAlreadyExistsIf(String tagName) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SEARCH * FROM " + tableName + " WHERE name = ?");
         stmt.setString(1, tagName);
 
         ResultSet rs = stmt.executeQuery();
-
 
         if (!rs.next()) {
             Tag newTag = new Tag(tagName);
@@ -55,7 +55,7 @@ public class TagDao {
     public void add(Tag tag) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name) VALUES (?)");
-        
+
         stmt.setString(1, tag.getName());
         stmt.executeUpdate();
         stmt.close();
@@ -82,4 +82,11 @@ public class TagDao {
 
         return tagIds;
     }
+
+    public ArrayList<Article> searchTag(String tagNames) throws SQLException {
+        ArrayList<Integer> tagIds = findByName(tagNames);
+        //Use ArticleTagDao to find and return the matching articles to the list of tags (tagIds)
+        return new ArrayList<Article>();
+    }
+
 }
