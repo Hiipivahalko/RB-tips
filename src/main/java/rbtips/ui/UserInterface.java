@@ -85,13 +85,27 @@ public class UserInterface implements UI {
         command = io.nextCommand();
         switch (command) {
             case "h":
-                //searchHeadline
+                searchHeadline();
                 break;
             case "t":
-                //searchTag
+                searchTag();
                 break;
             default:
                 System.out.println("invalid command");        
         }
+    }
+
+    public void searchHeadline() {
+        String headline = "";
+        System.out.println("headline:");
+        headline = io.nextCommand();
+        //app.searchHeadline(command);
+    }
+
+    public void searchTag() {
+        String tag = "";
+        System.out.println("tags:");
+        tag = io.nextCommand();
+        //app.searchTag();
     }
 }
