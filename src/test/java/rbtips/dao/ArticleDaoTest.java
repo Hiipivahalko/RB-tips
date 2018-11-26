@@ -27,7 +27,7 @@ public class ArticleDaoTest {
         assertEquals("mr author", articles.get(0).getAuthor());
     }
     
-    /* Work in progress...
+
     @Test
     public void getAllWorksWhenDatabaseIsEmpty() throws Exception {
         ArrayList<Article> articles = articleDao.getAll();
@@ -50,7 +50,7 @@ public class ArticleDaoTest {
         ArrayList<Article> articles = articleDao.getAll();
         
         assertEquals(3, articles.size());
-    }*/
+    }
     
     @Test
     public void searchHeadlineReturnsListOfArticleObjects() throws Exception {
