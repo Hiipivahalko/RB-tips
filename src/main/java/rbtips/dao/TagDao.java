@@ -44,12 +44,18 @@ public class TagDao {
 
     private boolean alreadyExists(String tagName) throws SQLException {
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SEARCH * FROM " + tableName + " WHERE name = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name = ?");
         stmt.setString(1, tagName);
 
         ResultSet rs = stmt.executeQuery();
 
-        return rs.next();
+        boolean exists = rs.next();
+        
+        stmt.close();
+        rs.close();
+        conn.close();
+        
+        return exists;
     }
 
     public void add(Tag tag) throws SQLException {

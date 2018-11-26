@@ -14,7 +14,7 @@ public class AppService {
     private TagDao tagDao;
     private ArticleTagDao articleTagDao;
 
-    public AppService(ArticleDao articleDao, TagDao tagDao) {
+    public AppService(ArticleDao articleDao, TagDao tagDao, ArticleTagDao articleTagDao) {
         this.articleDao = articleDao;
         this.tagDao = tagDao;
         this.articleTagDao = articleTagDao;
