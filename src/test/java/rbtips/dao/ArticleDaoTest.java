@@ -51,6 +51,21 @@ public class ArticleDaoTest {
         
         assertEquals(3, articles.size());
     }
+    
+    @Test
+    public void searchHeadlineReturnsListOfArticleObjects() throws Exception {
+        articleDao.create(new Article("new", "author", "blog.fi"));
+        ArrayList<Article> articles = articleDao.searchHeadline("new");
+        assertEquals(1, articles.size());
+    }
+    
+    @Test
+    public void searchHeadlineReturnsCorrectArticle() throws Exception {
+        Article a = new Article("new", "author", "blog.fi");
+        articleDao.create(a);
+        ArrayList<Article> articles = articleDao.searchHeadline("new");
+        assertEquals(a.toString(), articles.get(0).toString());
+    }
 
     @After
     public void tearDown() throws Exception {
