@@ -8,6 +8,7 @@ import rbtips.domain.AppService;
 public class Main {
 
     public static void main(String[] args) {
+        // comment
         Scanner scanner = new Scanner(System.in);
         Database db = new Database("jdbc:sqlite:tips.db");
         ArticleDao dao = new ArticleDao(db, "Articles");
