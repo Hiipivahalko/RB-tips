@@ -25,15 +25,19 @@ public class UserInterface implements UI {
         while (true) {
             System.out.println("\nChoose command: ");
             System.out.println("  > [n] new tip");
-            System.out.println("  > [s] show tips");
+            System.out.println("  > [l] show tips");
+            System.out.println("  > [s] search");
             System.out.println("  > [q] quit");
             command = io.nextCommand();//scanner.nextLine();
             switch (command) {
                 case "n":
                     newTip();
                     break;
-                case "s":
+                case "l":
                     showTips();
+                    break;
+                case "s": 
+                    search();
                     break;
                 case "q":
                     System.out.println("Shutting the program, see you later!");
@@ -55,6 +59,8 @@ public class UserInterface implements UI {
         String author = io.nextCommand();
         System.out.println("url: ");
         String url = io.nextCommand();
+        System.out.println("tag: ");
+        String tag = io.nextCommand();
         app.saveArticle(author, headline, url);
     }
     
@@ -67,6 +73,25 @@ public class UserInterface implements UI {
             }
         } else {
             System.out.println("no tips yet");
+        }
+    }
+
+    @Override
+    public void search() {
+        String command = "";
+        System.out.println("  > [h] search by headline");
+        System.out.println("  > [t] search by tag");
+        System.out.println("  > [r] return to main menu");
+        command = io.nextCommand();
+        switch (command) {
+            case "h":
+                //searchHeadline
+                break;
+            case "t":
+                //searchTag
+                break;
+            default:
+                System.out.println("invalid command");        
         }
     }
 }
