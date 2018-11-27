@@ -72,19 +72,22 @@ public class TagDao {
         String[] tags = splitTags(tagNames);
         ArrayList<Integer> tagIds = new ArrayList<>();
 
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name LIKE ?");
-        stmt.setString(1, "%" + tagNames + "%");
+        for(String tag : tags) {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name LIKE ?");
+            stmt.setString(1, "%" + tag + "%");
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            tagIds.add(rs.getInt("id"));
+            while (rs.next()) {
+                tagIds.add(rs.getInt("id"));
+            }
+
+            stmt.close();
+            rs.close();
+            conn.close();
+            
         }
-        
-        stmt.close();
-        rs.close();
-        conn.close();
 
         return tagIds;
     }
