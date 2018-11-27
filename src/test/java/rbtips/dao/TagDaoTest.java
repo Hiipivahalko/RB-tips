@@ -16,8 +16,7 @@ public class TagDaoTest {
 
     @Before
     public void setUp() {
-        database = new Database("jdbc:sqlite:test.db");
-        tagDao = new TagDao(database, "Tags");
+        
     }
 
 
