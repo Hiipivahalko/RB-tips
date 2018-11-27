@@ -50,11 +50,11 @@ public class TagDao {
         ResultSet rs = stmt.executeQuery();
 
         boolean exists = rs.next();
-        
+
         stmt.close();
         rs.close();
         conn.close();
-        
+
         return exists;
     }
 
@@ -68,23 +68,23 @@ public class TagDao {
         conn.close();
     }
 
-    public ArrayList<Integer> findByName(String tagNames) {
+    public ArrayList<Integer> findByName(String tagNames) throws SQLException {
         String[] tags = splitTags(tagNames);
         ArrayList<Integer> tagIds = new ArrayList<>();
-        try {
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name LIKE ?");
-            stmt.setString(1, "%" + tagNames + "%");
 
-            ResultSet rs = stmt.executeQuery();
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name LIKE ?");
+        stmt.setString(1, "%" + tagNames + "%");
 
-            while (rs.next()) {
-                tagIds.add(rs.getInt("id"));
-            }
+        ResultSet rs = stmt.executeQuery();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (rs.next()) {
+            tagIds.add(rs.getInt("id"));
         }
+        
+        stmt.close();
+        rs.close();
+        conn.close();
 
         return tagIds;
     }

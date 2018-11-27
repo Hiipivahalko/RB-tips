@@ -61,7 +61,7 @@ public class UserInterface implements UI {
         String url = io.nextCommand();
         System.out.println("tag: ");
         String tags = io.nextCommand();
-        app.saveArticle(author, headline, url, tags);
+        app.saveArticle(headline, author, url, tags);
     }
 
     @Override

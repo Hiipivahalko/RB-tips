@@ -30,7 +30,7 @@ public class AppService {
      */
     public boolean saveArticle(String headline, String author, String url, String tagNames) {
         List<String> allErrors = validateNewArticleUserInputs(headline, author, url);
-        ArrayList<Integer> tagIds;
+        ArrayList<Integer> tagIds = new ArrayList<>();
 
         if (allErrors.isEmpty()) {
             try {
@@ -43,6 +43,9 @@ public class AppService {
                 //getting tag id's:
                 tagIds = tagDao.findByName(tagNames);
                 //do something here...
+                for(int id : tagIds) {
+                    articleTagDao.create(articleId, id);
+                }
 
                 return true;
             } catch (Exception e) {

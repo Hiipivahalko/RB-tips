@@ -1,5 +1,6 @@
 package rbtips.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import rbtips.dao.ArticleDao;
 import rbtips.dao.ArticleTagDao;
@@ -16,9 +17,19 @@ public class Main {
         TagDao tagDao = new TagDao(db, "Tag");
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
         
-        AppService app = new AppService(articleDao, tagDao, articleTagDao);
-        CommandlineIO io = new CommandlineIO(scanner);
-        UserInterface ui = new UserInterface(io, app);
-        ui.start();
+        ArrayList<Integer> tagIds = new ArrayList<>();
+        
+        try {
+            tagIds = tagDao.findByName("video");
+        } catch(Exception e) {
+            
+        }
+        
+        System.out.println(tagIds.get(0));
+        
+//        AppService app = new AppService(articleDao, tagDao, articleTagDao);
+//        CommandlineIO io = new CommandlineIO(scanner);
+//        UserInterface ui = new UserInterface(io, app);
+//        ui.start();
     }
 }

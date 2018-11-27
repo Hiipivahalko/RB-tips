@@ -15,6 +15,7 @@ public class ArticleTagDao {
     }
 
     public void create(int articleId, int tagId) throws SQLException {
+        System.out.println("lisäyksessä ollaan");
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(article_id, tag_id) VALUES (?, ?)");
 
