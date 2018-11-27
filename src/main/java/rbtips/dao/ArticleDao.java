@@ -68,8 +68,9 @@ public class ArticleDao implements ArticleDaoApi {
     public ArrayList<Article> searchHeadline(String headline) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline = ? ");
-        stmt.setString(1, headline);
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline LIKE (?) ");
+        String queryString = "%" + headline + "%";
+        stmt.setString(1, queryString);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
