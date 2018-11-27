@@ -83,6 +83,7 @@ public class AppService {
     public ArrayList<Article> searchTag(String tagNames) {
         ArrayList<Article> articles = new ArrayList<>();
         try {
+            System.out.println("AppService" + tagNames);
             articles = tagDao.searchTag(tagNames);
         } catch (Exception e) {
             System.out.println(e.getMessage());
