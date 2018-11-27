@@ -99,13 +99,16 @@ public class UserInterface implements UI {
         String headline = "";
         System.out.println("headline:");
         headline = io.nextCommand();
-        //app.searchHeadline(headline);
+        ArrayList<Article> articles = app.searchHeadline(headline);
+        for(Article article : articles){
+            System.out.println(article);
+        }
     }
 
-    public void searchTag() {
+    /*public void searchTag() {
         String tag = "";
         System.out.println("tags:");
         tag = io.nextCommand();
-        //app.searchTag(tag);
-    }
+        app.searchTag(tag);
+    }*/
 }

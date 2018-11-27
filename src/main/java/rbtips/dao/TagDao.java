@@ -37,7 +37,7 @@ public class TagDao {
     }
 
     private String[] splitTags(String tagsInput) {
-        String noWhiteSpaces = tagsInput.replace("\\s+", "");
+        String noWhiteSpaces = tagsInput.replaceAll("\\s", "");
         String[] tags = noWhiteSpaces.split(",");
         return tags;
     }
@@ -73,6 +73,7 @@ public class TagDao {
         ArrayList<Integer> tagIds = new ArrayList<>();
 
         for(String tag : tags) {
+            System.out.println("foor" + tag);
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name LIKE ?");
             stmt.setString(1, "%" + tag + "%");
@@ -88,13 +89,14 @@ public class TagDao {
             conn.close();
             
         }
-
+        
         return tagIds;
     }
 
     public ArrayList<Article> searchTag(String tagNames) throws SQLException {
+                    System.out.println("searchTag" + tagNames);
         ArrayList<Integer> tagIds = findByName(tagNames);
-
+        System.out.println(tagIds);
         return new ArrayList<Article>();
     }
 
