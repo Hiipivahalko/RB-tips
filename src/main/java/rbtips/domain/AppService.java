@@ -38,11 +38,8 @@ public class AppService {
                 articleDao.create(a);
                 int articleId = articleDao.getIdByHeadline(headline);
 
-                //adding new tags to database:
                 tagDao.addTagsIfNotAlreadyExist(tagNames);
-                //getting tag id's:
                 tagIds = tagDao.findByName(tagNames);
-                //do something here...
                 for(int id : tagIds) {
                     articleTagDao.create(articleId, id);
                 }
@@ -61,7 +58,7 @@ public class AppService {
         }
 
     }
-
+    
     /**
      * Search articles in the database with matching headline
      *
