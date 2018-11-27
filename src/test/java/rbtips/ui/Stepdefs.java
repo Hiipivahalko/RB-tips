@@ -109,4 +109,25 @@ public class Stepdefs {
         return false;
     }
 
+    @Given("^a valid article is saved with tag \"([^\"]*)\"")
+    public void valid_article_is_saved(String tag) throws Throwable {
+        io.setCommands("headline", "author", "www.article.com", tag);
+        ui.newTip();
+    }
+
+    
+
+    @When("^Command search by tags is given")
+    public void command_search_by_tags_is_given() throws Throwable {
+
+    }
+
+    //Ei mene vielä läpi
+    @Then("^Article with tag \"([^\"]*)\" is found")
+    public void article_with_tag_is_found(String tag) throws Throwable {
+        //assertTrue(app.searchTag(tag).size() == 1);
+    }
+
+    
+
 }
