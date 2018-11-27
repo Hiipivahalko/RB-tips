@@ -1,5 +1,5 @@
 
-package rbtips;
+package rbtips.domain;
 
 import org.junit.After;
 import org.junit.AfterClass;
