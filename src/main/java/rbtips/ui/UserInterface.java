@@ -105,10 +105,10 @@ public class UserInterface implements UI {
         }
     }
 
-    /*public void searchTag() {
+    public void searchTag() {
         String tag = "";
         System.out.println("tags:");
         tag = io.nextCommand();
         app.searchTag(tag);
-    }*/
+    }
 }
