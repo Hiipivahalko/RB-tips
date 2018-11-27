@@ -100,7 +100,7 @@ public class UserInterface implements UI {
         System.out.println("headline:");
         headline = io.nextCommand();
         ArrayList<Article> articles = app.searchHeadline(headline);
-        for(Article article : articles){
+        for (Article article : articles) {
             System.out.println(article);
         }
     }
@@ -109,6 +109,6 @@ public class UserInterface implements UI {
         String tag = "";
         System.out.println("tags:");
         tag = io.nextCommand();
-        app.searchTag(tag);
+        ArrayList<Article> articles = app.searchTag(tag);
     }
 }
