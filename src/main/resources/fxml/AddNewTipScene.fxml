@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="354.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rbtips.ui.AddNewTipSceneController">
+   <children>
+      <VBox prefHeight="292.0" prefWidth="354.0" spacing="6.0">
+         <children>
+            <Label fx:id="messageLabel" prefHeight="17.0" prefWidth="354.0" text="Fill" />
+            <TextField fx:id="headline" promptText="Headline" />
+            <TextField fx:id="author" promptText="Author" />
+            <TextField fx:id="url" promptText="URL" />
+            <TextArea fx:id="tags" prefHeight="58.0" prefWidth="346.0" promptText="Tags" />
+            <Button fx:id="addNewTip" mnemonicParsing="false" onAction="#handleAddNewTipButton" text="Add" />
+         </children>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
