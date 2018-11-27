@@ -13,12 +13,15 @@ public class AppServiceTest {
 
     Database db;
     AppService app;
+    TagDao tagDao;
+    ArticleTagDao articleTagDao;
 
     @Before
     public void setUp() throws Exception {
         db = new Database("jdbc:sqlite:test.db");
         ArticleDao articleDao = new ArticleDao(db, "Articles");
-        TagDao tagDao = new TagDao(db, "Tag");
+        articleTagDao = new ArticleTagDao(db, "ArticleTag");
+        tagDao = new TagDao(db, articleTagDao, "Tag");
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
         app = new AppService(articleDao, tagDao, articleTagDao);
     }

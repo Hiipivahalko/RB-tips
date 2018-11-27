@@ -13,11 +13,14 @@ public class TagDaoTest {
 
     Database database;
     TagDao tagDao;
+    ArticleTagDao articleTagDao;
 
     @Before
     public void setUp() {
+        
         database = new Database("jdbc:sqlite:test.db");
-        tagDao = new TagDao(database, "Tags");
+        articleTagDao = new ArticleTagDao(database, "ArticleTag");
+        tagDao = new TagDao(database, articleTagDao, "Tags");
     }
 
 
