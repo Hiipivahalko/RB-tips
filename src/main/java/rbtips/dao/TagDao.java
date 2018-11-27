@@ -12,10 +12,12 @@ import rbtips.domain.Tag;
 public class TagDao {
 
     private Database db;
+    private ArticleTagDao articleTagDao;
     private String tableName;
 
-    public TagDao(Database db, String tableName) {
+    public TagDao(Database db, ArticleTagDao articleTagDao, String tableName) {
         this.db = db;
+        this.articleTagDao = articleTagDao;
         this.tableName = tableName;
     }
 
@@ -94,7 +96,16 @@ public class TagDao {
 
     public ArrayList<Article> searchTag(String tagNames) throws SQLException {
         ArrayList<Integer> tagIds = findByName(tagNames);
-        return new ArrayList<Article>();
+
+        // Tämän metodin pitäisi palauttaa lista Artikkeleistä, 
+        // joissa on tägit, joiden id:t ovat tagIds-listalla
+        // Luodaan lista palautettaville Artikkeleille
+        ArrayList<Article> articles = new ArrayList<>();
+
+        // Nyt pitäisi ottaa yhteyttä articleTagDao-luokkaan?
+        // ???
+        
+        return articles;
     }
 
 }
