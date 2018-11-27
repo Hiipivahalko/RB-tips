@@ -81,12 +81,20 @@ public class AppService {
      * @return ArrayList of articles with wanted tags if found any
      */
     public ArrayList<Article> searchTag(String tagNames) {
-        ArrayList<Article> articles = new ArrayList<>();
+
+        // Haetaan tagDaosta tagien id:t listalle tagIds      
+        ArrayList<Integer> tagIds = new ArrayList<>();
         try {
-            articles = tagDao.searchTag(tagNames);
+            tagIds = tagDao.findByName(tagNames);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        //Luodaan lista palautettaville artikkeleille
+        ArrayList<Article> articles = new ArrayList<>();
+
+        // Nyt pitäisi ottaa yhteyttä ArticleTagDaoon ja pyytää sieltä 
+        // tägien id:ihin linkitetyt artikkelit
         return articles;
     }
 

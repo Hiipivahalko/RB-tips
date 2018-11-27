@@ -20,9 +20,13 @@ public class AppServiceTest {
     public void setUp() throws Exception {
         db = new Database("jdbc:sqlite:test.db");
         ArticleDao articleDao = new ArticleDao(db, "Articles");
+<<<<<<< HEAD
         articleTagDao = new ArticleTagDao(db, "ArticleTag");
         tagDao = new TagDao(db, articleTagDao, "Tag");
+=======
+>>>>>>> 6903e297325cd6dc4424ca9367251aeb7955daa1
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
+        TagDao tagDao = new TagDao(db, "Tag");
         app = new AppService(articleDao, tagDao, articleTagDao);
     }
 
