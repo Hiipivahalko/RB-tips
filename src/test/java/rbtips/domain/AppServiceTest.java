@@ -19,7 +19,7 @@ public class AppServiceTest {
         db = new Database("jdbc:sqlite:test.db");
         ArticleDao articleDao = new ArticleDao(db, "Articles");
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
-        TagDao tagDao = new TagDao(db, articleTagDao, "Tag");
+        TagDao tagDao = new TagDao(db, "Tag");
         app = new AppService(articleDao, tagDao, articleTagDao);
     }
 

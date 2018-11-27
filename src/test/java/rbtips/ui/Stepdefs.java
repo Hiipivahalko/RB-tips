@@ -20,7 +20,7 @@ public class Stepdefs {
     Database db = new Database("jdbc:sqlite:testDb.db");
     ArticleDao dao = new ArticleDao(db, "Articles");
     ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
-    TagDao tagDao = new TagDao(db, articleTagDao, "Tag");
+    TagDao tagDao = new TagDao(db, "Tag");
     AppService app = new AppService(dao, tagDao, articleTagDao);
     IOStub io = new IOStub(new String[1]);
     UIStub ui = new UIStub(io, app);

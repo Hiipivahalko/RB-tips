@@ -15,7 +15,7 @@ public class Main {
         Database db = new Database("jdbc:sqlite:tips.db");
         ArticleDao articleDao = new ArticleDao(db, "Articles");
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
-        TagDao tagDao = new TagDao(db, articleTagDao, "Tag");
+        TagDao tagDao = new TagDao(db, "Tag");
 
         AppService app = new AppService(articleDao, tagDao, articleTagDao);
         CommandlineIO io = new CommandlineIO(scanner);
