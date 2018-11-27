@@ -66,14 +66,7 @@ public class UserInterface implements UI {
 
     @Override
     public void showTips() {
-        ArrayList<Article> articles = app.getAllArticles();
-        if (articles.size() > 0) {
-            for (Article article : articles) {
-                System.out.println(article);
-            }
-        } else {
-            System.out.println("no tips yet");
-        }
+        printTips(app.getAllArticles(), "no tips yet");
     }
 
     @Override
@@ -99,16 +92,23 @@ public class UserInterface implements UI {
         String headline = "";
         System.out.println("headline:");
         headline = io.nextCommand();
-        ArrayList<Article> articles = app.searchHeadline(headline);
-        for (Article article : articles) {
-            System.out.println(article);
-        }
+        printTips(app.searchHeadline(headline), "no tips found with headline " + headline);
     }
 
     public void searchTag() {
-        String tag = "";
+        String tags = "";
         System.out.println("tags:");
-        tag = io.nextCommand();
-        ArrayList<Article> articles = app.searchTag(tag);
+        tags = io.nextCommand();
+        printTips(app.searchTag(tags), "no tips found with tags " + tags);
+    }
+
+    private void printTips(ArrayList<Article> articles, String message) {
+        if (articles.isEmpty()) {
+            System.out.println(message);
+        } else {
+            for (Article article : articles) {
+                System.out.println(article);
+            }
+        }
     }
 }

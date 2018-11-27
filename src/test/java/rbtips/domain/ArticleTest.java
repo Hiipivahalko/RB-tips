@@ -1,10 +1,6 @@
-
 package rbtips;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import rbtips.domain.Article;
@@ -37,7 +33,7 @@ public class ArticleTest{
     
     @Test
     public void rightToString(){
-        assertEquals("Author: Headline url: www.article.com", article.toString());
+        assertEquals("Author: Headline (url: www.article.com)", article.toString());
     }
     
 }
