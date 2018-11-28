@@ -26,6 +26,7 @@ public class Article {
 
     @Override
     public String toString() {
-        return this.author + ": " + this.headline + " url: " + this.url;
+        return this.author + ": " + this.headline + " (url: " + this.url + ")";
     }
+
 }

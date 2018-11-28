@@ -36,7 +36,7 @@ public class UserInterface implements UI {
                 case "l":
                     showTips();
                     break;
-                case "s": 
+                case "s":
                     search();
                     break;
                 case "q":
@@ -47,7 +47,7 @@ public class UserInterface implements UI {
             }
         }
     }
-    
+
     /**
      * Creating new tip from inputs from user
      */
@@ -60,20 +60,13 @@ public class UserInterface implements UI {
         System.out.println("url: ");
         String url = io.nextCommand();
         System.out.println("tag: ");
-        String tag = io.nextCommand();
-        app.saveArticle(author, headline, url);
+        String tags = io.nextCommand();
+        app.saveArticle(headline, author, url, tags);
     }
-    
+
     @Override
     public void showTips() {
-        ArrayList<Article> articles = app.getAllArticles();
-        if (articles.size() > 0) {
-            for (Article article : articles) {
-                System.out.println(article);
-            }
-        } else {
-            System.out.println("no tips yet");
-        }
+        printTips(app.getAllArticles(), "no tips yet");
     }
 
     @Override
@@ -91,7 +84,7 @@ public class UserInterface implements UI {
                 searchTag();
                 break;
             default:
-                System.out.println("invalid command");        
+                System.out.println("invalid command");
         }
     }
 
@@ -99,13 +92,23 @@ public class UserInterface implements UI {
         String headline = "";
         System.out.println("headline:");
         headline = io.nextCommand();
-        //app.searchHeadline(command);
+        printTips(app.searchHeadline(headline), "no tips found with headline " + headline);
     }
 
     public void searchTag() {
-        String tag = "";
+        String tags = "";
         System.out.println("tags:");
-        tag = io.nextCommand();
-        //app.searchTag();
+        tags = io.nextCommand();
+        printTips(app.searchTag(tags), "no tips found with tags " + tags);
+    }
+
+    private void printTips(ArrayList<Article> articles, String message) {
+        if (articles.isEmpty()) {
+            System.out.println(message);
+        } else {
+            for (Article article : articles) {
+                System.out.println(article);
+            }
+        }
     }
 }

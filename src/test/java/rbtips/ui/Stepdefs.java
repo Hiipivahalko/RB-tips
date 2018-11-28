@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import rbtips.dao.ArticleDao;
 import rbtips.dao.Database;
+import rbtips.dao.TagDao;
 import rbtips.domain.AppService;
 
 import static org.junit.Assert.*;
+import rbtips.dao.ArticleTagDao;
 import rbtips.domain.Article;
 
 public class Stepdefs {
-    
+
     Database db = new Database("jdbc:sqlite:testDb.db");
     ArticleDao dao = new ArticleDao(db, "Articles");
-    AppService app = new AppService(dao);
+    ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
+    TagDao tagDao = new TagDao(db, "Tag");
+    AppService app = new AppService(dao, tagDao, articleTagDao);
     IOStub io = new IOStub(new String[1]);
     UIStub ui = new UIStub(io, app);
-    
+
     @Before
     public void initializeDatabase() {
         db.initializeDatabase();
@@ -28,7 +32,7 @@ public class Stepdefs {
 
     @Given("^new tip command is given$")
     public void new_tip_command_is_given() throws Throwable {
-        
+
     }
 
     @When("^a valid headline \"([^\"]*)\" and valid author \"([^\"]*)\" and valid url \"([^\"]*)\"$")
@@ -40,7 +44,7 @@ public class Stepdefs {
     @Then("^artile, which headline is \"([^\"]*)\" and author is \"([^\"]*)\" and url is \"([^\"]*)\" is found$")
     public void artile_which_headline_is_and_author_is_and_url_is_is_found(String headline, String author, String url) throws Throwable {
         assertTrue(searchArticles(headline, author, url));
-        
+
     }
 
     @Given("^new tip command is given, and invalid headline \"([^\"]*)\" with valid author \"([^\"]*)\" and url \"([^\"]*)\"$")
@@ -69,19 +73,19 @@ public class Stepdefs {
     public void user_see_all_tips_from_database_count_is(String count) throws Throwable {
         assertTrue(app.getAllArticles().size() == 1);
     }
-    
+
     private boolean searchArticles(String headline, String author, String url) {
         ArrayList<Article> allArticlesFromDb = app.getAllArticles();
-        
+
         for (Article article : allArticlesFromDb) {
-            if (article.getHeadline().equals(headline) &&
-                    article.getAuthor().equals(author) &&
-                    article.getUrl().equals(url)) {
+            if (article.getHeadline().equals(headline)
+                    && article.getAuthor().equals(author)
+                    && article.getUrl().equals(url)) {
                 return true;
             }
         }
-        
+
         return false;
     }
-  
+
 }

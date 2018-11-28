@@ -14,8 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import rbtips.domain.AppService;
-import rbtips.domain.Article;
+import rbtips.domain.*;
 
 
 public class MainPageSceneController {
@@ -23,6 +22,7 @@ public class MainPageSceneController {
     private Main application;
     private AppService appService;
     private ObservableList<Article> articleList;
+    private ObservableList<Tag> tagList;
     private AddNewTipSceneController addNew;
     
     @FXML private TableView<Article> tableView;
@@ -37,6 +37,7 @@ public class MainPageSceneController {
     
     public void setArticles() throws SQLException {
         this.articleList = FXCollections.observableArrayList(this.appService.getAllArticles());
+        this.tagList = FXCollections.observableArrayList(this.appService.getAllTagsByArticle());
         tableView.setItems(articleList);
     }
     

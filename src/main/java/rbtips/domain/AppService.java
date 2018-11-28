@@ -1,86 +1,128 @@
-
 package rbtips.domain;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import rbtips.dao.ArticleDao;
+import rbtips.dao.ArticleTagDao;
+import rbtips.dao.TagDao;
 
 public class AppService {
     //Sovelluslogiikkaluokka, näitä metodeja kutsutaan UI:sta
-    
-    private ArticleDao articleDao;
 
-    public AppService(ArticleDao articleDao) {
+    private ArticleDao articleDao;
+    private TagDao tagDao;
+    private ArticleTagDao articleTagDao;
+
+    public AppService(ArticleDao articleDao, TagDao tagDao, ArticleTagDao articleTagDao) {
         this.articleDao = articleDao;
+        this.tagDao = tagDao;
+        this.articleTagDao = articleTagDao;
     }
 
     /**
      * Try to same new article to database if it is valid
+     *
      * @param headline article headline
      * @param author article author
      * @param url article url
      * @return
      */
-    public boolean saveArticle(String headline, String author, String url) {
-        List<String> allErrors = validateNewAricleUserInputs(headline, author, url);
+    public boolean saveArticle(String headline, String author, String url, String tagNames) {
+        List<String> allErrors = validateNewArticleUserInputs(headline, author, url);
+        ArrayList<Integer> tagIds = new ArrayList<>();
 
         if (allErrors.isEmpty()) {
             try {
                 Article a = new Article(headline, author, url);
                 articleDao.create(a);
+                int articleId = articleDao.getIdByHeadline(headline);
+
+                tagDao.addTagsIfNotAlreadyExist(tagNames);
+                tagIds = tagDao.findByName(tagNames);
+                for (int id : tagIds) {
+                    articleTagDao.create(articleId, id);
+                }
+
                 return true;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println("Something went wrong when creating new Article :(");
                 return false;
             }
         } else {
             System.out.println("Article is not saved to RB-tips because some errors at input:\n");
-            for (String error :allErrors) {
+            for (String error : allErrors) {
                 System.out.println(error);
             }
             return false;
         }
 
     }
-    
+
     /**
-     * Search articles in the database for with matching headline
+     * Search articles in the database with matching headline
+     *
      * @return ArrayList of articles with wanted headline if found any
      */
-    public ArrayList<Article> searchArticleWithHeadline(String headline) {
+    public ArrayList<Article> searchHeadline(String headline) {
         ArrayList<Article> articles = new ArrayList<>();
         try {
             articles = articleDao.searchHeadline(headline);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
+        return articles;
+    }
+
+    /**
+     * Search articles in the database with matching tags
+     *
+     * @return ArrayList of articles with wanted tags if found any
+     */
+    public ArrayList<Article> searchTag(String tagNames) {
+
+        // Haetaan tagDaosta tagien id:t listalle tagIds      
+        ArrayList<Integer> tagIds = new ArrayList<>();
+        try {
+            tagIds = tagDao.findByName(tagNames);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //Luodaan lista palautettaville artikkeleille
+        ArrayList<Article> articles = new ArrayList<>();
+
+        // Nyt pitäisi ottaa yhteyttä ArticleTagDaoon ja pyytää sieltä 
+        // tägien id:ihin linkitetyt artikkelit
         return articles;
     }
 
     /**
      * Find all articles at database and return it
+     *
      * @return ArrayList of articles if there is any
      */
     public ArrayList<Article> getAllArticles() {
         ArrayList<Article> articles = new ArrayList<>();
         try {
             articles = articleDao.getAll();
-        } catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
         return articles;
     }
 
     /**
      * Validate new
-      * @param headline new article headline
+     *
+     * @param headline new article headline
      * @param author new author author
      * @param url new article url
      * @return error ArrayList
      */
-    private List<String> validateNewAricleUserInputs(String headline, String author, String url) {
+    private List<String> validateNewArticleUserInputs(String headline, String author, String url) {
         List<String> errors = new ArrayList<>();
 
         if (headline.length() < 5) {
@@ -96,5 +138,24 @@ public class AppService {
         }
 
         return errors;
+    }
+
+    public ArrayList<Tag> getAllTagsByArticle() throws SQLException {
+
+        ArrayList<Tag> tags = new ArrayList<>();
+        try {
+            ArrayList<Article> articles = getAllArticles();
+            ArrayList<Integer> articleIds = new ArrayList<>();
+            for (Article a : articles) {
+                articleIds.add(articleDao.getIdByHeadline(a.getHeadline()));
+            }
+            for (int aId : articleIds) {
+                tags = articleTagDao.getAllByArticle(aId);
+            }
+
+        } catch (Exception ex) {
+
+        }
+        return tags;
     }
 }

@@ -50,6 +50,20 @@ public class ArticleDao implements ArticleDaoApi {
         return articles;
     }
 
+    public int getIdByHeadline(String headline) throws SQLException {
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT *  FROM " + tableName + " WHERE headline = (?)");
+        stmt.setString(1, headline);
+        ResultSet rs = stmt.executeQuery();
+
+        int id = rs.getInt("id");
+
+        stmt.close();
+        rs.close();
+        conn.close();
+        return id;
+    }
+
     @Override
     public ArrayList<Article> searchHeadline(String headline) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();

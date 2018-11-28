@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ public class AddNewTipSceneController implements Initializable {
     @FXML private TextField headline; 
     @FXML private TextField author;
     @FXML private TextField url;
+    @FXML private TextArea tags;
     
 
     public void setApplication(Main application) {
@@ -46,8 +48,9 @@ public class AddNewTipSceneController implements Initializable {
     
     @FXML
     private void handleAddNewTipButton(ActionEvent event) throws SQLException, IOException {
-        Article article = new Article(headline.getText(), author.getText(), url.getText());
-        if (appService.saveArticle(headline.getText(), author.getText(), url.getText())) {
+//        Article article = new Article(headline.getText(), author.getText(), url.getText());
+//        String tagsForCheck = tags.getText();
+        if (appService.saveArticle(headline.getText(), author.getText(), url.getText(), tags.getText())) {
             stage.close();
         }
         
