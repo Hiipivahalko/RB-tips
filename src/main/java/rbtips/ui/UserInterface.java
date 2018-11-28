@@ -3,6 +3,7 @@ package rbtips.ui;
 import static java.lang.System.exit;
 import java.util.ArrayList;
 import rbtips.domain.*;
+import rbtips.io.IO;
 
 public class UserInterface implements UI {
 

@@ -7,7 +7,7 @@ apply plugin: 'application'
 apply plugin: 'checkstyle'
 apply plugin: "jacoco" 
 
-mainClassName = 'rbtips.ui.Main'
+mainClassName = 'rbtips.main.Main'
 
 project.ext {
     cucumberVersion = '1.2.5'
@@ -28,7 +28,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'rbtips.ui.Main'
+        attributes 'main-Class': 'rbtips.main.Main'
     }
 }
 

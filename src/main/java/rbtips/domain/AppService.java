@@ -1,7 +1,9 @@
 package rbtips.domain;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rbtips.dao.ArticleDao;
@@ -35,7 +37,7 @@ public class AppService {
 
         if (allErrors.isEmpty()) {
             try {
-                Article a = new Article(headline, author, url);
+                Article a = new Article(headline, author, url, tagNames);
                 articleDao.create(a);
                 int articleId = articleDao.getIdByHeadline(headline);
 
@@ -68,7 +70,7 @@ public class AppService {
     public ArrayList<Article> searchHeadline(String headline) {
         ArrayList<Article> articles = new ArrayList<>();
         try {
-            articles = articleDao.searchHeadline(headline);
+            articles = articleDao.searchHeadline(headline, false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -83,19 +85,22 @@ public class AppService {
      */
     public ArrayList<Article> searchTag(String tagNames) {
 
-        // Haetaan tagDaosta tagien id:t listalle tagIds      
-        ArrayList<Integer> tagIds = new ArrayList<>();
-        try {
-            tagIds = tagDao.findByName(tagNames);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
 
-        //Luodaan lista palautettaville artikkeleille
         ArrayList<Article> articles = new ArrayList<>();
 
-        // Nyt pitäisi ottaa yhteyttä ArticleTagDaoon ja pyytää sieltä 
-        // tägien id:ihin linkitetyt artikkelit
+        try {
+            String[] tags = tagDao.splitTags(tagNames);
+            System.out.println(Arrays.toString(tags));
+            for (String tag :tags) {
+                ArrayList<Article> temp = articleDao.searchArticleByTags(tag);
+                articles.removeAll(temp);
+                articles.addAll(temp);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return articles;
     }
 

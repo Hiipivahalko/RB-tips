@@ -1,4 +1,4 @@
-package rbtips.ui;
+package rbtips.main;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +13,9 @@ import rbtips.dao.ArticleTagDao;
 import rbtips.dao.Database;
 import rbtips.dao.TagDao;
 import rbtips.domain.AppService;
+import rbtips.io.CommandlineIO;
+import rbtips.ui.*;
+import rbtips.ui.UserInterface;
 
 public class Main extends Application {
     

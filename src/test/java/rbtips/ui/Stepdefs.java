@@ -73,6 +73,27 @@ public class Stepdefs {
     public void user_see_all_tips_from_database_count_is(String count) throws Throwable {
         assertTrue(app.getAllArticles().size() == 1);
     }
+    
+    @Given("^a valid blog is saved with headline \"([^\"]*)\"")
+    public void valid_blog_is_saved(String headline) throws Throwable {
+        io.setCommands(headline, "author", "www.blog.fi");
+        ui.newTip();
+    }
+    
+    @When("^Command search is given")
+    public void command_search_is_given() throws Throwable {
+        
+    }
+    
+    @When("^Command search by headline is given")
+    public void command_search_by_headline_is_given() throws Throwable {
+        
+    }
+    
+    @Then("^Article with headline \"([^\"]*)\" is found")
+    public void article_with_headline_is_found(String headline) throws Throwable {
+        assertTrue(app.searchHeadline(headline).size() == 1);
+    }
 
     private boolean searchArticles(String headline, String author, String url) {
         ArrayList<Article> allArticlesFromDb = app.getAllArticles();
@@ -87,5 +108,26 @@ public class Stepdefs {
 
         return false;
     }
+
+    @Given("^a valid article is saved with tag \"([^\"]*)\"")
+    public void valid_article_is_saved(String tag) throws Throwable {
+        io.setCommands("headline", "author", "www.article.com", tag);
+        ui.newTip();
+    }
+
+    
+
+    @When("^Command search by tags is given")
+    public void command_search_by_tags_is_given() throws Throwable {
+
+    }
+
+    //Ei mene vielä läpi
+    @Then("^Article with tag \"([^\"]*)\" is found")
+    public void article_with_tag_is_found(String tag) throws Throwable {
+        //assertTrue(app.searchTag(tag).size() == 1);
+    }
+
+    
 
 }

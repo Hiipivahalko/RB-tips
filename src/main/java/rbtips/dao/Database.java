@@ -67,7 +67,7 @@ public class Database {
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                 + " article_id INTEGER,"
                 + " tag_id INTEGER,"
-                + " FOREIGN KEY (article_id) REFERENCES Article(id),"
+                + " FOREIGN KEY (article_id) REFERENCES Articles(id),"
                 + " FOREIGN KEY (tag_id) REFERENCES Tag(id)"
                 + ");";
     }

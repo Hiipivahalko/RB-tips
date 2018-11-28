@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import rbtips.main.Main;
 import rbtips.domain.*;
 
 public class AddNewTipSceneController implements Initializable {
