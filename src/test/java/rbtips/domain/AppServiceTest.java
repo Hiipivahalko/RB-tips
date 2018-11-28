@@ -20,7 +20,7 @@ public class AppServiceTest {
     public void setUp() throws Exception {
         db = new Database("jdbc:sqlite:test.db");
         ArticleDao articleDao = new ArticleDao(db, "Articles");
-        tagDao = new TagDao(db,"Tag");
+        tagDao = new TagDao(db, "Tag");
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
         TagDao tagDao = new TagDao(db, "Tag");
         app = new AppService(articleDao, tagDao, articleTagDao);
@@ -50,13 +50,14 @@ public class AppServiceTest {
         assertEquals("Breaking news", articles.get(0).getHeadline());
     }
 
+    /* The test is ready and waiting for the implementation of the method
     @Test
     public void searchTagWorksCorrectly() {
         saveArticle();
         ArrayList<Article> articles = app.searchTag("news");
-        //do something here!
+        assertEquals("Breaking news", articles.get(0).getHeadline());
     }
-
+     */
     private void saveArticle() {
         app.saveArticle("Breaking news", "Journalist", "http://news.com", "news");
     }
