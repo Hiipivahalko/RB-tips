@@ -1,5 +1,5 @@
 
-package rbtips.ui;
+package rbtips.io;
 
 import java.util.Scanner;
 

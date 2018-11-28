@@ -65,11 +65,19 @@ public class ArticleDao implements ArticleDaoApi {
     }
 
     @Override
-    public ArrayList<Article> searchHeadline(String headline) throws SQLException {
+    public ArrayList<Article> searchHeadline(String headline, boolean tarkkaHaku) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline LIKE (?) ");
-        String queryString = "%" + headline + "%";
+        PreparedStatement stmt;
+        String queryString;
+        if (tarkkaHaku) {
+            stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline = (?) ");
+            queryString = headline;
+        } else {
+            stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline LIKE (?) ");
+            queryString = "%" + headline + "%";
+        }
+
         stmt.setString(1, queryString);
         ResultSet rs = stmt.executeQuery();
 
@@ -82,6 +90,22 @@ public class ArticleDao implements ArticleDaoApi {
         rs.close();
         conn.close();
 
+        return articles;
+    }
+
+    public ArrayList<Article> searchArticleByTags(String tag) throws SQLException {
+        ArrayList<Article> articles = new ArrayList<>();
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("select articles.headline from articles,tag,articletag" +
+                " where tag.name = (?) and tag.id = articletag.tag_id and articletag.article_id = articles.id");
+        stmt.setString(1, tag);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String hreadline = rs.getString(1);
+            articles.add(searchHeadline(hreadline, true).get(0));
+        }
         return articles;
     }
 

@@ -2,6 +2,8 @@
 package rbtips.ui;
 
 
+import rbtips.io.IO;
+
 public class IOStub implements IO {
     
     private String[] commands;

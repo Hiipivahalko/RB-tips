@@ -19,6 +19,11 @@ public class TagDao {
         this.tableName = tableName;
     }
 
+    /**
+     * Add tags to databse if it not exists there already
+     * @param tagsInput
+     * @throws SQLException
+     */
     public void addTagsIfNotAlreadyExist(String tagsInput) throws SQLException {
 
         String[] tags = splitTags(tagsInput);
@@ -36,7 +41,12 @@ public class TagDao {
         }
     }
 
-    private String[] splitTags(String tagsInput) {
+    /**
+     * Split String of tags to tag array. Take off whitespaces. Seperate tag by comman ','
+     * @param tagsInput
+     * @return string array of tags
+     */
+    public String[] splitTags(String tagsInput) {
         String noWhiteSpaces = tagsInput.replaceAll("\\s", "");
         String[] tags = noWhiteSpaces.split(",");
         return tags;
@@ -58,6 +68,11 @@ public class TagDao {
         return exists;
     }
 
+    /**
+     * Add new tag to database
+     * @param tag
+     * @throws SQLException
+     */
     public void add(Tag tag) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name) VALUES (?)");
@@ -90,5 +105,37 @@ public class TagDao {
         }
 
         return tagIds;
+    }
+
+    /**
+     * Find article tags from database
+     * @param article
+     * @return
+     */
+    public ArrayList<String> findArticleTags(Article article) {
+        ArrayList<String> tags = new ArrayList<>();
+
+        try {
+            Connection conn = db.getConnection();
+            String query = "SELECT tag.name FROM " + tableName + ", Articles, ArticleTag WHERE Articles.headline = "
+                    + "? and articles.id = ArticleTag.article_id and ArticleTag.tag_id = Tag.id";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, article.getHeadline());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                tags.add(rs.getString(1));
+            }
+
+            stmt.close();
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return tags;
     }
 }

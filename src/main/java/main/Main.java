@@ -1,12 +1,13 @@
-package rbtips.ui;
+package main;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import rbtips.dao.ArticleDao;
 import rbtips.dao.ArticleTagDao;
 import rbtips.dao.Database;
 import rbtips.dao.TagDao;
 import rbtips.domain.AppService;
+import rbtips.io.CommandlineIO;
+import rbtips.ui.UserInterface;
 
 public class Main {
 

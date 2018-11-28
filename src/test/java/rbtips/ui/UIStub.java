@@ -2,6 +2,7 @@
 package rbtips.ui;
 
 import rbtips.domain.AppService;
+import rbtips.io.IO;
 
 
 public class UIStub implements UI {
