@@ -50,14 +50,13 @@ public class AppServiceTest {
         assertEquals("Breaking news", articles.get(0).getHeadline());
     }
 
-    /* The test is ready and waiting for the implementation of the method
     @Test
     public void searchTagWorksCorrectly() {
         saveArticle();
         ArrayList<Article> articles = app.searchTag("news");
         assertEquals("Breaking news", articles.get(0).getHeadline());
     }
-     */
+
     private void saveArticle() {
         app.saveArticle("Breaking news", "Journalist", "http://news.com", "news");
     }
