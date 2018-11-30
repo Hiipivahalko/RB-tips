@@ -25,6 +25,7 @@ public class MainPageSceneController {
     private ObservableList<Article> articleList;
     private ObservableList<Tag> tagList;
     private AddNewTipSceneController addNew;
+    private ViewTipSceneController viewTip;
     
     @FXML private TableView<Article> tableView;
     
@@ -55,6 +56,21 @@ public class MainPageSceneController {
         addNew.setApplication(application);
         addNew.setAppService(appService);
         addNew.display("Add new tip!", "Input information", root1);
+    }
+    
+    @FXML
+    private void handleViewContentButton(ActionEvent event) throws IOException {
+        if(!tableView.getSelectionModel().isEmpty()) {
+            Article a = tableView.getSelectionModel().getSelectedItem();
+            setViewTipScene(a);
+        }
+    }
+    
+    public void setViewTipScene(Article a) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewTipScene.fxml"));
+        Parent root1 = (Parent) loader.load();
+        viewTip = loader.getController();
+        viewTip.display(a.getAuthor() + ", " + a.getHeadline(), a.getAuthor(), a.getHeadline(), a.getUrl(), root1);
     }
     
     
