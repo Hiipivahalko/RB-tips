@@ -11,8 +11,8 @@ työpöytäsovellus lukuvinkkien listaamiseen.
 ## Dokumentaatio
 * [Product Backlog](https://docs.google.com/spreadsheets/d/1Xf0QQ6zKQXhCdvfRZoJIlTMsAP1ODY25nh3UTfKOYuY/edit?usp=sharing)
   * Sprinttien Backlogit omilla välilehdillä
-* [Definition of Done](https://github.com/Hiipivahalko/RB-tips/blob/master/documentation/definition_of_done.md)
-* [Käyttöohje](https://github.com/Hiipivahalko/RB-tips/blob/master/documentation/user_manual.md)
+* [Definition of Done](https://github.com/Hiipivahalko/RB-tips/blob/sprint3/documentation/definition_of_done.md)
+* [Käyttöohje](https://github.com/Hiipivahalko/RB-tips/blob/sprint3/documentation/user_manual.md)
 
 
 # Asennusohje
