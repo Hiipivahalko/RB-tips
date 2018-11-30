@@ -22,12 +22,12 @@ public class MainPageSceneController {
     
     private Main application;
     private AppService appService;
-    private ObservableList<Article> articleList;
-    private ObservableList<Tag> tagList;
+    private ObservableList<Tip> articleList;
+//    private ObservableList<Tag> tagList;
     private AddNewTipSceneController addNew;
     private ViewTipSceneController viewTip;
     
-    @FXML private TableView<Article> tableView;
+    @FXML private TableView<Tip> tableView;
     
     public void setApplication(Main application) {
         this.application = application;
@@ -39,7 +39,7 @@ public class MainPageSceneController {
     
     public void setArticles() throws SQLException {
         this.articleList = FXCollections.observableArrayList(this.appService.getAllArticles());
-        this.tagList = FXCollections.observableArrayList(this.appService.getAllTagsByArticle());
+//        this.tagList = FXCollections.observableArrayList(this.appService.getAllTagsByArticle());
         tableView.setItems(articleList);
     }
     
@@ -59,18 +59,20 @@ public class MainPageSceneController {
     }
     
     @FXML
-    private void handleViewContentButton(ActionEvent event) throws IOException {
+    private void handleViewContentButton(ActionEvent event) throws IOException, SQLException {
         if(!tableView.getSelectionModel().isEmpty()) {
-            Article a = tableView.getSelectionModel().getSelectedItem();
-            setViewTipScene(a);
+            Tip t = tableView.getSelectionModel().getSelectedItem();
+            setViewTipScene(t);
         }
     }
     
-    public void setViewTipScene(Article a) throws IOException {
+    public void setViewTipScene(Tip t) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewTipScene.fxml"));
         Parent root1 = (Parent) loader.load();
         viewTip = loader.getController();
-        viewTip.display(a.getAuthor() + ", " + a.getHeadline(), a.getAuthor(), a.getHeadline(), a.getUrl(), root1);
+        viewTip.setApplication(application);
+        viewTip.setAppService(appService);
+        viewTip.display(t.getAuthor() + ", " + t.getHeadline(), t, root1);
     }
     
     

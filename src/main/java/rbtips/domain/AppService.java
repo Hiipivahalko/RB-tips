@@ -145,22 +145,24 @@ public class AppService {
         return errors;
     }
 
-    public ArrayList<Tag> getAllTagsByArticle() throws SQLException {
+    public String getAllTagsByArticle(Article a) throws SQLException {
 
-        ArrayList<Tag> tags = new ArrayList<>();
+        ArrayList<String> tags = new ArrayList<>();
         try {
-            ArrayList<Article> articles = getAllArticles();
-            ArrayList<Integer> articleIds = new ArrayList<>();
-            for (Article a : articles) {
-                articleIds.add(articleDao.getIdByHeadline(a.getHeadline()));
-            }
-            for (int aId : articleIds) {
-                tags = articleTagDao.getAllByArticle(aId);
-            }
-
+            int id = articleDao.getIdByHeadline(a.getHeadline());
+            tags = tagDao.findArticleTags(a);
+            
         } catch (Exception ex) {
 
         }
-        return tags;
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < tags.size(); i++) {
+            if(i == tags.size() - 1) {
+                sb.append(tags.get(i));
+            } else {
+                sb.append(tags.get(i)).append(", ");
+            }
+        }
+        return sb.toString();
     }
 }

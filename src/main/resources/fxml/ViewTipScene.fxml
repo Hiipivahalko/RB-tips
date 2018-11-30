@@ -22,7 +22,7 @@
             <Label fx:id="authorLabel" prefHeight="31.0" prefWidth="211.0" text="Label" />
             <Label fx:id="headlineLabel" prefHeight="31.0" prefWidth="211.0" text="Label" GridPane.columnIndex="1" />
             <Label fx:id="urlLabel" prefHeight="31.0" prefWidth="211.0" text="Label" GridPane.rowIndex="1" />
-            <Label fx:id="emptyLabel" prefHeight="31.0" prefWidth="211.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="emptyLabel" prefHeight="31.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label fx:id="tagsLabel" layoutX="7.0" layoutY="212.0" prefHeight="40.0" prefWidth="416.0" text="Label" />

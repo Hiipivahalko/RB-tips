@@ -28,23 +28,4 @@ public class ArticleTagDao {
         conn.close();
     }
     
-    public ArrayList<Tag> getAllByArticle(int articleId) throws SQLException {
-        ArrayList<Tag> tags = new ArrayList<>();
-
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE article_id = ?");
-        stmt.setObject(1, articleId);
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            Tag tag = new Tag(rs.getString("name"));
-            tags.add(tag);
-        }
-
-        stmt.close();
-        rs.close();
-        conn.close();
-
-        return tags;
-    }
 }
