@@ -83,14 +83,14 @@ public class TagDao {
         conn.close();
     }
 
-    public ArrayList<Integer> findByName(String tagNames) throws SQLException {
+    public ArrayList<Integer> findIdByName(String tagNames) throws SQLException {
         String[] tags = splitTags(tagNames);
         ArrayList<Integer> tagIds = new ArrayList<>();
 
         for (String tag : tags) {
             Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name LIKE ?");
-            stmt.setString(1, "%" + tag + "%");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name = (?)");
+            stmt.setString(1, tag);
 
             ResultSet rs = stmt.executeQuery();
 

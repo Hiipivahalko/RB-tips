@@ -42,7 +42,7 @@ public class AppService {
                 int articleId = articleDao.getIdByHeadline(headline);
 
                 tagDao.addTagsIfNotAlreadyExist(tagNames);
-                tagIds = tagDao.findByName(tagNames);
+                tagIds = tagDao.findIdByName(tagNames);
                 for (int id : tagIds) {
                     articleTagDao.create(articleId, id);
                 }
