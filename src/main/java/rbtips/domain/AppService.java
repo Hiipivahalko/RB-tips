@@ -93,8 +93,12 @@ public class AppService {
             System.out.println(Arrays.toString(tags));
             for (String tag :tags) {
                 ArrayList<Article> temp = articleDao.searchArticleByTags(tag);
-                articles.removeAll(temp);
-                articles.addAll(temp);
+
+                for(Article article : temp) {
+                    if(!articles.contains(article)) {
+                        articles.add(article);
+                    }
+                }
             }
 
         } catch (SQLException e) {
