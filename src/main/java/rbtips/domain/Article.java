@@ -45,10 +45,10 @@ public class Article extends Tip{
             return false;
         }
         final Article other = (Article) obj;
-        if (!Objects.equals(this.headline, other.headline)) {
+        if (!Objects.equals(super.getHeadline(), other.getHeadline())) {
             return false;
         }
-        if (!Objects.equals(this.author, other.author)) {
+        if (!Objects.equals(super.getHeadline(), other.getHeadline())) {
             return false;
         }
         if (!Objects.equals(this.url, other.url)) {
