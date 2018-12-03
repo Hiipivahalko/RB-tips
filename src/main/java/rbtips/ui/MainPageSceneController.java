@@ -28,6 +28,7 @@ public class MainPageSceneController {
     @FXML private TableView<Tip> tableView;
 //    @FXML private TableView<Article> tableView;
     @FXML private TextField filter;
+    @FXML private TextField tagFilter;
     
     public void setApplication(Main application) {
         this.application = application;
@@ -71,6 +72,18 @@ public class MainPageSceneController {
         String filterCondition = filter.getText();
         ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchHeadline(filterCondition));
         tableView.setItems(filteredArticleList);
+    }
+    
+    @FXML
+    private void handleTagFilterButton(ActionEvent event) throws IOException {
+        String filterCondition = tagFilter.getText();
+        ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchTag(filterCondition));
+        tableView.setItems(filteredArticleList);
+    }
+    
+    @FXML
+    private void handleShowAllTips(ActionEvent event) throws Exception {
+        this.setArticles();
     }
     
     public void setViewTipScene(Tip t) throws IOException, SQLException {
