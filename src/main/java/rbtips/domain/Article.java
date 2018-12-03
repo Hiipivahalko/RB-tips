@@ -56,6 +56,11 @@ public class Article extends Tip{
         }
         return true;
     }
+
+    /*@Override
+    public void setTags(String tags) {
+        super.setTags(tags);
+    }*/
     
     
 

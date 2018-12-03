@@ -11,10 +11,12 @@ public class ArticleDao implements ArticleDaoApi {
 
     private Database db;
     private String tableName;
+    private TagDao tagDao;
 
     public ArticleDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
+        this.tagDao = new TagDao(db, "Tag");
     }
 
     @Override
@@ -40,6 +42,7 @@ public class ArticleDao implements ArticleDaoApi {
 
         while (rs.next()) {
             Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
+            article.setTags(String.join(",", tagDao.findArticleTags(article)));
             articles.add(article);
         }
 
@@ -65,12 +68,12 @@ public class ArticleDao implements ArticleDaoApi {
     }
 
     @Override
-    public ArrayList<Article> searchHeadline(String headline, boolean tarkkaHaku) throws SQLException {
+    public ArrayList<Article> searchHeadline(String headline, boolean StricSearch) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
         Connection conn = db.getConnection();
         PreparedStatement stmt;
         String queryString;
-        if (tarkkaHaku) {
+        if (StricSearch) {
             stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline = (?) ");
             queryString = headline;
         } else {
@@ -103,8 +106,8 @@ public class ArticleDao implements ArticleDaoApi {
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            String hreadline = rs.getString(1);
-            articles.add(searchHeadline(hreadline, true).get(0));
+            String headline = rs.getString(1);
+            articles.add(searchHeadline(headline, true).get(0));
         }
         return articles;
     }

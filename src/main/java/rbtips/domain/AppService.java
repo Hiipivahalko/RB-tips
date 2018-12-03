@@ -157,7 +157,8 @@ public class AppService {
             tags = tagDao.findArticleTags(a);
             
         } catch (Exception ex) {
-
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
         }
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < tags.size(); i++) {
