@@ -1,4 +1,3 @@
-
 package rbtips.ui;
 
 import java.io.IOException;
