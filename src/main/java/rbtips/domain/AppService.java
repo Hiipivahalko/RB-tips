@@ -160,14 +160,7 @@ public class AppService {
             System.out.println(ex.getMessage());
             System.out.println(ex.getStackTrace());
         }
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < tags.size(); i++) {
-            if(i == tags.size() - 1) {
-                sb.append(tags.get(i));
-            } else {
-                sb.append(tags.get(i)).append(", ");
-            }
-        }
-        return sb.toString();
+        String tagsSeperateByComma = String.join(",",tags; // this convert ArrayList of Strings to one String and separate old strings by comma
+        return tagsSeperateByComma;
     }
 }
