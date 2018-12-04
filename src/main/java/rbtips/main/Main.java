@@ -25,21 +25,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-//        Scanner scanner = new Scanner(System.in);
-//        AppService app = new AppService(articleDao);
-//        CommandlineIO io = new CommandlineIO(scanner);
-//        UserInterface ui = new UserInterface(io, app);
-//        ui.start();
-//        Scanner scanner = new Scanner(System.in);
-//        Database db = new Database("jdbc:sqlite:tips.db");
-//        ArticleDao articleDao = new ArticleDao(db, "Articles");
-//        ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
-//        TagDao tagDao = new TagDao(db, "Tag");
-//
-//        AppService app = new AppService(articleDao, tagDao, articleTagDao);
-//        CommandlineIO io = new CommandlineIO(scanner);
-//        UserInterface ui = new UserInterface(io, app);
-//        ui.start();
     }
     
     @Override
