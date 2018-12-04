@@ -21,9 +21,8 @@
                <children>
                   <Label prefHeight="27.0" prefWidth="170.0" text="Filter search results" />
                   <TextField fx:id="filter" promptText="Headline..." />
-                  <Button mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="27.0" prefWidth="173.0" text="Search by headline" />
                   <TextField fx:id="tagFilter" promptText="Tags..." />
-                  <Button mnemonicParsing="false" onAction="#handleTagFilterButton" prefHeight="26.0" prefWidth="168.0" text="Search by tags" />
+                   <Button mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="27.0" prefWidth="173.0" text="Filter" />
                   <Region prefHeight="257.0" prefWidth="169.0" VBox.vgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#handleShowAllTips" prefHeight="26.0" prefWidth="173.0" text="Show All Tips" />
                   <Button fx:id="openAddNewTip" mnemonicParsing="false" onAction="#openAddNewTipScene" prefHeight="27.0" prefWidth="187.0" text="Add tip" />

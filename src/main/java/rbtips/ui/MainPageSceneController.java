@@ -70,16 +70,18 @@ public class MainPageSceneController {
     @FXML
     private void handleFilterButton(ActionEvent event) throws IOException {
         String filterCondition = filter.getText();
-        ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchHeadline(filterCondition));
+        String tagCondition = tagFilter.getText();
+        //ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchHeadline(filterCondition));
+        ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.filterArticles(filterCondition, tagCondition));
         tableView.setItems(filteredArticleList);
     }
     
-    @FXML
+    /*@FXML
     private void handleTagFilterButton(ActionEvent event) throws IOException {
         String filterCondition = tagFilter.getText();
         ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchTag(filterCondition));
         tableView.setItems(filteredArticleList);
-    }
+    }*/
     
     @FXML
     private void handleShowAllTips(ActionEvent event) throws Exception {

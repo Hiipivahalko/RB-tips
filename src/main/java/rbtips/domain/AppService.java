@@ -163,4 +163,14 @@ public class AppService {
         String tagsSeperateByComma = String.join(",",tags); // this convert ArrayList of Strings to one String and separate old strings by comma
         return tagsSeperateByComma;
     }
+
+    public ArrayList<Article> filterArticles(String headline, String tag) {
+        ArrayList<Article> articles = getAllArticles();
+        System.out.println("All articles: " + Arrays.toString(articles.toArray()));
+        articles = articleDao.filterByHeadline(articles, headline);
+        System.out.println("headline Filter: " + Arrays.toString(articles.toArray()));
+        articles = articleDao.filterByTags(articles, tag);
+
+        return articles;
+    }
 }

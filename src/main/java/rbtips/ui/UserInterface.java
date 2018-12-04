@@ -100,7 +100,7 @@ public class UserInterface implements UI {
         String tags = "";
         System.out.println("tags:");
         tags = io.nextCommand();
-        printTips(app.searchTag(tags), "no tips found with tags " + tags);
+        //printTips(app.searchTag(tags), "no tips found with tags " + tags);
     }
 
     private void printTips(ArrayList<Article> articles, String message) {
