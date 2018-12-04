@@ -23,3 +23,7 @@ myöhempää lukemista varten.
 
 * Käyttäjä saa kaikki listaamansa artikkelit uudestaan näkyville klikkaamalla nappia 'Show All'
 
+* Yksittäisen lisäyksen tietoja voi tarkastella myös erillisessä ikkunassa, josta pääsee mm. avaamaan url-linkin 
+  * Vinkin tiedot saa avattua klikkaamalla kyseistä vinkkiä ja sen jälkeen painamalla nappia 'View content'
+
+<img src="https://raw.githubusercontent.com/Hiipivahalko/RB-tips/sprint3/documentation/images/rb-tips-manual-5.png" width=500 />
