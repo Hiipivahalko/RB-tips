@@ -24,6 +24,8 @@ public class AppServiceTest {
         ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
         TagDao tagDao = new TagDao(db, "Tag");
         app = new AppService(articleDao, tagDao, articleTagDao);
+
+        db.initializeDatabase();
     }
 
     @Test

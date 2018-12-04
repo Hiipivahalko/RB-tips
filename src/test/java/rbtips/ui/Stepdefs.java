@@ -54,7 +54,6 @@ public class Stepdefs {
 
     @Given("^Database is initialized$")
     public void database_is_initialized() throws Throwable {
-        db.initializeDatabase();
         assertTrue(app.getAllArticles().size() == 0);
     }
 
@@ -63,9 +62,9 @@ public class Stepdefs {
         a_valid_headline_and_valid_author_and_valid_url("otsikko", "tekijä", "www.blog.fi");
     }
 
-    @Then("^User sees all tips from database in the GUI and the list size is \"([^\"]*)\"$")
-    public void user_see_all_tips_from_database_count_is(String count) throws Throwable {
-        assertTrue(app.getAllArticles().size() == 1);
+    @Then("^User sees all tips from database in the GUI and the list size is (\\d+)$")
+    public void user_see_all_tips_from_database_count_is(int val) throws Throwable {
+        assertTrue(app.getAllArticles().size() == val);
     }
 
     @Given("^a valid blog is saved with headline \"([^\"]*)\"")
