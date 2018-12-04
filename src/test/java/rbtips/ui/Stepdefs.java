@@ -54,7 +54,6 @@ public class Stepdefs {
 
     @Given("^Database is initialized$")
     public void database_is_initialized() throws Throwable {
-        db.initializeDatabase();
         assertTrue(app.getAllArticles().size() == 0);
     }
 
