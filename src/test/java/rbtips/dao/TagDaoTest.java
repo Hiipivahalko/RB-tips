@@ -24,31 +24,45 @@ public class TagDaoTest {
 
     @Test
     public void addingOneTagWorks() throws SQLException {
-        String[] tags = new String[]{"tag"};
-        tagDao.addTagsIfNotAlreadyExist(tags);
+        addTags("tag");
         assertTrue(tagDao.alreadyExists("tag"));
     }
 
     @Test
     public void addingTwoTagsWork() throws SQLException {
-        String[] tags = new String[]{"tag1", "tag2"};
-        tagDao.addTagsIfNotAlreadyExist(tags);
-        assertTrue(tagDao.alreadyExists("tag1"));
-        assertTrue(tagDao.alreadyExists("tag2"));
+        addTags("tag1", "tag2");
+        assertTrue(tagDao.alreadyExists("tag1") && tagDao.alreadyExists("tag2"));
+    }
+
+    @Test
+    public void addingOneTagTwoTimesWorks() throws SQLException {
+        addTags("tag1");
+        addTags("tag2");
+        assertTrue(tagDao.alreadyExists("tag1") && tagDao.alreadyExists("tag2"));
     }
 
     @Test
     public void findIdByNameReturnsOneIdInArrayList() throws SQLException {
-        String[] tags = new String[]{"tag"};
-        tagDao.addTagsIfNotAlreadyExist(tags);
+        String[] tags = addTags("tag");
         assertTrue(tagDao.findIdByName(tags).size() == 1);
     }
 
     @Test
     public void findByNameReturnTwoIdsInArrayList() throws SQLException {
-        String[] tags = new String[]{"tag", "tag2"};
-        tagDao.addTagsIfNotAlreadyExist(tags);
+        String[] tags = addTags("tag1", "tag2");
         assertTrue(tagDao.findIdByName(tags).size() == 2);
+    }
+
+    public String[] addTags(String tag) throws SQLException {
+        String[] tags = new String[]{tag};
+        tagDao.addTagsIfNotAlreadyExist(tags);
+        return tags;
+    }
+
+    public String[] addTags(String tag1, String tag2) throws SQLException {
+        String[] tags = new String[]{tag1, tag2};
+        tagDao.addTagsIfNotAlreadyExist(tags);
+        return tags;
     }
 
     @After
