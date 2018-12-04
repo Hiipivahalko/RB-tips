@@ -21,7 +21,8 @@ public class TagDao {
 
     /**
      * Add tags to database if it not exists there already
-     * @param tagsInput
+     *
+     * @param tags
      * @throws SQLException
      */
     public void addTagsIfNotAlreadyExist(String[] tags) throws SQLException {
@@ -38,7 +39,7 @@ public class TagDao {
         }
     }
 
-    private boolean alreadyExists(String tagName) throws SQLException {
+    public boolean alreadyExists(String tagName) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name = ?");
         stmt.setString(1, tagName);
@@ -56,6 +57,7 @@ public class TagDao {
 
     /**
      * Add new tag to database
+     *
      * @param tag
      * @throws SQLException
      */
@@ -93,6 +95,7 @@ public class TagDao {
 
     /**
      * Find article tags from database
+     *
      * @param article
      * @return
      */
@@ -118,7 +121,6 @@ public class TagDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         return tags;
     }
