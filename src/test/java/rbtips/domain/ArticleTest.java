@@ -34,6 +34,28 @@ public class ArticleTest{
     public void rightToString(){
         assertEquals("Author: Headline (url: www.article.com)", article.toString());
     }
+
+
+    //Tests for equals()
+    @Test
+    public void returnTrueIfEquals() {
+        Article article_clone = article;
+        assertEquals(true, article.equals(article_clone));
+    }
+
+    @Test
+    public void returnFalseIfObjectIsNull() {
+        Article null_article = null;
+        assertEquals(false, article.equals(null_article));
+    }
+
+    @Test
+    public void returnFalseIfObjectsClassIsWrong() {
+        String string_article = ("Wrong class");
+        assertEquals(false, article.equals(string_article));
+    }
+
+    
     
 }
 
