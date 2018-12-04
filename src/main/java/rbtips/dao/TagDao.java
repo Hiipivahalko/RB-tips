@@ -20,7 +20,7 @@ public class TagDao {
     }
 
     /**
-     * Add tags to databse if it not exists there already
+     * Add tags to database if it not exists there already
      * @param tagsInput
      * @throws SQLException
      */
@@ -59,7 +59,7 @@ public class TagDao {
      * @param tag
      * @throws SQLException
      */
-    public void add(Tag tag) throws SQLException {
+    private void add(Tag tag) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name) VALUES (?)");
 

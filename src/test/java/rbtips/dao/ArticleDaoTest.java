@@ -73,7 +73,7 @@ public class ArticleDaoTest {
     @Test
     public void filterHeadlineReturnsCorrectArticles() throws SQLException {
         Article a = new Article("jes this is great", "author", "blog.fi", "tag,test");
-        Article a2 = new Article("jes, you are rigth", "author2", "blog2.fi", "tag,test2");
+        Article a2 = new Article("jes, you are right", "author2", "blog2.fi", "tag,test2");
         Article a3 = new Article("Im not in the group", "author3", "blog3.fi", "tag,test3");
 
         articleDao.create(a);
@@ -97,8 +97,6 @@ public class ArticleDaoTest {
 
         assertTrue(test1 && test2);
     }
-
-
 
     @After
     public void tearDown() throws Exception {

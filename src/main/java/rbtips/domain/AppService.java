@@ -178,7 +178,7 @@ public class AppService {
      * Split String of tags to tag array. Take off whitespace. Separate tags by
      * commas ','
      *
-     * @param tagsInput
+     * @param input
      * @return string array of tags
      */
     public String[] splitTags(String input) {
