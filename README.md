@@ -31,3 +31,4 @@ Ohjelma käynnistyy sitten komennolla
 ```
 java -jar build/libs/RB-tips-all.jar
 ```
+ 
