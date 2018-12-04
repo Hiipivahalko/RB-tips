@@ -24,10 +24,7 @@ public class TagDao {
      * @param tagsInput
      * @throws SQLException
      */
-    public void addTagsIfNotAlreadyExist(String tagsInput) throws SQLException {
-
-        String[] tags = splitTags(tagsInput);
-
+    public void addTagsIfNotAlreadyExist(String[] tags) throws SQLException {
         for (String tag : tags) {
             try {
                 if (!alreadyExists(tag)) {
@@ -39,17 +36,6 @@ public class TagDao {
             }
 
         }
-    }
-
-    /**
-     * Split String of tags to tag array. Take off whitespaces. Seperate tag by comman ','
-     * @param tagsInput
-     * @return string array of tags
-     */
-    public String[] splitTags(String tagsInput) {
-        String noWhiteSpaces = tagsInput.replaceAll("\\s", "");
-        String[] tags = noWhiteSpaces.split(",");
-        return tags;
     }
 
     private boolean alreadyExists(String tagName) throws SQLException {
@@ -83,10 +69,8 @@ public class TagDao {
         conn.close();
     }
 
-    public ArrayList<Integer> findIdByName(String tagNames) throws SQLException {
-        String[] tags = splitTags(tagNames);
+    public ArrayList<Integer> findIdByName(String[] tags) throws SQLException {
         ArrayList<Integer> tagIds = new ArrayList<>();
-
         for (String tag : tags) {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name = (?)");
