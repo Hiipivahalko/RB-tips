@@ -9,12 +9,14 @@ import rbtips.domain.Article;
 
 public class ArticleDao implements ArticleDaoApi {
 
-    private Database db;
-    private String tableName;
+    private final Database db;
+    private final String tableName;
+    private final TagDao tagDao;
 
     public ArticleDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
+        this.tagDao = new TagDao(db, "Tag");
     }
 
     @Override
@@ -40,6 +42,7 @@ public class ArticleDao implements ArticleDaoApi {
 
         while (rs.next()) {
             Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
+            article.setTags(String.join(",", tagDao.findArticleTags(article)));
             articles.add(article);
         }
 
@@ -65,12 +68,12 @@ public class ArticleDao implements ArticleDaoApi {
     }
 
     @Override
-    public ArrayList<Article> searchHeadline(String headline, boolean tarkkaHaku) throws SQLException {
+    public ArrayList<Article> searchHeadline(String headline, boolean StricSearch) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
         Connection conn = db.getConnection();
         PreparedStatement stmt;
         String queryString;
-        if (tarkkaHaku) {
+        if (StricSearch) {
             stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline = (?) ");
             queryString = headline;
         } else {
@@ -96,17 +99,45 @@ public class ArticleDao implements ArticleDaoApi {
     public ArrayList<Article> searchArticleByTags(String tag) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("select articles.headline from articles,tag,articletag" +
-                " where tag.name = (?) and tag.id = articletag.tag_id and articletag.article_id = articles.id");
+        PreparedStatement stmt = conn.prepareStatement("select articles.headline from articles,tag,articletag"
+                + " where tag.name = (?) and tag.id = articletag.tag_id and articletag.article_id = articles.id");
         stmt.setString(1, tag);
 
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            String hreadline = rs.getString(1);
-            articles.add(searchHeadline(hreadline, true).get(0));
+            String headline = rs.getString(1);
+            articles.add(searchHeadline(headline, true).get(0));
         }
         return articles;
     }
 
+    public ArrayList<Article> filterByHeadline(ArrayList<Article> oldArticles, String headlineCondition) {
+        ArrayList<Article> articles = new ArrayList<>();
+
+        for (Article article : oldArticles) {
+            if (article.getHeadline().contains(headlineCondition)) {
+                articles.add(article);
+            }
+        }
+        return articles;
+    }
+
+    public ArrayList<Article> filterByTags(ArrayList<Article> oldArticles, String[] tags) {
+        if (tags.length < 1) {
+            return oldArticles;
+        }
+        ArrayList<Article> articles = new ArrayList<>();
+        for (Article a : oldArticles) {
+            String[] articleTags = a.getTags().replaceAll("\\s", "").split(",");
+            for (String tag : tags) {
+                for (String articleTag : articleTags) {
+                    if (articleTag.equals(tag)) {
+                        articles.add(a);
+                    }
+                }
+            }
+        }
+        return articles;
+    }
 }

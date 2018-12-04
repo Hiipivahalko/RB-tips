@@ -11,8 +11,8 @@ import rbtips.domain.Tag;
 
 public class TagDao {
 
-    private Database db;
-    private String tableName;
+    private final Database db;
+    private final String tableName;
 
     public TagDao(Database db, String tableName) {
         this.db = db;
@@ -20,39 +20,26 @@ public class TagDao {
     }
 
     /**
-     * Add tags to databse if it not exists there already
-     * @param tagsInput
+     * Add tags to database if it not exists there already
+     *
+     * @param tags
      * @throws SQLException
      */
-    public void addTagsIfNotAlreadyExist(String tagsInput) throws SQLException {
-
-        String[] tags = splitTags(tagsInput);
-
+    public void addTagsIfNotAlreadyExist(String[] tags) throws SQLException {
         for (String tag : tags) {
             try {
                 if (!alreadyExists(tag)) {
                     Tag newTag = new Tag(tag);
                     add(newTag);
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 System.out.println("Something went wrong, when trying to check tag from database");
             }
 
         }
     }
 
-    /**
-     * Split String of tags to tag array. Take off whitespaces. Seperate tag by comman ','
-     * @param tagsInput
-     * @return string array of tags
-     */
-    public String[] splitTags(String tagsInput) {
-        String noWhiteSpaces = tagsInput.replaceAll("\\s", "");
-        String[] tags = noWhiteSpaces.split(",");
-        return tags;
-    }
-
-    private boolean alreadyExists(String tagName) throws SQLException {
+    public boolean alreadyExists(String tagName) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name = ?");
         stmt.setString(1, tagName);
@@ -70,10 +57,11 @@ public class TagDao {
 
     /**
      * Add new tag to database
+     *
      * @param tag
      * @throws SQLException
      */
-    public void add(Tag tag) throws SQLException {
+    private void add(Tag tag) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name) VALUES (?)");
 
@@ -83,10 +71,8 @@ public class TagDao {
         conn.close();
     }
 
-    public ArrayList<Integer> findIdByName(String tagNames) throws SQLException {
-        String[] tags = splitTags(tagNames);
+    public ArrayList<Integer> findIdByName(String[] tags) throws SQLException {
         ArrayList<Integer> tagIds = new ArrayList<>();
-
         for (String tag : tags) {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE name = (?)");
@@ -109,6 +95,7 @@ public class TagDao {
 
     /**
      * Find article tags from database
+     *
      * @param article
      * @return
      */
@@ -117,7 +104,9 @@ public class TagDao {
 
         try {
             Connection conn = db.getConnection();
-            String query = "SELECT tag.name FROM " + tableName + ", Articles, ArticleTag WHERE Articles.headline = "
+            String query = "SELECT tag.name FROM "
+                    + tableName
+                    + ", Articles, ArticleTag WHERE Articles.headline = "
                     + "? and articles.id = ArticleTag.article_id and ArticleTag.tag_id = Tag.id";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, article.getHeadline());
@@ -132,10 +121,7 @@ public class TagDao {
             rs.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-
         return tags;
     }
 }

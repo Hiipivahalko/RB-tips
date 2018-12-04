@@ -1,12 +1,10 @@
 package rbtips.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
-public class Article extends Tip{
+public class Article extends Tip {
 
-    private String url;
+    private final String url;
 
     public Article(String headline, String author, String url) {
         super(headline, author, "");
@@ -28,12 +26,6 @@ public class Article extends Tip{
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -51,12 +43,11 @@ public class Article extends Tip{
         if (!Objects.equals(super.getHeadline(), other.getHeadline())) {
             return false;
         }
-        if (!Objects.equals(this.url, other.url)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.url, other.url);
     }
-    
-    
 
+    /*@Override
+    public void setTags(String tags) {
+        super.setTags(tags);
+    }*/
 }

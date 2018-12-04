@@ -2,7 +2,9 @@ package rbtips.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +20,7 @@ public class ArticleDaoTest {
     public void setUp() throws Exception {
         database = new Database("jdbc:sqlite:test.db");
         articleDao = new ArticleDao(database, "Articles");
+        database.initializeDatabase();
     }
 
     @Test
@@ -66,12 +69,39 @@ public class ArticleDaoTest {
         assertEquals(a.toString(), articles.get(0).toString());
     }
 
+    @Test
+    public void filterHeadlineReturnsCorrectArticles() throws SQLException {
+        Article a = new Article("jes this is great", "author", "blog.fi", "tag,test");
+        Article a2 = new Article("jes, you are right", "author2", "blog2.fi", "tag,test2");
+        Article a3 = new Article("Im not in the group", "author3", "blog3.fi", "tag,test3");
+
+        articleDao.create(a);
+        articleDao.create(a2);
+        articleDao.create(a3);
+
+        ArrayList<Article> articles = articleDao.filterByHeadline(articleDao.getAll(), "jes");
+        assertTrue(articles.size() == 2);
+
+        boolean test1 = false;
+        boolean test2 = false;
+
+        for (Article article : articles) {
+            if (article.equals(a)) {
+                test1 = true;
+            }
+            if (article.equals(a2)) {
+                test2 = true;
+            }
+        }
+
+        assertTrue(test1 && test2);
+    }
+
     @After
     public void tearDown() throws Exception {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DROP TABLE Articles");
-        statement.execute();
-        statement.close();
-        connection.close();
+        try (Connection connection = database.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DROP TABLE Articles")) {
+            statement.execute();
+        }
     }
 }

@@ -2,15 +2,12 @@ package rbtips.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import rbtips.domain.Tag;
 
 public class ArticleTagDao {
 
-    private Database db;
-    private String tableName;
+    private final Database db;
+    private final String tableName;
 
     public ArticleTagDao(Database db, String tableName) {
         this.db = db;
@@ -27,5 +24,5 @@ public class ArticleTagDao {
         stmt.close();
         conn.close();
     }
-    
+
 }

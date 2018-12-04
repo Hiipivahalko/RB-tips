@@ -1,10 +1,7 @@
-
 package rbtips.domain;
 
-import java.util.ArrayList;
-
 public class Tip {
-    
+
     private String headline;
     private String author;
     private String tags;
@@ -26,5 +23,8 @@ public class Tip {
     public String getTags() {
         return tags;
     }
-    
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 }

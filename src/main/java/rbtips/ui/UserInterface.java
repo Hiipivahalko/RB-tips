@@ -7,7 +7,7 @@ import rbtips.io.IO;
 
 public class UserInterface implements UI {
 
-    private IO io;
+    private final IO io;
     private final AppService app;
 
     public UserInterface(IO io, AppService app) {
@@ -22,7 +22,7 @@ public class UserInterface implements UI {
 
     @Override
     public void mainMenu() {
-        String command = "";
+        String command;
         while (true) {
             System.out.println("\nChoose command: ");
             System.out.println("  > [n] new tip");
@@ -72,7 +72,7 @@ public class UserInterface implements UI {
 
     @Override
     public void search() {
-        String command = "";
+        String command;
         System.out.println("  > [h] search by headline");
         System.out.println("  > [t] search by tag");
         System.out.println("  > [r] return to main menu");
@@ -90,17 +90,17 @@ public class UserInterface implements UI {
     }
 
     public void searchHeadline() {
-        String headline = "";
+        String headline;
         System.out.println("headline:");
         headline = io.nextCommand();
         printTips(app.searchHeadline(headline), "no tips found with headline " + headline);
     }
 
     public void searchTag() {
-        String tags = "";
+        String tags;
         System.out.println("tags:");
         tags = io.nextCommand();
-        printTips(app.searchTag(tags), "no tips found with tags " + tags);
+        //printTips(app.searchTag(tags), "no tips found with tags " + tags);
     }
 
     private void printTips(ArrayList<Article> articles, String message) {

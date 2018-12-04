@@ -1,9 +1,7 @@
-
 package rbtips.domain;
 
-
 public class Tag {
-    
+
     private String name;
 
     public Tag(String name) {
@@ -13,6 +11,5 @@ public class Tag {
     public String getName() {
         return name;
     }
-    
-    
+
 }
