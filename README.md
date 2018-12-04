@@ -22,12 +22,12 @@ Kloonaa projekti
 git clone https://github.com/Hiipivahalko/RB-tips.git
 ```
 
-Suorita komento
+Suorita projektin juuressa komento
 ```
 gradle build
 ```
 
-Ohjelma käynnistyy komennolla
+Ohjelma käynnistyy sitten komennolla
 ```
-java -jar build/libs/RB-tips.jar
+java -jar build/libs/RB-tips-all.jar
 ```
