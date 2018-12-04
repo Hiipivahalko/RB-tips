@@ -99,8 +99,8 @@ public class ArticleDao implements ArticleDaoApi {
     public ArrayList<Article> searchArticleByTags(String tag) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("select articles.headline from articles,tag,articletag" +
-                " where tag.name = (?) and tag.id = articletag.tag_id and articletag.article_id = articles.id");
+        PreparedStatement stmt = conn.prepareStatement("select articles.headline from articles,tag,articletag"
+                + " where tag.name = (?) and tag.id = articletag.tag_id and articletag.article_id = articles.id");
         stmt.setString(1, tag);
 
         ResultSet rs = stmt.executeQuery();
@@ -123,17 +123,13 @@ public class ArticleDao implements ArticleDaoApi {
         return articles;
     }
 
-    public ArrayList<Article> filterByTags(ArrayList<Article> oldArticles, String tagConditions) {
-        if (tagConditions.isEmpty()) {
+    public ArrayList<Article> filterByTags(ArrayList<Article> oldArticles, String[] tags) {
+        if (tags.length < 1) {
             return oldArticles;
         }
         ArrayList<Article> articles = new ArrayList<>();
-
-        String[] tags = tagDao.splitTags(tagConditions);
-
-
         for (Article a : oldArticles) {
-            String[] articleTags = tagDao.splitTags(a.getTags());
+            String[] articleTags = a.getTags().replaceAll("\\s", "").split(",");
             for (String tag : tags) {
                 for (String articleTag : articleTags) {
                     if (articleTag.equals(tag)) {
@@ -143,8 +139,6 @@ public class ArticleDao implements ArticleDaoApi {
             }
         }
 
-
         return articles;
     }
-
 }

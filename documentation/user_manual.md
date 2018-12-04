@@ -1,9 +1,25 @@
 # Käyttöohje
 
-Ohjelma toimii tekstikäyttöliittymän avulla. Toiminnot suoritetaan kirjoittamalla riville halutun komennon lyhenne ja hyväksymällä valinta painamalla enter.
+RB-Tips on työpöytäsovellus lukuvinkkien listaamiseen. Sovelluksella on graafinen käyttöliittymä, jossa navigoiden käyttäjä voi tallentaa itselleen mielenkiintoisia blogeja/artikkeleita
+myöhempää lukemista varten. 
 
-* Käyttäjä voi lisätä uusia lukuvinkkejä ohjelmaan kirjoittamalla n. Tämän jälkeen ohjelma kysyy lukuvinkin otsikon, tekijän ja URL-osoitteen. Käyttäjä syöttää haluamansa tiedot ja hyväksyy valintansa painamalla enter.
+* Käyttäjä voi lisätä uusia lukuvinkkejä ohjelmaan klikkaamalla käyttöliittymässä nappia "Add Tip". Tämän jälkeen aukeaa uusi ikkuna, jossa tulee syöttää artikkelin tiedot ja tallentaa klikkaamalla 'Save'
 
-* Käyttäjä voi selata lisättyjä lukuvinkkejä kirjoittamalla s. Ohjelma listaa lisätyt lukuvinkit tai ilmoittaa, mikäli lukuvinkkejä ei ole lisätty. 
+<img src="https://raw.githubusercontent.com/Hiipivahalko/RB-tips/sprint3/documentation/images/rb-tips-manual1.png" width=500 />
 
-* Ohjelman voi sulkea kirjoittamalla q.
+* Käyttäjä näkee lisäämänsä lukuvinkit ohjelman päänäkymässä listattuna.
+
+<img src="https://raw.githubusercontent.com/Hiipivahalko/RB-tips/sprint3/documentation/images/rb-tips-manual2.png" width=500 />
+
+* Käyttäjä voi hakea listauksestaan vinkkejä otsikon perusteella, kirjoittamalla hakukenttään hakuehdon ja klikkaamalla 'Filter'
+
+<img src="https://raw.githubusercontent.com/Hiipivahalko/RB-tips/sprint3/documentation/images/rb-tips-manual4.png" width=500 />
+
+* Käyttäjä voi hakea listauksestaan vinkkejä myös tagien perusteella. Tageja voi syöttää hakukenttään yhden tai useamman. Listaus päivittyy kun käyttäjä klikkaa nappia 'Filter'
+
+<img src="https://raw.githubusercontent.com/Hiipivahalko/RB-tips/sprint3/documentation/images/rb-tips-manual3.png" width=500 />
+
+* Hakuehtona voi antaa sekä otsikon, että tageja. Tällöin listauksessa annetaan kaikki osuvat hakutulokset
+
+* Käyttäjä saa kaikki listaamansa artikkelit uudestaan näkyville klikkaamalla nappia 'Show All'
+

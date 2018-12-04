@@ -41,8 +41,9 @@ public class AppService {
                 articleDao.create(a);
                 int articleId = articleDao.getIdByHeadline(headline);
 
-                tagDao.addTagsIfNotAlreadyExist(tagNames);
-                tagIds = tagDao.findIdByName(tagNames);
+                String[] tags = splitTags(tagNames);
+                tagDao.addTagsIfNotAlreadyExist(tags);
+                tagIds = tagDao.findIdByName(tags);
                 for (int id : tagIds) {
                     articleTagDao.create(articleId, id);
                 }
@@ -59,7 +60,6 @@ public class AppService {
             }
             return false;
         }
-
     }
 
     /**
@@ -85,17 +85,16 @@ public class AppService {
      */
     public ArrayList<Article> searchTag(String tagNames) {
 
-
         ArrayList<Article> articles = new ArrayList<>();
 
         try {
-            String[] tags = tagDao.splitTags(tagNames);
+            String[] tags = splitTags(tagNames);
             System.out.println(Arrays.toString(tags));
-            for (String tag :tags) {
+            for (String tag : tags) {
                 ArrayList<Article> temp = articleDao.searchArticleByTags(tag);
 
-                for(Article article : temp) {
-                    if(!articles.contains(article)) {
+                for (Article article : temp) {
+                    if (!articles.contains(article)) {
                         articles.add(article);
                     }
                 }
@@ -155,12 +154,12 @@ public class AppService {
         try {
             int id = articleDao.getIdByHeadline(a.getHeadline());
             tags = tagDao.findArticleTags(a);
-            
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getStackTrace());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
         }
-        String tagsSeperateByComma = String.join(",",tags); // this convert ArrayList of Strings to one String and separate old strings by comma
+        String tagsSeperateByComma = String.join(",", tags); // this convert ArrayList of Strings to one String and separate old strings by comma
         return tagsSeperateByComma;
     }
 
@@ -169,8 +168,20 @@ public class AppService {
         System.out.println("All articles: " + Arrays.toString(articles.toArray()));
         articles = articleDao.filterByHeadline(articles, headline);
         System.out.println("headline Filter: " + Arrays.toString(articles.toArray()));
-        articles = articleDao.filterByTags(articles, tag);
+        String[] tags = splitTags(tag);
+        articles = articleDao.filterByTags(articles, tags);
 
         return articles;
+    }
+
+    /**
+     * Split String of tags to tag array. Take off whitespace. Separate tags by
+     * commas ','
+     *
+     * @param tagsInput
+     * @return string array of tags
+     */
+    public String[] splitTags(String input) {
+        return input.replaceAll("\\s", "").split(",");
     }
 }

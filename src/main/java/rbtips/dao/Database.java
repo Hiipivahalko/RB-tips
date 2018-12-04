@@ -29,7 +29,12 @@ public class Database {
             Connection conn = DriverManager.getConnection(databaseAddress);
             Statement stmt = conn.createStatement();
             stmt.execute("DROP TABLE Articles");
-            stmt.execute(createTableArticles());
+            stmt.execute("DROP TABLE Tag");
+            stmt.execute("DROP TABLE ArticleTag");
+            createTables(stmt);
+
+            stmt.close();
+            conn.close();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

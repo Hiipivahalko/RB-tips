@@ -54,7 +54,6 @@ public class Stepdefs {
 
     @Given("^Database is initialized$")
     public void database_is_initialized() throws Throwable {
-        db.initializeDatabase();
         assertTrue(app.getAllArticles().size() == 0);
     }
 
@@ -63,27 +62,27 @@ public class Stepdefs {
         a_valid_headline_and_valid_author_and_valid_url("otsikko", "tekijä", "www.blog.fi");
     }
 
-    @Then("^User sees all tips from database in the GUI and the list size is \"([^\"]*)\"$")
-    public void user_see_all_tips_from_database_count_is(String count) throws Throwable {
-        assertTrue(app.getAllArticles().size() == 1);
+    @Then("^User sees all tips from database in the GUI and the list size is (\\d+)$")
+    public void user_see_all_tips_from_database_count_is(int val) throws Throwable {
+        assertTrue(app.getAllArticles().size() == val);
     }
-    
+
     @Given("^a valid blog is saved with headline \"([^\"]*)\"")
     public void valid_blog_is_saved(String headline) throws Throwable {
         io.setCommands(headline, "author", "www.blog.fi");
         ui.newTip();
     }
-    
+
     @When("^Command search is given")
     public void command_search_is_given() throws Throwable {
-        
+
     }
-    
+
     @When("^Command search by headline is given")
     public void command_search_by_headline_is_given() throws Throwable {
-        
+
     }
-    
+
     @Then("^Article with headline \"([^\"]*)\" is found")
     public void article_with_headline_is_found(String headline) throws Throwable {
         assertTrue(app.searchHeadline(headline).size() == 1);
@@ -109,19 +108,30 @@ public class Stepdefs {
         ui.newTip();
     }
 
-    
-
     @When("^Command search by tags is given")
     public void command_search_by_tags_is_given() throws Throwable {
 
     }
 
-    //Ei mene vielä läpi
     @Then("^Article with tag \"([^\"]*)\" is found")
     public void article_with_tag_is_found(String tag) throws Throwable {
-        //assertTrue(app.searchTag(tag).size() == 1);
+        assertTrue(app.searchTag(tag).size() == 1);
     }
 
-    
+    @Then("^Articles are not found when searched with tag \"([^\"]*)\"$")
+    public void articles_are_not_found_when_searched_with_tag(String tag) throws Throwable {
+        assertTrue(app.searchTag(tag).size() == 0);
+    }
+
+    @Given("^a valid article is saved with the tag \"([^\"]*)\"$")
+    public void a_valid_article_is_saved_with_the_tag(String tag) throws Throwable {
+        io.setCommands("ai is going to destroy the world", "janne ahonen", "www.article.fi", tag);
+        ui.newTip();
+    }
+
+    @Then("^Two articles are found when searched with tag \"([^\"]*)\"$")
+    public void two_articles_are_found_when_searched_with_tag(String tags) throws Throwable {
+        assertTrue(app.searchTag(tags).size() == 2);
+    }
 
 }
