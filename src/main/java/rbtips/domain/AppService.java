@@ -1,6 +1,5 @@
 package rbtips.domain;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +12,9 @@ import rbtips.dao.TagDao;
 public class AppService {
     //Sovelluslogiikkaluokka, näitä metodeja kutsutaan UI:sta
 
-    private ArticleDao articleDao;
-    private TagDao tagDao;
-    private ArticleTagDao articleTagDao;
+    private final ArticleDao articleDao;
+    private final TagDao tagDao;
+    private final ArticleTagDao articleTagDao;
 
     public AppService(ArticleDao articleDao, TagDao tagDao, ArticleTagDao articleTagDao) {
         this.articleDao = articleDao;
@@ -29,11 +28,12 @@ public class AppService {
      * @param headline article headline
      * @param author article author
      * @param url article url
+     * @param tagNames
      * @return
      */
     public boolean saveArticle(String headline, String author, String url, String tagNames) {
         List<String> allErrors = validateNewArticleUserInputs(headline, author, url);
-        ArrayList<Integer> tagIds = new ArrayList<>();
+        ArrayList<Integer> tagIds;
 
         if (allErrors.isEmpty()) {
             try {
@@ -49,7 +49,7 @@ public class AppService {
                 }
 
                 return true;
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 System.out.println("Something went wrong when creating new Article :(");
                 return false;
             }
@@ -65,13 +65,14 @@ public class AppService {
     /**
      * Search articles in the database with matching headline
      *
+     * @param headline
      * @return ArrayList of articles with wanted headline if found any
      */
     public ArrayList<Article> searchHeadline(String headline) {
         ArrayList<Article> articles = new ArrayList<>();
         try {
             articles = articleDao.searchHeadline(headline, false);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
@@ -81,6 +82,7 @@ public class AppService {
     /**
      * Search articles in the database with matching tags
      *
+     * @param tagNames
      * @return ArrayList of articles with wanted tags if found any
      */
     public ArrayList<Article> searchTag(String tagNames) {
@@ -101,7 +103,6 @@ public class AppService {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return articles;
@@ -116,7 +117,7 @@ public class AppService {
         ArrayList<Article> articles = new ArrayList<>();
         try {
             articles = articleDao.getAll();
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
         }
         return articles;
@@ -155,9 +156,9 @@ public class AppService {
             int id = articleDao.getIdByHeadline(a.getHeadline());
             tags = tagDao.findArticleTags(a);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         String tagsSeperateByComma = String.join(",", tags); // this convert ArrayList of Strings to one String and separate old strings by comma
         return tagsSeperateByComma;

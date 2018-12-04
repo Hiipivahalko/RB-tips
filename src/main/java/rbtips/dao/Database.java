@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 
 public class Database {
 
@@ -15,7 +16,7 @@ public class Database {
             Connection conn = DriverManager.getConnection(databaseAddress);
             Statement stmt = conn.createStatement();
             createTables(stmt);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -36,9 +37,9 @@ public class Database {
             stmt.close();
             conn.close();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 

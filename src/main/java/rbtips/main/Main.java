@@ -14,7 +14,7 @@ import rbtips.domain.AppService;
 import rbtips.ui.MainPageSceneController;
 
 public class Main extends Application {
-    
+
     private Database db;
     private ArticleDao articleDao;
     private TagDao tagDao;
@@ -27,7 +27,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     @Override
     public void init() throws Exception {
         this.db = new Database("jdbc:sqlite:tips.db");
@@ -35,7 +35,7 @@ public class Main extends Application {
         this.articleTagDao = new ArticleTagDao(db, "ArticleTag");
         this.tagDao = new TagDao(db, "Tag");
         this.appService = new AppService(articleDao, tagDao, articleTagDao);
-        
+
         FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/MainPageScene.fxml"));
         Parent mainPagePane = mainPageLoader.load();
         mainPageController = mainPageLoader.getController();
@@ -51,11 +51,10 @@ public class Main extends Application {
         setMainPage();
         primaryStage.show();
     }
-    
+
     public void setMainPage() throws SQLException {
         primaryStage.setScene(mainPageScene);
         mainPageController.setArticles();
     }
-    
-    
+
 }

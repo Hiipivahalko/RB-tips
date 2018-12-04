@@ -9,9 +9,9 @@ import rbtips.domain.Article;
 
 public class ArticleDao implements ArticleDaoApi {
 
-    private Database db;
-    private String tableName;
-    private TagDao tagDao;
+    private final Database db;
+    private final String tableName;
+    private final TagDao tagDao;
 
     public ArticleDao(Database db, String tableName) {
         this.db = db;
@@ -138,7 +138,6 @@ public class ArticleDao implements ArticleDaoApi {
                 }
             }
         }
-
         return articles;
     }
 }

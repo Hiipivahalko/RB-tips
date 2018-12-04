@@ -13,70 +13,70 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rbtips.ui.MainPageSceneController">
-   <children>
-      <HBox layoutY="-1.0" prefHeight="30.0" prefWidth="601.0" />
-      <HBox layoutY="31.0" prefHeight="341.0" prefWidth="601.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
-         <children>
-            <VBox prefHeight="368.0" prefWidth="170.0" spacing="5.0">
-               <children>
-                  <Label prefHeight="27.0" prefWidth="170.0" text="Filter search results" />
-                  <TextField fx:id="filter" promptText="Headline..." />
-                  <TextField fx:id="tagFilter" promptText="Tags..." />
-                   <Button mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="27.0" prefWidth="173.0" text="Filter" />
-                  <Region prefHeight="257.0" prefWidth="169.0" VBox.vgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" onAction="#handleShowAllTips" prefHeight="26.0" prefWidth="173.0" text="Show All Tips" />
-                  <Button fx:id="openAddNewTip" mnemonicParsing="false" onAction="#openAddNewTipScene" prefHeight="27.0" prefWidth="187.0" text="Add tip" />
-               </children>
-               <HBox.margin>
-                  <Insets top="2.0" />
-               </HBox.margin>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </VBox>
-            <TableView fx:id="tableView" prefHeight="368.0" prefWidth="431.0" HBox.hgrow="ALWAYS">
-              <columns>
-                  <TableColumn prefWidth="75.0" text="Headline">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="headline" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Author">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="author" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="75.0" text="URL">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="url" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="205.0" text="Tags">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="tags" />
-                      </cellValueFactory>
-                  </TableColumn>
-              </columns>
-               <HBox.margin>
-                  <Insets top="2.0" />
-               </HBox.margin>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets left="3.0" />
-         </padding>
-      </HBox>
-      <HBox layoutY="445.0" prefHeight="27.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Region prefHeight="27.0" prefWidth="482.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="vievContentButton" mnemonicParsing="false" onAction="#handleViewContentButton" prefHeight="27.0" prefWidth="118.0" text="View content" />
-         </children>
-      </HBox>
-   </children>
+    <children>
+        <HBox layoutY="-1.0" prefHeight="30.0" prefWidth="601.0" />
+        <HBox layoutY="31.0" prefHeight="341.0" prefWidth="601.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+            <children>
+                <VBox prefHeight="368.0" prefWidth="170.0" spacing="5.0">
+                    <children>
+                        <Label prefHeight="27.0" prefWidth="170.0" text="Filter search results" />
+                        <TextField fx:id="filter" promptText="Headline..." />
+                        <TextField fx:id="tagFilter" promptText="Tags..." />
+                        <Button mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="27.0" prefWidth="173.0" text="Filter" />
+                        <Region prefHeight="257.0" prefWidth="169.0" VBox.vgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#handleShowAllTips" prefHeight="26.0" prefWidth="173.0" text="Show All Tips" />
+                        <Button fx:id="openAddNewTip" mnemonicParsing="false" onAction="#openAddNewTipScene" prefHeight="27.0" prefWidth="187.0" text="Add tip" />
+                    </children>
+                    <HBox.margin>
+                        <Insets top="2.0" />
+                    </HBox.margin>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </VBox>
+                <TableView fx:id="tableView" prefHeight="368.0" prefWidth="431.0" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="Headline">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="headline" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Author">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="author" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="URL">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="url" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="205.0" text="Tags">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="tags" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                    <HBox.margin>
+                        <Insets top="2.0" />
+                    </HBox.margin>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets left="3.0" />
+            </padding>
+        </HBox>
+        <HBox layoutY="445.0" prefHeight="27.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Region prefHeight="27.0" prefWidth="482.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="vievContentButton" mnemonicParsing="false" onAction="#handleViewContentButton" prefHeight="27.0" prefWidth="118.0" text="View content" />
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

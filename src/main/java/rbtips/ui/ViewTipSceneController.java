@@ -24,11 +24,11 @@ import rbtips.main.Main;
  *
  */
 public class ViewTipSceneController implements Initializable {
-    
+
     private Main application;
     private AppService appService;
     private Stage stage;
-    
+
     @FXML
     Label authorLabel;
     @FXML
@@ -37,15 +37,15 @@ public class ViewTipSceneController implements Initializable {
     Hyperlink url;
     @FXML
     Label tagsLabel;
-    
+
     public void setApplication(Main application) {
         this.application = application;
     }
-    
+
     public void setAppService(AppService appService) {
         this.appService = appService;
     }
-    
+
     //TODO siisti metodi
     public void display(String title, Tip t, Parent root1) throws SQLException {
         stage = new Stage();
@@ -87,5 +87,5 @@ public class ViewTipSceneController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
 }

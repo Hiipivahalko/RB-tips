@@ -11,8 +11,8 @@ import rbtips.domain.Tag;
 
 public class TagDao {
 
-    private Database db;
-    private String tableName;
+    private final Database db;
+    private final String tableName;
 
     public TagDao(Database db, String tableName) {
         this.db = db;
@@ -32,7 +32,7 @@ public class TagDao {
                     Tag newTag = new Tag(tag);
                     add(newTag);
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 System.out.println("Something went wrong, when trying to check tag from database");
             }
 
@@ -104,7 +104,9 @@ public class TagDao {
 
         try {
             Connection conn = db.getConnection();
-            String query = "SELECT tag.name FROM " + tableName + ", Articles, ArticleTag WHERE Articles.headline = "
+            String query = "SELECT tag.name FROM "
+                    + tableName
+                    + ", Articles, ArticleTag WHERE Articles.headline = "
                     + "? and articles.id = ArticleTag.article_id and ArticleTag.tag_id = Tag.id";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, article.getHeadline());
@@ -119,9 +121,7 @@ public class TagDao {
             rs.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return tags;
     }
 }
