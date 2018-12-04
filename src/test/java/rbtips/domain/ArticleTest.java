@@ -35,5 +35,7 @@ public class ArticleTest{
         assertEquals("Author: Headline (url: www.article.com)", article.toString());
     }
     
+    
+    
 }
 
