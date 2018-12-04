@@ -30,30 +30,24 @@ public class Stepdefs {
         db.initializeDatabase();
     }
 
-    @Given("^new tip command is given$")
+    @Given("^User clicks the button Add new tip$")
     public void new_tip_command_is_given() throws Throwable {
 
     }
 
-    @When("^a valid headline \"([^\"]*)\" and valid author \"([^\"]*)\" and valid url \"([^\"]*)\"$")
+    @When("^headline \"([^\"]*)\" and author \"([^\"]*)\" and url \"([^\"]*)\" are entered$")
     public void a_valid_headline_and_valid_author_and_valid_url(String headline, String author, String url) throws Throwable {
         io.setCommands(headline, author, url);
         ui.newTip();
     }
 
-    @Then("^artile, which headline is \"([^\"]*)\" and author is \"([^\"]*)\" and url is \"([^\"]*)\" is found$")
+    @Then("^artile with headline \"([^\"]*)\" and author \"([^\"]*)\" and url \"([^\"]*)\" is found$")
     public void artile_which_headline_is_and_author_is_and_url_is_is_found(String headline, String author, String url) throws Throwable {
         assertTrue(searchArticles(headline, author, url));
 
     }
 
-    @Given("^new tip command is given, and invalid headline \"([^\"]*)\" with valid author \"([^\"]*)\" and url \"([^\"]*)\"$")
-    public void new_tip_command_is_given_and_invalid_headline_with_valid_author_and_url(String headline, String author, String url) throws Throwable {
-        io.setCommands(headline, author, url);
-        ui.newTip();
-    }
-
-    @Then("^Article is not saved to database and with invalid headline \"([^\"]*)\" and valid author \"([^\"]*)\", url \"([^\"]*)\" input$")
+    @Then("^Article with headline \"([^\"]*)\" and author \"([^\"]*)\" and url \"([^\"]*)\" is not saved to database because headline is too short$")
     public void article_is_not_saved_to_database_and_with_invalid_headline_and_valid_author_url_input(String headline, String author, String url) throws Throwable {
         assertTrue(!searchArticles(headline, author, url));
     }
@@ -64,12 +58,12 @@ public class Stepdefs {
         assertTrue(app.getAllArticles().size() == 0);
     }
 
-    @When("^User add one tip to database and execute command list tips$")
+    @When("^User adds one tip to database$")
     public void user_add_one_tip_to_database_and_execute_command_list_tips() throws Throwable {
-        new_tip_command_is_given_and_invalid_headline_with_valid_author_and_url("otsikko", "tekijä", "www.blog.fi");
+        a_valid_headline_and_valid_author_and_valid_url("otsikko", "tekijä", "www.blog.fi");
     }
 
-    @Then("^User see all tips from database, count is \"([^\"]*)\"$")
+    @Then("^User sees all tips from database in the GUI and the list size is \"([^\"]*)\"$")
     public void user_see_all_tips_from_database_count_is(String count) throws Throwable {
         assertTrue(app.getAllArticles().size() == 1);
     }

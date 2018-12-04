@@ -2,5 +2,5 @@ Feature: List all tips from database
 
     Scenario: List all tips successfully
       Given Database is initialized
-      When User add one tip to database and execute command list tips
-      Then User see all tips from database, count is "1"
+      When User adds one tip to database
+      Then User sees all tips from database in the GUI and the list size is "1"
