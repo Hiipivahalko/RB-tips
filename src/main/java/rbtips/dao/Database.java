@@ -31,7 +31,10 @@ public class Database {
             stmt.execute("DROP TABLE Articles");
             stmt.execute("DROP TABLE Tag");
             stmt.execute("DROP TABLE ArticleTag");
-            stmt.execute(createTableArticles());
+            createTables(stmt);
+
+            stmt.close();
+            conn.close();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

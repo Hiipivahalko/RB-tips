@@ -21,6 +21,7 @@ public class ArticleDaoTest {
     public void setUp() throws Exception {
         database = new Database("jdbc:sqlite:test.db");
         articleDao = new ArticleDao(database, "Articles");
+        database.initializeDatabase();
     }
 
     @Test
