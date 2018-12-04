@@ -18,6 +18,7 @@ public class GUITest {
     
     @Before
     public void setUp() {
+        
     }
     
     @After
