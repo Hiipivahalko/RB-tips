@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.Before;
@@ -100,10 +99,9 @@ public class ArticleDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DROP TABLE Articles");
-        statement.execute();
-        statement.close();
-        connection.close();
+        try (Connection connection = database.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DROP TABLE Articles")) {
+            statement.execute();
+        }
     }
 }

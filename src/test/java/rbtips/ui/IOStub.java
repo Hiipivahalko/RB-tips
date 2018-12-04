@@ -1,18 +1,15 @@
-
 package rbtips.ui;
-
 
 import rbtips.io.IO;
 
 public class IOStub implements IO {
-    
+
     private String[] commands;
     private int index;
 
     /**
      *
      * @param commands
-     * @param index
      */
     public IOStub(String... commands) {
         this.commands = commands;
@@ -27,15 +24,15 @@ public class IOStub implements IO {
     public void setIndex(int index) {
         this.index = index;
     }
-    
+
     public boolean excecute() {
         return index + 1 == commands.length;
     }
-    
+
     @Override
     public String nextCommand() {
         index++;
         return commands[index];
     }
-    
+
 }

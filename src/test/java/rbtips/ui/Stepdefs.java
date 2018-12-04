@@ -5,7 +5,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.util.ArrayList;
-import java.util.List;
 import rbtips.dao.ArticleDao;
 import rbtips.dao.Database;
 import rbtips.dao.TagDao;
@@ -54,7 +53,7 @@ public class Stepdefs {
 
     @Given("^Database is initialized$")
     public void database_is_initialized() throws Throwable {
-        assertTrue(app.getAllArticles().size() == 0);
+        assertTrue(app.getAllArticles().isEmpty());
     }
 
     @When("^User adds one tip to database$")
@@ -120,7 +119,7 @@ public class Stepdefs {
 
     @Then("^Articles are not found when searched with tag \"([^\"]*)\"$")
     public void articles_are_not_found_when_searched_with_tag(String tag) throws Throwable {
-        assertTrue(app.searchTag(tag).size() == 0);
+        assertTrue(app.searchTag(tag).isEmpty());
     }
 
     @Given("^a valid article is saved with the tag \"([^\"]*)\"$")

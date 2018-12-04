@@ -1,12 +1,7 @@
 package rbtips.domain;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -94,8 +89,7 @@ public class AppServiceTest {
         app.saveArticle("jes are rigth", "author2", "blog2.fi", "tag,");
         app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
 
-        ArrayList<Article> articles = articleDao.getAll();
-        articles = app.filterArticles("jes", "test");
+        ArrayList<Article> articles = app.filterArticles("jes", "test");
 
         assertTrue(articles.size() == 1);
 

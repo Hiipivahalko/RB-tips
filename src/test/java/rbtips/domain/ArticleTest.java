@@ -3,39 +3,35 @@ package rbtips.domain;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import rbtips.domain.Article;
 
+public class ArticleTest {
 
-public class ArticleTest{
     Article article;
 
     @Before
-    public void SetUp(){
+    public void SetUp() {
         article = new Article("Headline", "Author", "www.article.com");
-        
+
     }
 
     @Test
-    public void rightHeadline(){
-        assertEquals("Headline" ,article.getHeadline());
+    public void rightHeadline() {
+        assertEquals("Headline", article.getHeadline());
     }
-    
+
     @Test
-    public void rightAuthor(){
+    public void rightAuthor() {
         assertEquals("Author", article.getAuthor());
     }
-    
+
     @Test
-    public void rightUrl(){
+    public void rightUrl() {
         assertEquals("www.article.com", article.getUrl());
     }
-    
+
     @Test
-    public void rightToString(){
+    public void rightToString() {
         assertEquals("Author: Headline (url: www.article.com)", article.toString());
     }
-    
-    
-    
-}
 
+}
