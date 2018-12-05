@@ -10,5 +10,5 @@ public interface ArticleDaoApi {
 
     ArrayList<Article> getAll() throws SQLException;
 
-    ArrayList<Article> searchHeadline(String headline, boolean tarkkaHaku) throws SQLException;
+    ArrayList<Article> searchHeadline(String headline, boolean exactSearch) throws SQLException;
 }

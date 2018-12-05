@@ -3,6 +3,8 @@ package rbtips.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ArticleTagDao {
 
@@ -15,14 +17,16 @@ public class ArticleTagDao {
     }
 
     public void create(int articleId, int tagId) throws SQLException {
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(article_id, tag_id) VALUES (?, ?)");
-
-        stmt.setInt(1, articleId);
-        stmt.setInt(2, tagId);
-        stmt.executeUpdate();
-        stmt.close();
-        conn.close();
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(article_id, tag_id) VALUES (?, ?)");
+            
+            stmt.setInt(1, articleId);
+            stmt.setInt(2, tagId);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ArticleTagDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
