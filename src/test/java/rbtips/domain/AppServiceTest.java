@@ -65,7 +65,7 @@ public class AppServiceTest {
         app.saveArticle("Breaking news3", "Journalist3", "http://news3.com", "news");
 
         ArrayList<Article> articles = articleDao.getAll();
-        articles = articleDao.filterByTags(articles, app.splitTags("tag"));
+        articles = articleDao.filterByTags(articles, "tag");
 
         assertTrue(articles.size() == 2);
 
