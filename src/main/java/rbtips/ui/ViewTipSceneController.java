@@ -59,10 +59,16 @@ public class ViewTipSceneController implements Initializable {
             @Override
             public void handle(ActionEvent t) {
                 try {
-                    new ProcessBuilder("x-www-browser", url.getText()).start();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    String url_open = url.getText();
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+                } catch (Exception e) {
+
                 }
+//                try {
+//                    new ProcessBuilder("x-www-browser", url.getText()).start();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         stage.initModality(Modality.APPLICATION_MODAL);
