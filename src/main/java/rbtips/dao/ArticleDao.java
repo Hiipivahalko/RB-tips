@@ -116,21 +116,26 @@ public class ArticleDao implements ArticleDaoApi {
         ArrayList<Article> articles = new ArrayList<>();
 
         for (Article article : oldArticles) {
+            System.out.println(headlineCondition + " " + article.getHeadline());
             if (article.getHeadline().contains(headlineCondition)) {
+                System.out.println("here");
                 articles.add(article);
             }
         }
         return articles;
     }
 
-    public ArrayList<Article> filterByTags(ArrayList<Article> oldArticles, String[] tags) {
-        if (tags.length < 1) {
+    public ArrayList<Article> filterByTags(ArrayList<Article> oldArticles, String tags) {
+        if (tags.isEmpty()) {
             return oldArticles;
         }
+
+        String[] allTags = tags.replaceAll("\\s", "").split(",");
+
         ArrayList<Article> articles = new ArrayList<>();
         for (Article a : oldArticles) {
             String[] articleTags = a.getTags().replaceAll("\\s", "").split(",");
-            for (String tag : tags) {
+            for (String tag : allTags) {
                 for (String articleTag : articleTags) {
                     if (articleTag.equals(tag)) {
                         articles.add(a);

@@ -169,8 +169,8 @@ public class AppService {
         System.out.println("All articles: " + Arrays.toString(articles.toArray()));
         articles = articleDao.filterByHeadline(articles, headline);
         System.out.println("headline Filter: " + Arrays.toString(articles.toArray()));
-        String[] tags = splitTags(tag);
-        articles = articleDao.filterByTags(articles, tags);
+        articles = articleDao.filterByTags(articles, tag);
+        System.out.println("tag Filter: " + Arrays.toString(articles.toArray()));
 
         return articles;
     }
