@@ -1,7 +1,9 @@
 package rbtips.dao;
 
+import java.net.CookieHandler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ArticleTagDao {
@@ -23,6 +25,56 @@ public class ArticleTagDao {
         stmt.executeUpdate();
         stmt.close();
         conn.close();
+    }
+
+    /**
+     * delete row from ArticleTag
+     * @param articleId
+     * @param tagId
+     */
+    public void deleteUnions(int articleId, int tagId) {
+
+        try (Connection conn = db.getConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE article_id = ? and tag_id = ?");
+            stmt.setInt(1, articleId);
+            stmt.setInt(2, tagId);
+
+            if (stmt.execute()) {
+                stmt.close();
+                conn.close();
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Check if tag is on use on another tip, if not returns false
+     * @param tagId
+     * @return
+     */
+    public boolean isThereStillMoreUnionsToTag(int tagId) {
+
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE tag_id = ?");
+            stmt.setInt(1, tagId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (!rs.next()) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
 }

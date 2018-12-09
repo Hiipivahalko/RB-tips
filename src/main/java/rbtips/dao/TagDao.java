@@ -124,4 +124,26 @@ public class TagDao {
         }
         return tags;
     }
+
+    /**
+     * Delete tag from database
+     * @param tagId
+     */
+    public void deleteTag(int tagId) {
+
+        try (Connection conn = db.getConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE id = ?");
+            stmt.setInt(1, tagId);
+
+            stmt.execute();
+            stmt.close();
+            conn.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

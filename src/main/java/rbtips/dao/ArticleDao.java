@@ -109,6 +109,11 @@ public class ArticleDao implements ArticleDaoApi {
             String headline = rs.getString(1);
             articles.add(searchHeadline(headline, true).get(0));
         }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
         return articles;
     }
 
@@ -142,5 +147,24 @@ public class ArticleDao implements ArticleDaoApi {
             }
         }
         return articles;
+    }
+
+    /**
+     * Delete article from database
+     * @param articleId
+     */
+    public void deleteArticle(int articleId) {
+
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE id = ?");
+            stmt.setInt(1, articleId);
+
+            stmt.execute();
+
+        } catch (Exception e) {
+            System.out.println("Error Message -> " + e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
     }
 }
