@@ -166,11 +166,8 @@ public class AppService {
 
     public ArrayList<Article> filterArticles(String headline, String tag) {
         ArrayList<Article> articles = getAllArticles();
-        System.out.println("All articles: " + Arrays.toString(articles.toArray()));
         articles = articleDao.filterByHeadline(articles, headline);
-        System.out.println("headline Filter: " + Arrays.toString(articles.toArray()));
         articles = articleDao.filterByTags(articles, tag);
-        System.out.println("tag Filter: " + Arrays.toString(articles.toArray()));
 
         return articles;
     }

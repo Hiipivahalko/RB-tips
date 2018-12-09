@@ -116,9 +116,7 @@ public class ArticleDao implements ArticleDaoApi {
         ArrayList<Article> articles = new ArrayList<>();
 
         for (Article article : oldArticles) {
-            System.out.println(headlineCondition + " " + article.getHeadline());
             if (article.getHeadline().contains(headlineCondition)) {
-                System.out.println("here");
                 articles.add(article);
             }
         }

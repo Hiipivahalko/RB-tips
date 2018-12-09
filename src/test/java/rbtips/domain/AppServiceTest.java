@@ -83,6 +83,10 @@ public class AppServiceTest {
         assertTrue(test1 && test2);
     }
 
+    /**
+     * Testing filtering with both filter inputs
+     * @throws SQLException
+     */
     @Test
     public void MultipleFilterWorksCorrectly() throws SQLException {
         app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
@@ -94,6 +98,33 @@ public class AppServiceTest {
         assertTrue(articles.size() == 1);
 
         assertTrue(articles.get(0).getHeadline().equals("jes this is great"));
+
+    }
+
+    @Test
+    public void MultipleFilteringWithOnlyHeadlineInput() {
+        app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
+        app.saveArticle("jes are rigth", "author2", "blog2.fi", "tag,");
+        app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
+
+        ArrayList<Article> articles = app.filterArticles("why", "");
+
+        assertTrue(articles.size() == 1);
+
+        assertTrue(articles.get(0).getHeadline().equals("why im not in"));
+    }
+
+    @Test
+    public void MultipleFilteringWithOnlyTagInput() {
+        app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
+        app.saveArticle("jes are rigth", "author2", "blog2.fi", "winnerTag");
+        app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
+
+        ArrayList<Article> articles = app.filterArticles("", "winnerTag");
+
+        assertTrue(articles.size() == 1);
+
+        assertTrue(articles.get(0).getHeadline().equals("jes are rigth"));
     }
 
     private void saveArticle() {
