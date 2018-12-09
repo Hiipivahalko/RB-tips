@@ -64,6 +64,7 @@ public class MainPageSceneController {
             Tip t = tableView.getSelectionModel().getSelectedItem();
             setViewTipScene(t);
         }
+        setArticles();
     }
     
     @FXML
@@ -74,13 +75,6 @@ public class MainPageSceneController {
         ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.filterArticles(filterCondition, tagCondition));
         tableView.setItems(filteredArticleList);
     }
-    
-    /*@FXML
-    private void handleTagFilterButton(ActionEvent event) throws IOException {
-        String filterCondition = tagFilter.getText();
-        ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchTag(filterCondition));
-        tableView.setItems(filteredArticleList);
-    }*/
     
     @FXML
     private void handleShowAllTips(ActionEvent event) throws Exception {
@@ -93,7 +87,8 @@ public class MainPageSceneController {
         viewTip = loader.getController();
         viewTip.setApplication(application);
         viewTip.setAppService(appService);
-        viewTip.display(t.getAuthor() + ", " + t.getHeadline(), t, root1);
+        viewTip.setTip(t);
+        viewTip.display(root1);
     }
     
     

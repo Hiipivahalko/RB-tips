@@ -182,4 +182,30 @@ public class AppService {
     public String[] splitTags(String input) {
         return input.replaceAll("\\s", "").split(",");
     }
+
+    /**
+     * Delete tip from software and all links between tip at database if it's possible
+     * @param article
+     */
+    public void deleteTip(Article article) {
+
+        String[] tags = splitTags(article.getTags());
+        int articleId;
+        try {
+            ArrayList<Integer> tagIds = tagDao.findIdByName(tags);
+            articleId = articleDao.getIdByHeadline(article.getHeadline());
+            for (int tagId : tagIds) {
+                articleTagDao.deleteUnions(articleId, tagId);
+                if (!articleTagDao.isThereStillMoreUnionsToTag(tagId)) {
+                    tagDao.deleteTag(tagId);
+                }
+            }
+            articleDao.deleteArticle(articleId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
 }

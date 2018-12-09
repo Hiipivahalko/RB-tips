@@ -32,6 +32,7 @@ public class ViewTipSceneController implements Initializable {
     private Main application;
     private AppService appService;
     private Stage stage;
+    private Tip tip;
 
     @FXML
     Label authorLabel;
@@ -50,15 +51,14 @@ public class ViewTipSceneController implements Initializable {
         this.appService = appService;
     }
 
+    public void setTip(Tip tip) {
+        this.tip = tip;
+    }
+
     //TODO siisti metodi
-    public void display(String title, Tip t, Parent root1) throws SQLException {
+    public void display(Parent root1) throws SQLException {
         stage = new Stage();
-        stage.setTitle(title);
-        authorLabel.setText(t.getAuthor());
-        headlineLabel.setText(t.getHeadline());
-        Article a = (Article) t;
-        tagsLabel.setText(appService.getAllTagsByArticle(a));
-        url.setText(a.getUrl());
+        setTipInformation();
         url.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -99,6 +99,19 @@ public class ViewTipSceneController implements Initializable {
         }        
     }
 
+    /**
+     * Set information of Tip, when user want to view tip
+     * @throws SQLException
+     */
+    private void setTipInformation() throws SQLException {
+        stage.setTitle(tip.getAuthor() + ", " + tip.getHeadline());
+        authorLabel.setText(tip.getAuthor());
+        headlineLabel.setText(tip.getHeadline());
+        Article a = (Article) tip;
+        tagsLabel.setText(appService.getAllTagsByArticle(a));
+        url.setText(a.getUrl());
+    }
+
 //    @FXML
 //    public void handleClickLink(ActionEvent event) throws Exception {
 //        try {
@@ -115,6 +128,15 @@ public class ViewTipSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+
+    /**
+     * Delete Tip, button handler. Delete tip from database and software
+     * @param actionEvent
+     */
+    public void handleTipDeleteButton(ActionEvent actionEvent) {
+        appService.deleteTip((Article) tip);
+        stage.close();
     }
 
 }
