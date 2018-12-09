@@ -88,4 +88,7 @@ public class ViewTipSceneController implements Initializable {
         // TODO
     }
 
+    public void handleTipDeleteButton(ActionEvent actionEvent) {
+        System.out.println("Delete button clicked");
+    }
 }
