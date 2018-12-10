@@ -204,8 +204,9 @@ public class AppService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-
-
+    public void markAsRead(Article article) {
+        System.out.println(article.getAuthor() + " and " + article.getHeadline());
     }
 }

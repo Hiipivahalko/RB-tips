@@ -57,6 +57,5 @@
                 <Button fx:id="markReadButton" mnemonicParsing="false" onAction="#handleMarkReadButton" prefHeight="27.0" prefWidth="118.0" text="MARK AS READ"/>
             </children>
         </HBox>
-
     </children>
 </AnchorPane>
