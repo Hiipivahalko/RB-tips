@@ -47,6 +47,8 @@ public class ViewTipSceneController implements Initializable {
     Label tagsLabel;
     @FXML
     Button markReadButton;
+    @FXML
+    Button deleteTipButton;
 
     public void setApplication(Main application) {
         this.application = application;
@@ -146,11 +148,13 @@ public class ViewTipSceneController implements Initializable {
      *
      * @param actionEvent
      */
+    @FXML
     public void handleTipDeleteButton(ActionEvent actionEvent) {
         appService.deleteTip((Article) tip);
         stage.close();
     }
-
+    
+    @FXML
     public void handleMarkReadButton(ActionEvent actionEvent) throws SQLException {
         appService.markAsRead((Article) tip);
         stage.close();

@@ -24,31 +24,39 @@ import rbtips.main.Main;
 import rbtips.domain.*;
 
 public class AddNewTipSceneController implements Initializable {
-    
+
     private Stage stage;
     private Main application;
     private AppService appService;
     private boolean showAddBook;
-    
-    @FXML VBox vbox;
-    @FXML ComboBox select;
-    @FXML Label messageLabel;
-    @FXML private TextField headline; 
-    @FXML private TextField author;
-    @FXML private TextField url;
-    @FXML private TextArea tags;
-    @FXML private TextField isbn;
-    @FXML private TextField publicationYear;
-    
+
+    @FXML
+    VBox vbox;
+    @FXML
+    ComboBox select;
+    @FXML
+    Label messageLabel;
+    @FXML
+    private TextField headline;
+    @FXML
+    private TextField author;
+    @FXML
+    private TextField url;
+    @FXML
+    private TextArea tags;
+    @FXML
+    private TextField isbn;
+    @FXML
+    private TextField publicationYear;
 
     public void setApplication(Main application) {
         this.application = application;
     }
-    
+
     public void setAppService(AppService appService) {
         this.appService = appService;
     }
-    
+
     public void display(String title, String message, Parent root1) {
         stage = new Stage();
         stage.setTitle(title);
@@ -57,17 +65,19 @@ public class AddNewTipSceneController implements Initializable {
         stage.setScene(new Scene(root1));
         stage.showAndWait();
     }
-    
+
     @FXML
     private void handleAddNewTipButton(ActionEvent event) throws SQLException, IOException {
 //        Article article = new Article(headline.getText(), author.getText(), url.getText());
 //        String tagsForCheck = tags.getText();
-        if (appService.saveArticle(headline.getText(), author.getText(), url.getText(), tags.getText())) {
-            stage.close();
+        if (!showAddBook && select.getValue().equals("Article")) {
+            if (appService.saveArticle(headline.getText(), author.getText(), url.getText(), tags.getText())) {
+                stage.close();
+            }
         }
-        
+
     }
- 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         select.getItems().addAll("Article", "Book");
@@ -76,10 +86,10 @@ public class AddNewTipSceneController implements Initializable {
 //        vbox.getChildren().removeAll(isbn, publicationYear);
         setIsbnAndPublicationYearFields();
     }
-    
+
     @FXML
     private void changeView() {
-        if(!showAddBook && select.getValue().equals("Book")) {
+        if (!showAddBook && select.getValue().equals("Book")) {
             System.out.println("valittu kirja");
             showAddBook = true;
             setIsbnAndPublicationYearFields();
@@ -93,23 +103,36 @@ public class AddNewTipSceneController implements Initializable {
 //                System.out.println(n.toString());
 //            }
 //            vbox.getChildren().addAll(isbn, publicationYear);
-            
-            
-        } 
+
+        }
         if (showAddBook && select.getValue().equals("Article")) {
             System.out.println("valittu artikkeli");
             showAddBook = false;
             setIsbnAndPublicationYearFields();
         }
     }
-    
+
     private void setIsbnAndPublicationYearFields() {
-        isbn.setEditable(showAddBook);
-        isbn.setMouseTransparent(!showAddBook);
-        isbn.setFocusTraversable(showAddBook);
-        publicationYear.setEditable(showAddBook);
-        publicationYear.setMouseTransparent(!showAddBook);
-        publicationYear.setFocusTraversable(showAddBook);
+        if (!isbn.getText().isEmpty() || !publicationYear.getText().isEmpty()) {
+            isbn.setText("");
+            publicationYear.setText("");
+        }
+        if (showAddBook) {
+            isbn.setEditable(true);
+            isbn.setMouseTransparent(false);
+            isbn.setFocusTraversable(true);
+            publicationYear.setEditable(true);
+            publicationYear.setMouseTransparent(false);
+            publicationYear.setFocusTraversable(true);
+        } else {
+            isbn.setEditable(false);
+            isbn.setMouseTransparent(true);
+            isbn.setFocusTraversable(false);
+            publicationYear.setEditable(false);
+            publicationYear.setMouseTransparent(true);
+            publicationYear.setFocusTraversable(false);
+        }
+
     }
-    
+
 }
