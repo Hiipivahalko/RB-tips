@@ -14,6 +14,10 @@ import javafx.scene.control.Hyperlink;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import rbtips.domain.AppService;
 import rbtips.domain.Article;
 import rbtips.domain.Tip;
@@ -58,16 +62,41 @@ public class ViewTipSceneController implements Initializable {
         url.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                try {
-                    new ProcessBuilder("x-www-browser", url.getText()).start();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if(Desktop.isDesktopSupported()){
+                    openWinBrowser();
+                }else{
+                    openMacBrowser();
+                    try {
+                        new ProcessBuilder("x-www-browser", url.getText()).start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root1));
         stage.showAndWait();
+    }
+    
+    public void openWinBrowser() {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.browse(new URI(url.getText()));
+        } catch (IOException | URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    public void openMacBrowser() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            runtime.exec("xdg-open " + url.getText());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }        
     }
 
     /**
