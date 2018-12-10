@@ -45,6 +45,7 @@ public class Database {
 
     private void createTables(Statement stmt) throws SQLException {
         stmt.execute(createTableArticles());
+        stmt.execute(createTableBook());
         stmt.execute(createTableTag());
         stmt.execute(createTableArticleTag());
     }
@@ -60,6 +61,18 @@ public class Database {
                 + ");";
     }
 
+    private String createTableBook() {
+        return "CREATE TABLE IF NOT EXISTS"
+                + " Book("
+                + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                + " headline TEXT NOT NULL,"
+                + " author TEXT NOT NULL,"
+                + " releaseYear INTEGER NOT NULL,"
+                + " isbn TEXT NOT NULL,"
+                + " date DATETIME default NULL"
+                + ");";
+    }
+    
     private String createTableTag() {
         return "CREATE TABLE IF NOT EXISTS"
                 + " Tag("
@@ -78,5 +91,7 @@ public class Database {
                 + " FOREIGN KEY (tag_id) REFERENCES Tag(id)"
                 + ");";
     }
+    
+    
 
 }

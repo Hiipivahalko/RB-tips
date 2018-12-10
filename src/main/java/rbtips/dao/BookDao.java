@@ -10,7 +10,7 @@ public class BookDao {
     private TagDao tagDao;
     private OpenLibrary olib;
     
-    public void BookDao(Database db, String tableName){
+    public BookDao(Database db, String tableName){
         this.db = db;
         this.tableName = tableName;
         this.tagDao = new TagDao(db, "");
