@@ -18,6 +18,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javafx.scene.control.Button;
 import rbtips.domain.AppService;
 import rbtips.domain.Article;
 import rbtips.domain.Tip;
@@ -39,9 +40,13 @@ public class ViewTipSceneController implements Initializable {
     @FXML
     Label headlineLabel;
     @FXML
+    Label timeStampLabel;
+    @FXML
     Hyperlink url;
     @FXML
     Label tagsLabel;
+    @FXML
+    Button markReadButton;
 
     public void setApplication(Main application) {
         this.application = application;
@@ -112,6 +117,7 @@ public class ViewTipSceneController implements Initializable {
         Article a = (Article) tip;
         tagsLabel.setText(appService.getAllTagsByArticle(a));
         url.setText(a.getUrl());
+        timeStampLabel.setText(tip.getDate());
     }
 
 //    @FXML
@@ -129,6 +135,9 @@ public class ViewTipSceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if(timeStampLabel.getText()==null){
+            
+        }
         // TODO
     }
 
@@ -141,10 +150,10 @@ public class ViewTipSceneController implements Initializable {
         appService.deleteTip((Article) tip);
         stage.close();
     }
-    
-    public void handleMarkReadButton(ActionEvent actionEvent){
-        
-        System.out.println("NAPPIA PAINETTU!");
+
+    public void handleMarkReadButton(ActionEvent actionEvent) throws SQLException {
+        appService.markAsRead((Article) tip);
+        stage.close();
     }
 
 }

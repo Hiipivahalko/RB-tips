@@ -184,7 +184,9 @@ public class AppService {
     }
 
     /**
-     * Delete tip from software and all links between tip at database if it's possible
+     * Delete tip from software and all links between tip at database if it's
+     * possible
+     *
      * @param article
      */
     public void deleteTip(Article article) {
@@ -204,8 +206,9 @@ public class AppService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-
-
+    public void markAsRead(Article article) throws SQLException {
+        articleDao.markAsRead(articleDao.getIdByHeadline(article.getHeadline()));
     }
 }

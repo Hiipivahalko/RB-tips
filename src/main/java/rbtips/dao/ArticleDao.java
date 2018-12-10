@@ -44,6 +44,7 @@ public class ArticleDao implements ArticleDaoApi {
 
         while (rs.next()) {
             Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
+            article.setDate(rs.getString("date"));
             article.setTags(String.join(",", tagDao.findArticleTags(article)));
             articles.add(article);
         }
@@ -55,7 +56,7 @@ public class ArticleDao implements ArticleDaoApi {
         return articles;
     }
 
-    public void marAsRead(int articleId) throws SQLException {
+    public void markAsRead(int articleId) throws SQLException {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("UPDATE Articles SET date = (?)"
@@ -63,7 +64,7 @@ public class ArticleDao implements ArticleDaoApi {
             stmt.setString(1, createTimeStamp());
             stmt.setInt(2, articleId);
             stmt.execute();
-            
+
             stmt.close();
             conn.close();
         } catch (Exception e) {

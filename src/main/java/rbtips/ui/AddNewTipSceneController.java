@@ -3,15 +3,21 @@ package rbtips.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import rbtips.main.Main;
@@ -22,12 +28,17 @@ public class AddNewTipSceneController implements Initializable {
     private Stage stage;
     private Main application;
     private AppService appService;
+    private boolean showAddBook;
     
+    @FXML VBox vbox;
+    @FXML ComboBox select;
     @FXML Label messageLabel;
     @FXML private TextField headline; 
     @FXML private TextField author;
     @FXML private TextField url;
     @FXML private TextArea tags;
+    @FXML private TextField isbn;
+    @FXML private TextField publicationYear;
     
 
     public void setApplication(Main application) {
@@ -59,6 +70,46 @@ public class AddNewTipSceneController implements Initializable {
  
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        select.getItems().addAll("Article", "Book");
+        select.getSelectionModel().selectFirst();
+        showAddBook = false;
+//        vbox.getChildren().removeAll(isbn, publicationYear);
+        setIsbnAndPublicationYearFields();
+    }
+    
+    @FXML
+    private void changeView() {
+        if(!showAddBook && select.getValue().equals("Book")) {
+            System.out.println("valittu kirja");
+            showAddBook = true;
+            setIsbnAndPublicationYearFields();
+//            vbox.getChildren().addAll(isbn, publicationYear);
+//            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
+//            Collections.swap(list, 5, list.size()-2);
+//            Collections.swap(list, 6, list.size()-1);
+//            vbox.getChildren().removeAll(list);
+//            vbox.getChildren().addAll(list);
+//            for(Node n :list) {
+//                System.out.println(n.toString());
+//            }
+//            vbox.getChildren().addAll(isbn, publicationYear);
+            
+            
+        } 
+        if (showAddBook && select.getValue().equals("Article")) {
+            System.out.println("valittu artikkeli");
+            showAddBook = false;
+            setIsbnAndPublicationYearFields();
+        }
+    }
+    
+    private void setIsbnAndPublicationYearFields() {
+        isbn.setEditable(showAddBook);
+        isbn.setMouseTransparent(!showAddBook);
+        isbn.setFocusTraversable(showAddBook);
+        publicationYear.setEditable(showAddBook);
+        publicationYear.setMouseTransparent(!showAddBook);
+        publicationYear.setFocusTraversable(showAddBook);
     }
     
 }
