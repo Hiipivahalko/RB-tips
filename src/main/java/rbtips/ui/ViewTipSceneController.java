@@ -145,5 +145,10 @@ public class ViewTipSceneController implements Initializable {
         appService.deleteTip((Article) tip);
         stage.close();
     }
+    
+    public void handleMarkReadButton(ActionEvent actionEvent){
+        
+        System.out.println("NAPPIA PAINETTU!");
+    }
 
 }

@@ -1,9 +1,7 @@
-
 package rbtips.dao;
 
 import java.io.IOException;
 import rbtips.domain.Book;
-
 
 public class BookDao {
     
