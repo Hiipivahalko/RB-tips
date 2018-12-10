@@ -121,7 +121,7 @@ public class ArticleDao implements ArticleDaoApi {
         ArrayList<Article> articles = new ArrayList<>();
 
         for (Article article : oldArticles) {
-            if (article.getHeadline().contains(headlineCondition)) {
+            if (article.getHeadline().toLowerCase().contains(headlineCondition.toLowerCase())) {
                 articles.add(article);
             }
         }
@@ -140,7 +140,7 @@ public class ArticleDao implements ArticleDaoApi {
             String[] articleTags = a.getTags().replaceAll("\\s", "").split(",");
             for (String tag : allTags) {
                 for (String articleTag : articleTags) {
-                    if (articleTag.equals(tag)) {
+                    if (articleTag.toLowerCase().equals(tag.toLowerCase())) {
                         articles.add(a);
                     }
                 }
