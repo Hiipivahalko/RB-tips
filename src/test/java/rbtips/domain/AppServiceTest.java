@@ -85,10 +85,11 @@ public class AppServiceTest {
 
     /**
      * Testing filtering with both filter inputs
+     *
      * @throws SQLException
      */
     @Test
-    public void MultipleFilterWorksCorrectly() throws SQLException {
+    public void multipleFilterWorksCorrectly() throws SQLException {
         app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
         app.saveArticle("jes are rigth", "author2", "blog2.fi", "tag,");
         app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
@@ -102,7 +103,7 @@ public class AppServiceTest {
     }
 
     @Test
-    public void MultipleFilteringWithOnlyHeadlineInput() {
+    public void multipleFilteringWithOnlyHeadlineInput() {
         app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
         app.saveArticle("jes are rigth", "author2", "blog2.fi", "tag,");
         app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
@@ -115,7 +116,7 @@ public class AppServiceTest {
     }
 
     @Test
-    public void MultipleFilteringWithOnlyTagInput() {
+    public void multipleFilteringWithOnlyTagInput() {
         app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
         app.saveArticle("jes are rigth", "author2", "blog2.fi", "winnerTag");
         app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
@@ -128,9 +129,9 @@ public class AppServiceTest {
     }
 
     @Test
-    public void DeleteArticle() {
+    public void anExistingArticleCanBeDeleted() {
         Article a = new Article("jes this is great", "author", "www.blog.fi", "tag, test");
-        app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
+        app.saveArticle("jes this is great", "author", "www.blog.fi", "tag,test");
         app.saveArticle("jes are rigth", "author2", "blog2.fi", "winnerTag");
         app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
 
