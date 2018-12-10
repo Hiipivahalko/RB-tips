@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import rbtips.domain.AppService;
 import rbtips.domain.Article;
 import rbtips.domain.Tip;
@@ -35,6 +36,8 @@ public class ViewTipSceneController implements Initializable {
     private Stage stage;
     private Tip tip;
 
+    @FXML
+    HBox hbox;
     @FXML
     Label authorLabel;
     @FXML
@@ -108,7 +111,7 @@ public class ViewTipSceneController implements Initializable {
     }
 
     /**
-     * Set information of Tip, when user want to view tip
+     * Set information of Tip, when user wants to view the tip
      *
      * @throws SQLException
      */
@@ -119,7 +122,8 @@ public class ViewTipSceneController implements Initializable {
         Article a = (Article) tip;
         tagsLabel.setText(appService.getAllTagsByArticle(a));
         url.setText(a.getUrl());
-        timeStampLabel.setText(tip.getDate());
+        timeStampLabel.setText(a.getDate());
+        checkMarkedStatus();
     }
 
 //    @FXML
@@ -137,9 +141,10 @@ public class ViewTipSceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(timeStampLabel.getText()==null){
-            
-        }
+//        
+//        if(timeStampLabel.getText()==null){
+//            hbox.getChildren().remove(markReadButton);
+//        }
         // TODO
     }
 
@@ -158,6 +163,13 @@ public class ViewTipSceneController implements Initializable {
     public void handleMarkReadButton(ActionEvent actionEvent) throws SQLException {
         appService.markAsRead((Article) tip);
         stage.close();
+    }
+    
+    public void checkMarkedStatus() {
+        Article a = (Article) tip;
+        if(a.getDate() != null) {
+            hbox.getChildren().remove(markReadButton);
+        }
     }
 
 }
