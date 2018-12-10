@@ -1,7 +1,5 @@
 package rbtips.domain;
 
-import java.util.Objects;
-
 public class Book {
 
     private String isbn;
