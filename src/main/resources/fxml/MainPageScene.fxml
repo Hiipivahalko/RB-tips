@@ -46,16 +46,6 @@
                                 <PropertyValueFactory property="author" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="URL">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="url" />
-                            </cellValueFactory>
-                        </TableColumn>
-                        <TableColumn prefWidth="205.0" text="Tags">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="tags" />
-                            </cellValueFactory>
-                        </TableColumn>
                     </columns>
                     <HBox.margin>
                         <Insets top="2.0" />
