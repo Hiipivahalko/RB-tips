@@ -62,16 +62,23 @@ public class ViewTipSceneController implements Initializable {
         url.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                if(Desktop.isDesktopSupported()){
-                    openWinBrowser();
-                }else{
-                    openMacBrowser();
-                    try {
-                        new ProcessBuilder("x-www-browser", url.getText()).start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    String url_open = url.getText();
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+                } catch (Exception e) {
+                    
                 }
+                
+//                if(Desktop.isDesktopSupported()){
+//                    openWinBrowser();
+//                }else{
+//                    openMacBrowser();
+//                    try {
+//                        new ProcessBuilder("x-www-browser", url.getText()).start();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
             }
         });
         stage.initModality(Modality.APPLICATION_MODAL);
