@@ -52,7 +52,11 @@ public class Article extends Tip {
     public void setTags(String tags) {
         super.setTags(tags);
     }*/
-    public void setTimeStamp(String timeStamp) {
-        this.date = timeStamp;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDate() {
+        return this.date;
     }
 }

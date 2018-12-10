@@ -39,10 +39,15 @@
                         <Font size="17.0" />
                     </font>
                 </Hyperlink>
+                <Label fx:id="timeStampLabel" prefHeight="31.0" prefWidth="211.0" text="Label" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
                 <Label fx:id="emptyLabel" prefHeight="31.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label fx:id="tagsLabel" layoutX="62.0" layoutY="212.0" prefHeight="40.0" prefWidth="361.0" text="Label" GridPane.rowIndex="4">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="17.0" />
                     </font>
                 </Label>
             </children>
