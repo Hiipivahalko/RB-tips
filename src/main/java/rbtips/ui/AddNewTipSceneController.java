@@ -28,12 +28,11 @@ public class AddNewTipSceneController implements Initializable {
     private Stage stage;
     private Main application;
     private AppService appService;
-    private boolean showAddBook;
 
     @FXML
     VBox vbox;
     @FXML
-    ComboBox select;
+    ComboBox selectBox;
     @FXML
     Label messageLabel;
     @FXML
@@ -70,7 +69,7 @@ public class AddNewTipSceneController implements Initializable {
     private void handleAddNewTipButton(ActionEvent event) throws SQLException, IOException {
 //        Article article = new Article(headline.getText(), author.getText(), url.getText());
 //        String tagsForCheck = tags.getText();
-        if (!showAddBook && select.getValue().equals("Article")) {
+        if (selectBox.getValue().equals("Article")) {
             if (appService.saveArticle(headline.getText(), author.getText(), url.getText(), tags.getText())) {
                 stage.close();
             }
@@ -80,18 +79,16 @@ public class AddNewTipSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        select.getItems().addAll("Article", "Book");
-        select.getSelectionModel().selectFirst();
-        showAddBook = false;
+        selectBox.getItems().addAll("Article", "Book");
+        selectBox.getSelectionModel().selectFirst();
 //        vbox.getChildren().removeAll(isbn, publicationYear);
         setIsbnAndPublicationYearFields();
     }
 
     @FXML
     private void changeView() {
-        if (!showAddBook && select.getValue().equals("Book")) {
-            System.out.println("valittu kirja");
-            showAddBook = true;
+        if (selectBox.getValue().equals("Book")) {
+            System.out.println("book chosen");
             setIsbnAndPublicationYearFields();
 //            vbox.getChildren().addAll(isbn, publicationYear);
 //            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
@@ -105,9 +102,8 @@ public class AddNewTipSceneController implements Initializable {
 //            vbox.getChildren().addAll(isbn, publicationYear);
 
         }
-        if (showAddBook && select.getValue().equals("Article")) {
-            System.out.println("valittu artikkeli");
-            showAddBook = false;
+        if (selectBox.getValue().equals("Article")) {
+            System.out.println("article chosen");
             setIsbnAndPublicationYearFields();
         }
     }
@@ -117,7 +113,7 @@ public class AddNewTipSceneController implements Initializable {
             isbn.setText("");
             publicationYear.setText("");
         }
-        if (showAddBook) {
+        if (selectBox.getValue().equals("Book")) {
             isbn.setEditable(true);
             isbn.setMouseTransparent(false);
             isbn.setFocusTraversable(true);

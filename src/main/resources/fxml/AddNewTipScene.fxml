@@ -14,7 +14,7 @@
     <children>
         <VBox fx:id="vbox" prefHeight="292.0" prefWidth="372.0" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <ComboBox fx:id="select" maxWidth="1.7976931348623157E308" onAction="#changeView" prefHeight="27.0" prefWidth="393.0" VBox.vgrow="ALWAYS" />
+            <ComboBox fx:id="selectBox" maxWidth="1.7976931348623157E308" onAction="#changeView" prefHeight="27.0" prefWidth="393.0" VBox.vgrow="ALWAYS" />
                 <Label fx:id="messageLabel" prefHeight="17.0" prefWidth="354.0" text="Fill" />
                 <TextField fx:id="headline" promptText="Headline" />
                 <TextField fx:id="author" promptText="Author" />
