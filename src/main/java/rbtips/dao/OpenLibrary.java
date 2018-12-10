@@ -1,4 +1,3 @@
-
 package rbtips.dao;
 
 import com.google.gson.Gson;

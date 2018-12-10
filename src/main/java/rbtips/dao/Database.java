@@ -55,7 +55,8 @@ public class Database {
                 + " id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                 + " headline TEXT NOT NULL,"
                 + " author TEXT NOT NULL,"
-                + " url VARCHAR(255)"
+                + " url VARCHAR(255),"
+                + " date DATETIME default NULL"
                 + ");";
     }
 

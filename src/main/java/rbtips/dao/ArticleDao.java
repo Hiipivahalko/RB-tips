@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import rbtips.domain.Article;
 
@@ -51,6 +53,29 @@ public class ArticleDao implements ArticleDaoApi {
         conn.close();
 
         return articles;
+    }
+
+    public void marAsRead(int articleId) throws SQLException {
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Articles SET date = (?)"
+                    + " WHERE id = (?)");
+            stmt.setString(1, createTimeStamp());
+            stmt.setInt(2, articleId);
+            stmt.execute();
+            
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public String createTimeStamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String ts = sdf.format(timestamp);
+        return ts;
     }
 
     public int getIdByHeadline(String headline) throws SQLException {
@@ -151,6 +176,7 @@ public class ArticleDao implements ArticleDaoApi {
 
     /**
      * Delete article from database
+     *
      * @param articleId
      */
     public void deleteArticle(int articleId) {

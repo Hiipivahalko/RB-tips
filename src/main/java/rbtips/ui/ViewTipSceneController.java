@@ -63,29 +63,23 @@ public class ViewTipSceneController implements Initializable {
             @Override
             public void handle(ActionEvent t) {
                 try {
-                    String url_open = url.getText();
-                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
-                } catch (Exception e) {
-                    
+                    new ProcessBuilder("x-www-browser", url.getText()).start();
+                } catch (IOException e) {
+                    try {
+                        String url_open = url.getText();
+                        java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+
+                    } catch (Exception ex) {
+
+                    }
                 }
-                
-//                if(Desktop.isDesktopSupported()){
-//                    openWinBrowser();
-//                }else{
-//                    openMacBrowser();
-//                    try {
-//                        new ProcessBuilder("x-www-browser", url.getText()).start();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
             }
         });
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root1));
         stage.showAndWait();
     }
-    
+
     public void openWinBrowser() {
         Desktop desktop = Desktop.getDesktop();
         try {
@@ -95,7 +89,7 @@ public class ViewTipSceneController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void openMacBrowser() {
         Runtime runtime = Runtime.getRuntime();
         try {
@@ -103,11 +97,12 @@ public class ViewTipSceneController implements Initializable {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }        
+        }
     }
 
     /**
      * Set information of Tip, when user want to view tip
+     *
      * @throws SQLException
      */
     private void setTipInformation() throws SQLException {
@@ -139,11 +134,17 @@ public class ViewTipSceneController implements Initializable {
 
     /**
      * Delete Tip, button handler. Delete tip from database and software
+     *
      * @param actionEvent
      */
     public void handleTipDeleteButton(ActionEvent actionEvent) {
         appService.deleteTip((Article) tip);
         stage.close();
+    }
+    
+    public void handleMarkReadButton(ActionEvent actionEvent){
+        
+        System.out.println("NAPPIA PAINETTU!");
     }
 
 }
