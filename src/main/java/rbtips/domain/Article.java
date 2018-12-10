@@ -5,10 +5,12 @@ import java.util.Objects;
 public class Article extends Tip {
 
     private final String url;
+    private String date;
 
     public Article(String headline, String author, String url) {
         super(headline, author, "");
         this.url = url;
+        this.date = null;
     }
 
     public Article(String headline, String author, String url, String tags) {
@@ -50,4 +52,11 @@ public class Article extends Tip {
     public void setTags(String tags) {
         super.setTags(tags);
     }*/
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
 }

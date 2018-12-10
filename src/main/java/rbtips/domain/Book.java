@@ -1,7 +1,5 @@
 package rbtips.domain;
 
-import java.util.Objects;
-
 public class Book {
 
     private String isbn;
@@ -48,6 +46,10 @@ public class Book {
     
     public String getAuthor() {
         return author;
+    }
+    
+    public String getPublish_date() {
+        return publish_date;
     }
     
     

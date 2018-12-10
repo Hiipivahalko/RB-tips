@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import rbtips.main.Main;
@@ -64,7 +65,7 @@ public class MainPageSceneController {
             Tip t = tableView.getSelectionModel().getSelectedItem();
             setViewTipScene(t);
         }
-        setArticles();
+        updateTimeStampColumn();
     }
     
     @FXML
@@ -91,6 +92,12 @@ public class MainPageSceneController {
         viewTip.display(root1);
     }
     
+    public void updateTimeStampColumn() throws SQLException {
+        TableColumn ts = tableView.getColumns().get(2);
+        tableView.getColumns().remove(ts);
+        this.setArticles();
+        tableView.getColumns().add(ts);
+    }
     
 //    @Override
 //    public void initialize(URL url, ResourceBundle rb) {

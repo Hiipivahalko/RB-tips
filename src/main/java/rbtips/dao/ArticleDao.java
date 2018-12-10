@@ -44,6 +44,7 @@ public class ArticleDao implements ArticleDaoApi {
 
         while (rs.next()) {
             Article article = new Article(rs.getString("headline"), rs.getString("author"), rs.getString("url"));
+            article.setDate(rs.getString("date"));
             article.setTags(String.join(",", tagDao.findArticleTags(article)));
             articles.add(article);
         }
