@@ -53,6 +53,17 @@ public class TagDaoTest {
         assertTrue(tagDao.findIdByName(tags).size() == 2);
     }
 
+    @Test
+    public void deleteTag() throws SQLException {
+        String[] tags =  addTags("testTag", "anotherOne");
+
+        int tagId = tagDao.findIdByName(tags).get(0);
+        tagDao.deleteTag(tagId);
+        assertTrue(tagDao.findIdByName(tags).size() == 1);
+
+        assertTrue(!tagDao.alreadyExists("testTag") && tagDao.alreadyExists("anotherOne"));
+    }
+
     public String[] addTags(String tag) throws SQLException {
         String[] tags = new String[]{tag};
         tagDao.addTagsIfNotAlreadyExist(tags);
