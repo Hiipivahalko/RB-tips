@@ -127,6 +127,29 @@ public class AppServiceTest {
         assertTrue(articles.get(0).getHeadline().equals("jes are rigth"));
     }
 
+    @Test
+    public void DeleteArticle() {
+        Article a = new Article("jes this is great", "author", "www.blog.fi", "tag, test");
+        app.saveArticle("jes this is great", "author", "blog.fi", "tag,test");
+        app.saveArticle("jes are rigth", "author2", "blog2.fi", "winnerTag");
+        app.saveArticle("why im not in", "author", "blog.fi", "empty,lone");
+
+        app.deleteTip(a);
+
+        ArrayList<Article> articles = app.getAllArticles();
+
+        boolean notFound = false;
+
+        for (Article article : articles) {
+            if (article.getHeadline().equals("jes this is great")) {
+                notFound = true;
+            }
+        }
+
+        assertTrue(!notFound);
+        assertTrue(articles.size() == 2);
+    }
+
     private void saveArticle() {
         app.saveArticle("Breaking news", "Journalist", "http://news.com", "news");
     }

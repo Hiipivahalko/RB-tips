@@ -18,7 +18,7 @@ public class ArticleTagDao {
 
     public void create(int articleId, int tagId) throws SQLException {
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(article_id, tag_id) VALUES (?, ?)");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (article_id, tag_id) VALUES (?, ?)");
 
         stmt.setInt(1, articleId);
         stmt.setInt(2, tagId);
