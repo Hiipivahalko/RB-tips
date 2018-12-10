@@ -32,6 +32,7 @@ public class Database {
             stmt.execute("DROP TABLE Articles");
             stmt.execute("DROP TABLE Tag");
             stmt.execute("DROP TABLE ArticleTag");
+            stmt.execute("DROP TABLE Book");
             createTables(stmt);
 
             stmt.close();
@@ -67,7 +68,7 @@ public class Database {
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                 + " headline TEXT NOT NULL,"
                 + " author TEXT NOT NULL,"
-                + " releaseYear INTEGER NOT NULL,"
+                + " releaseYear TEXT NOT NULL,"
                 + " isbn TEXT NOT NULL,"
                 + " date DATETIME default NULL"
                 + ");";
