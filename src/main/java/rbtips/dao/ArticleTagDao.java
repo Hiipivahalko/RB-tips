@@ -76,5 +76,20 @@ public class ArticleTagDao {
 
         return true;
     }
+    
+    public int getRowAmount() throws SQLException {
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT (*) FROM " + tableName);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        int rowAmount = rs.getInt("count (*)");
+        
+        stmt.close();
+        rs.close();
+        conn.close();
+        
+        return rowAmount;
+    }
 
 }

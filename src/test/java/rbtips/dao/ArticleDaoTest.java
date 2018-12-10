@@ -97,6 +97,32 @@ public class ArticleDaoTest {
         assertTrue(test1 && test2);
     }
 
+    @Test
+    public void deletingAnExistingArticleWorks() throws SQLException {
+        articleDao.create(new Article("headline", "mr author", "www.url.com"));
+        articleDao.create(new Article("headline2", "author", "yle.fi"));
+        articleDao.create(new Article("headline3", "author3", "www.url34.com"));
+
+        articleDao.deleteArticle(1);
+
+        ArrayList<Article> articles = articleDao.getAll();
+
+        assertTrue(articles.size() == 2);
+    }
+
+    @Test
+    public void cannotDeleteAnArticleThatDoesNotExist() throws SQLException {
+        articleDao.create(new Article("headline", "mr author", "www.url.com"));
+        articleDao.create(new Article("headline2", "author", "yle.fi"));
+        articleDao.create(new Article("headline3", "author3", "www.url34.com"));
+
+        articleDao.deleteArticle(5);
+        
+        ArrayList<Article> articles = articleDao.getAll();
+        
+        assertTrue(articles.size() == 3);
+    }
+
     @After
     public void tearDown() throws Exception {
         try (Connection connection = database.getConnection();
