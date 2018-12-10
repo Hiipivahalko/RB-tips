@@ -50,6 +50,10 @@ public class Book {
         return author;
     }
     
+    public String getPublish_date() {
+        return publish_date;
+    }
+    
     
     
     

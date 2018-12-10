@@ -15,6 +15,7 @@ public class BookDaoTest {
     
     BookDao bookDao;
     Database db;
+    Book book;
     
     public BookDaoTest() {
         db = new Database("jdbc:sqlite:test.db");
@@ -23,7 +24,8 @@ public class BookDaoTest {
     
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
+        book = bookDao.getByIsbn("0517226952");
     }
     
     @After
@@ -31,9 +33,13 @@ public class BookDaoTest {
     }
     
     @Test
-    public void rightTitle() throws IOException {
-        Book book = bookDao.getByIsbn("0517226952");
+    public void rightTitle() {
         assertEquals("The ultimate hitchhiker's guide", book.getTitle());
+    }
+    
+    @Test
+    public void rightPublish_date() {
+        assertEquals("2005", book.getPublish_date());
     }
 
     // TODO add test methods here.
