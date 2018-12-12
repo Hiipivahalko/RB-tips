@@ -19,6 +19,8 @@ public class OpenLibrary {
         
         Book book = mapper.fromJson(jsonText, Book.class);
         
+        book.setIsbn(isbn);
+        
         return book;
     }
 }
