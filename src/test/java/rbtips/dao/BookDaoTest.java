@@ -41,6 +41,11 @@ public class BookDaoTest {
     public void rightPublish_date() {
         assertEquals("2005", book.getPublish_date());
     }
+    
+    @Test
+    public void rightAuthors() {
+        assertEquals("Douglas Adams", book.getAuthor());
+    }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

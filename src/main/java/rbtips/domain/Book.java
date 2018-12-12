@@ -7,6 +7,7 @@ public class Book {
     private String title;
     private String author;
     private String tags;
+    private Author[] authors;
     
     
     
@@ -27,11 +28,11 @@ public class Book {
     }
     
     
-    /*
-    public void setTitle(String title) {
-        this.title = title;
-    }
     
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+    /*
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -44,15 +45,21 @@ public class Book {
         return title;
     }
     
-    public String getAuthor() {
-        return author;
-    }
-    
     public String getPublish_date() {
         return publish_date;
     }
     
+    public String getAuthor() {
+        author = "";
+        for(Author a : authors) {
+            author += a.getName() + ", ";
+        }
+        return author.substring(0, author.length() - 2);
+    }
     
+    public String getIsbn() {
+        return isbn;
+    }
     
     
     
@@ -62,5 +69,11 @@ public class Book {
         return author+ ": " + title + " (" + publish_date + ")";
     }
 
-
+    private class Author {
+        private String name;
+        
+        public String getName() {
+            return name;
+        }
+    }
 }

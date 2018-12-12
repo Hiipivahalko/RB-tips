@@ -2,6 +2,7 @@ package rbtips.dao;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import rbtips.domain.Book;
 
 public class BookDao {
@@ -27,10 +28,35 @@ public class BookDao {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(headline, author, releaseYear, isbn) VALUES (?, ?, ?, ?)");
         stmt.setString(1, book.getTitle());
         stmt.setString(2, book.getAuthor());
-        
+        stmt.setString(2, book.getPublish_date());
+        stmt.setString(4, book.getIsbn());
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
     }
     
     
+    public ArrayList<Book> getAll() throws SQLException {
+        ArrayList<Book> books = new ArrayList<>();
+
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Book book = new Book(rs.getString("headline"), rs.getString("author"), rs.getString("releaseYear"), rs.getString("isbn"));
+            //book.setDate(rs.getString("date"));
+            //book.setTags(String.join(",", tagDao.findBookTags(book)));
+            books.add(book);
+        }
+
+        stmt.close();
+        rs.close();
+        conn.close();
+
+        return books;
+    }
     
     
     
