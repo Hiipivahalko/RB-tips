@@ -75,7 +75,7 @@ public class Database {
                 + " date DATETIME default NULL"
                 + ");";
     }
-    
+
     private String createTableTag() {
         return "CREATE TABLE IF NOT EXISTS"
                 + " Tag("
@@ -94,7 +94,7 @@ public class Database {
                 + " FOREIGN KEY (tag_id) REFERENCES Tag(id)"
                 + ");";
     }
-    
+
     private String createTableBookTag() {
         return "CREATE TABLE IF NOT EXISTS"
                 + " BookTag("
@@ -105,7 +105,5 @@ public class Database {
                 + " FOREIGN KEY (tag_id) REFERENCES Tag(id)"
                 + ");";
     }
-    
-    
 
 }

@@ -5,51 +5,54 @@ import java.io.IOException;
 import org.apache.http.client.fluent.Request;
 import rbtips.domain.Book;
 
-
 public class OpenLibrary {
-    
+
     public Book getByIsbn(String isbn) throws IOException {
-        String url = "https://openlibrary.org/api/books?bibkeys=ISBN:"+ isbn +"&jscmd=data&format=json";
+        String url = "https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&jscmd=data&format=json";
         String jsonText = Request.Get(url).execute().returnContent().asString();
-        
-        jsonText = jsonText.substring(20, (jsonText.length()-1));
-        
+
+        jsonText = jsonText.substring(20, (jsonText.length() - 1));
+
         Gson mapper = new Gson();
-        
+
         JsonBook jsonBook = mapper.fromJson(jsonText, JsonBook.class);
-        
+
         Book book = new Book(jsonBook.title, jsonBook.getAuthor(), jsonBook.getPublishDate(), jsonBook.isbn);
         book.setIsbn(isbn);
-        
+
         return book;
     }
-    
+
     private class JsonBook {
+
         private String isbn;
         private String publish_date;
         private String title;
         private String author;
         private Author[] authors;
-        
+
         public String getTitle() {
             return title;
         }
-    
+
         public String getPublishDate() {
-            if(publish_date.length() == 4) return publish_date;
-            
-            return publish_date.substring(publish_date.length()-4);
+            if (publish_date.length() == 4) {
+                return publish_date;
+            }
+
+            return publish_date.substring(publish_date.length() - 4);
         }
-    
+
         public String getAuthor() {
             this.author = "";
-            for(Author a : authors) {
+            for (Author a : authors) {
                 author += a.getName() + ", ";
             }
             return author.substring(0, author.length() - 2);
         }
-        
+
         private class Author {
+
             private String name;
 
             public String getName() {
