@@ -137,4 +137,35 @@ public class Stepdefs {
         assertTrue(app.searchTag(tags).size() == 2);
     }
 
+
+    @Given("^User can see five tips in program$")
+    public void user_can_see_five_tips_in_program() throws Throwable {
+        assertTrue(app.getAllArticles().size() == 0);
+        addTipsToDatabase();
+        assertTrue(app.getAllArticles().size() == 5);
+    }
+
+    @When("^User delete one tip$")
+    public void user_delete_one_tip() throws Throwable {
+        app.deleteTip(new Article("Cucumber", "Tester", "https://tester.fi"));
+        assertTrue(app.getAllArticles().size() == 4);
+
+        assertTrue(!searchArticles("Cucumber", "Tester", "https://teste.fi"));
+    }
+
+    @Then("^User can see (\\d+) tip in program$")
+    public void user_can_see_tip_in_program(int amount) throws Throwable {
+        assertTrue(app.getAllArticles().size() == 4);
+        
+    }
+
+    private void addTipsToDatabase() {
+        app.saveArticle("Cucumber", "Tester", "https://tester.fi", "tag,test");
+        app.saveArticle("Ohtu Miniprojekti", "Mluukkai", "https://github.fi", "tag,test");
+        app.saveArticle("Linux is the best", "LinusT", "https://linux.fi", "tag,test");
+        app.saveArticle("Why using mac", "Macfanboi", "https://imlovewiththemac.fi", "tag,test");
+        app.saveArticle("Hockey vs football", "Urheiluhullu", "https://hockeyisthebest.fi", "tag,test");
+
+    }
+
 }
