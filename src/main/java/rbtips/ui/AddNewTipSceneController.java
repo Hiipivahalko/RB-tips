@@ -100,14 +100,14 @@ public class AddNewTipSceneController implements Initializable {
         selectBox.getItems().addAll("Article", "Book");
         selectBox.getSelectionModel().selectFirst();
 //        vbox.getChildren().removeAll(isbn, publicationYear);
-        setIsbnAndPublicationYearFields();
+        setIsbnAndPublicationYearAndURLFields();
     }
 
     @FXML
     private void changeView() {
         if (selectBox.getValue().equals("Book")) {
             System.out.println("book chosen");
-            setIsbnAndPublicationYearFields();
+            setIsbnAndPublicationYearAndURLFields();
 //            vbox.getChildren().addAll(isbn, publicationYear);
 //            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
 //            Collections.swap(list, 3, 8);
@@ -123,14 +123,15 @@ public class AddNewTipSceneController implements Initializable {
         if (selectBox.getValue().equals("Article")) {
 //            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
             System.out.println("article chosen");
-            setIsbnAndPublicationYearFields();
+            setIsbnAndPublicationYearAndURLFields();
         }
     }
 
-    private void setIsbnAndPublicationYearFields() {
-        if (!isbn.getText().isEmpty() || !publicationYear.getText().isEmpty()) {
+    private void setIsbnAndPublicationYearAndURLFields() {
+        if (!isbn.getText().isEmpty() || !publicationYear.getText().isEmpty() || !url.getText().isEmpty()) {
             isbn.setText("");
             publicationYear.setText("");
+            url.setText("");
         }
         if (selectBox.getValue().equals("Book")) {
             isbn.setEditable(true);
@@ -139,6 +140,9 @@ public class AddNewTipSceneController implements Initializable {
             publicationYear.setEditable(true);
             publicationYear.setMouseTransparent(false);
             publicationYear.setFocusTraversable(true);
+            url.setEditable(false);
+            url.setMouseTransparent(true);
+            url.setFocusTraversable(false);
         } else {
             isbn.setEditable(false);
             isbn.setMouseTransparent(true);
@@ -146,6 +150,9 @@ public class AddNewTipSceneController implements Initializable {
             publicationYear.setEditable(false);
             publicationYear.setMouseTransparent(true);
             publicationYear.setFocusTraversable(false);
+            url.setEditable(true);
+            url.setMouseTransparent(false);
+            url.setFocusTraversable(true);
         }
 
     }
