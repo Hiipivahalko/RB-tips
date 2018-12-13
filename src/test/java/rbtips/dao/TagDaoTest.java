@@ -55,7 +55,7 @@ public class TagDaoTest {
 
     @Test
     public void deleteTag() throws SQLException {
-        String[] tags =  addTags("testTag", "anotherOne");
+        String[] tags = addTags("testTag", "anotherOne");
 
         int tagId = tagDao.findIdByName(tags).get(0);
         tagDao.deleteTag(tagId);

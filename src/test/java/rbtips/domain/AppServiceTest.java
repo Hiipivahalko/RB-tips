@@ -60,7 +60,7 @@ public class AppServiceTest {
         ArrayList<Article> articles = app.searchTag("news");
         assertEquals("Breaking news", articles.get(0).getHeadline());
     }
-    
+
     @Test
     public void searchBookByTagsWorksCorrectly() {
         saveBook();
@@ -165,27 +165,27 @@ public class AppServiceTest {
     private void saveArticle() {
         app.saveArticle("Breaking news", "Journalist", "http://news.com", "news");
     }
-    
+
     private void saveBook() {
         app.saveBook("The Hobbit", "J. R. R. Tolkien", "2001", "0345445600", "tolkien");
     }
-    
+
     @Test
     public void saveBookWorks() {
         assertEquals(true, app.saveBook("The Hobbit", "J. R. R. Tolkien", "2001", "0345445600", "tolkien"));
     }
-    
+
     @Test
     public void getAllBooksReturnsRightAmountOfSavedBooks() {
         saveBook();
         saveBook();
         saveBook();
         saveBook();
-        
+
         ArrayList<Book> books = app.getAllBooks();
         assertEquals(4, books.size());
     }
-    
+
     @Test
     public void deleteBookWorks() {
         saveBook();
@@ -196,7 +196,7 @@ public class AppServiceTest {
         books = app.getAllBooks();
         assertEquals(1, books.size());
     }
-    
+
     @Test
     public void wrongInputWhenSavingBook() {
         assertFalse(app.saveBook("o", "a", "a", "a", "a"));

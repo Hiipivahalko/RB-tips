@@ -117,9 +117,9 @@ public class ArticleDaoTest {
         articleDao.create(new Article("headline3", "author3", "www.url34.com"));
 
         articleDao.deleteArticle(5);
-        
+
         ArrayList<Article> articles = articleDao.getAll();
-        
+
         assertTrue(articles.size() == 3);
     }
 

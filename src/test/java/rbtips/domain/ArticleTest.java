@@ -34,8 +34,6 @@ public class ArticleTest {
         assertEquals("Author: Headline (url: www.article.com)", article.toString());
     }
 
-
-    //Tests for equals()
     @Test
     public void returnTrueIfEquals() {
         Article article_clone = article;
@@ -54,8 +52,4 @@ public class ArticleTest {
         assertEquals(false, article.equals(string_article));
     }
 
-    
-    
 }
-
-

@@ -1,11 +1,7 @@
-
 package rbtips.dao;
 
 import java.sql.SQLException;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,7 +30,6 @@ public class BookTagDaoTest {
         btd.create(3, 7);
 
         assertTrue(btd.getRowAmount() == 3);
-
     }
     
     @Test
@@ -45,13 +40,4 @@ public class BookTagDaoTest {
         assertFalse(btd.isThereStillMoreUnionsToTag(1));
     }
     
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

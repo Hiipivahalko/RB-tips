@@ -137,7 +137,6 @@ public class Stepdefs {
         assertTrue(app.searchTag(tags).size() == 2);
     }
 
-
     @Given("^User can see five tips in program$")
     public void user_can_see_five_tips_in_program() throws Throwable {
         assertTrue(app.getAllArticles().size() == 0);
@@ -156,7 +155,7 @@ public class Stepdefs {
     @Then("^User can see (\\d+) tip in program$")
     public void user_can_see_tip_in_program(int amount) throws Throwable {
         assertTrue(app.getAllArticles().size() == 4);
-        
+
     }
 
     private void addTipsToDatabase() {

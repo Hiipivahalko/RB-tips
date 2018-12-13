@@ -1,15 +1,12 @@
 
 package rbtips.dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import rbtips.domain.Book;
@@ -21,8 +18,6 @@ public class BookDaoTest {
     Database database;
     Book book;
     
-    
-    
     @Before
     public void setUp() throws Exception {
         database = new Database("jdbc:sqlite:test.db");
@@ -30,8 +25,6 @@ public class BookDaoTest {
         database.initializeDatabase();
         book = bookDao.getByIsbn("0517226952");
     }
-    
-    
     
     @Test
     public void rightTitle() {
@@ -148,10 +141,4 @@ public class BookDaoTest {
         }
     }
     
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

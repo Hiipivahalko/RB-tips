@@ -31,12 +31,10 @@ public class UIStub implements UI {
 
     @Override
     public void showTips() {
-
     }
 
     @Override
     public void search() {
-
     }
 
 }

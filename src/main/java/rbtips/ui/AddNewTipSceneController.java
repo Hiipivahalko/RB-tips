@@ -1,17 +1,13 @@
 package rbtips.ui;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -32,13 +28,7 @@ public class AddNewTipSceneController implements Initializable {
     @FXML
     Label messageLabel;
     @FXML
-    private TextField headline;
-    @FXML
-    private TextField author;
-    @FXML
     private TextField url;
-    @FXML
-    private TextArea tags;
     @FXML
     private TextField isbn;
     @FXML
@@ -61,66 +51,11 @@ public class AddNewTipSceneController implements Initializable {
         stage.showAndWait();
     }
 
-    @FXML
-    private void handleAddNewTipButton(ActionEvent event) throws SQLException, IOException {
-//        Article article = new Article(headline.getText(), author.getText(), url.getText());
-//        String tagsForCheck = tags.getText();
-        if (selectBox.getValue().equals("Article")) {
-            if (appService.saveArticle(headline.getText(), author.getText(), url.getText(), tags.getText())) {
-                stage.close();
-            }
-        } else if(selectBox.getValue().equals("Book")) {
-            if(appService.saveBook(headline.getText(), author.getText(), publicationYear.getText(), isbn.getText(), tags.getText())) {
-                stage.close();
-            }
-        }
-
-    }
-    
-    @FXML
-    private void populate(ActionEvent event) throws IOException {
-        if(selectBox.getValue().equals("Book")) {
-            try {
-                Book b = appService.getBookByIsbn(isbn.getText());
-                headline.setText(b.getHeadline());
-                author.setText(b.getAuthor());
-                publicationYear.setText(b.getPublishDate());
-            } catch (Exception e) {
-                System.out.println("Something went wrong");
-            }
-        }
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         selectBox.getItems().addAll("Article", "Book");
         selectBox.getSelectionModel().selectFirst();
-//        vbox.getChildren().removeAll(isbn, publicationYear);
         setIsbnAndPublicationYearAndURLFields();
-    }
-
-    @FXML
-    private void changeView() {
-        if (selectBox.getValue().equals("Book")) {
-            System.out.println("book chosen");
-            setIsbnAndPublicationYearAndURLFields();
-//            vbox.getChildren().addAll(isbn, publicationYear);
-//            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
-//            Collections.swap(list, 3, 8);
-//            Collections.swap(list, 6, list.size()-1);
-//            vbox.getChildren().removeAll(list);
-//            vbox.getChildren().addAll(list);
-//            for(Node n :list) {
-//                System.out.println(n.toString());
-//            }
-//            vbox.getChildren().addAll(isbn, publicationYear);
-
-        }
-        if (selectBox.getValue().equals("Article")) {
-//            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
-            System.out.println("article chosen");
-            setIsbnAndPublicationYearAndURLFields();
-        }
     }
 
     private void setIsbnAndPublicationYearAndURLFields() {
@@ -150,7 +85,6 @@ public class AddNewTipSceneController implements Initializable {
             url.setMouseTransparent(false);
             url.setFocusTraversable(true);
         }
-
     }
 
 }
