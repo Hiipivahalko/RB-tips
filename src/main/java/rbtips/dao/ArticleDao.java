@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import rbtips.domain.Article;
 
 public class ArticleDao implements ArticleDaoApi {
@@ -67,7 +68,7 @@ public class ArticleDao implements ArticleDaoApi {
 
             stmt.close();
             conn.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -188,10 +189,10 @@ public class ArticleDao implements ArticleDaoApi {
             stmt.setInt(1, articleId);
 
             stmt.execute();
-            
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             System.out.println("Error Message -> " + e.getMessage());
-            System.out.println(e.getStackTrace());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 }

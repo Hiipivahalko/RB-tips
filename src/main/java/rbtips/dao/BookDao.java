@@ -4,26 +4,27 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import rbtips.domain.Book;
 
 public class BookDao {
-    
+
     private final Database db;
     private final String tableName;
     private final TagDao tagDao;
     private final OpenLibrary olib;
-    
-    public BookDao(Database db, String tableName){
+
+    public BookDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
         this.tagDao = new TagDao(db, "Tag");
         this.olib = new OpenLibrary();
     }
-    
+
     public Book getByIsbn(String isbn) throws IOException {
         return olib.getByIsbn(isbn);
     }
-    
+
     public void create(Book book) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(headline, author, releaseYear, isbn) VALUES (?, ?, ?, ?)");
@@ -35,8 +36,7 @@ public class BookDao {
         stmt.close();
         conn.close();
     }
-    
-    
+
     public ArrayList<Book> getAll() throws SQLException {
         ArrayList<Book> books = new ArrayList<>();
 
@@ -58,8 +58,7 @@ public class BookDao {
 
         return books;
     }
-    
-    //Sama kuin Articlella
+
     public void markAsRead(int bookId) throws SQLException {
         try {
             Connection conn = db.getConnection();
@@ -75,16 +74,14 @@ public class BookDao {
             System.out.println(e.getMessage());
         }
     }
-    
-    //Sama kuin Articlella
+
     public String createTimeStamp() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String ts = sdf.format(timestamp);
         return ts;
     }
-    
-    //Sama kuin Articlella
+
     public int getIdByHeadline(String headline) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT *  FROM " + tableName + " WHERE headline = (?)");
@@ -98,7 +95,7 @@ public class BookDao {
         conn.close();
         return id;
     }
-    
+
     public ArrayList<Book> searchHeadline(String headline, boolean StricSearch) throws SQLException {
         ArrayList<Book> books = new ArrayList<>();
         Connection conn = db.getConnection();
@@ -126,7 +123,7 @@ public class BookDao {
 
         return books;
     }
-    
+
     public ArrayList<Book> searchBookByTags(String tag) throws SQLException {
         ArrayList<Book> books = new ArrayList<>();
         Connection conn = db.getConnection();
@@ -147,7 +144,7 @@ public class BookDao {
 
         return books;
     }
-    
+
     public ArrayList<Book> filterByHeadline(ArrayList<Book> oldBooks, String headlineCondition) {
         ArrayList<Book> books = new ArrayList<>();
 
@@ -158,7 +155,7 @@ public class BookDao {
         }
         return books;
     }
-    
+
     public ArrayList<Book> filterByTags(ArrayList<Book> oldBooks, String tags) {
         if (tags.isEmpty()) {
             return oldBooks;
@@ -179,7 +176,7 @@ public class BookDao {
         }
         return books;
     }
-    
+
     public void deleteBook(int bookId) {
 
         try {
@@ -188,10 +185,10 @@ public class BookDao {
             stmt.setInt(1, bookId);
 
             stmt.execute();
-            
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             System.out.println("Error Message -> " + e.getMessage());
-            System.out.println(e.getStackTrace());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 }

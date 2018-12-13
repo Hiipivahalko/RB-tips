@@ -125,7 +125,7 @@ public class TagDao {
         }
         return tags;
     }
-    
+
     public ArrayList<String> findBookTags(Book book) {
         ArrayList<String> tags = new ArrayList<>();
 
@@ -154,6 +154,7 @@ public class TagDao {
 
     /**
      * Delete tag from database
+     *
      * @param tagId
      */
     public void deleteTag(int tagId) {
@@ -167,9 +168,7 @@ public class TagDao {
             stmt.close();
             conn.close();
 
-
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
     }
