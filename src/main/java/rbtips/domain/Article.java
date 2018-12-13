@@ -8,13 +8,13 @@ public class Article extends Tip {
     private String date;
 
     public Article(String headline, String author, String url) {
-        super(headline, author, "");
+        super(headline, author, "", 0);
         this.url = url;
         this.date = null;
     }
 
     public Article(String headline, String author, String url, String tags) {
-        super(headline, author, tags);
+        super(headline, author, tags, 0);
         this.url = url;
     }
 
@@ -22,9 +22,6 @@ public class Article extends Tip {
         return url;
     }
     
-    public String getType() {
-        return "article";
-    }
 
     @Override
     public String toString() {

@@ -120,7 +120,7 @@ public class ViewTipSceneController implements Initializable {
         stage.setTitle(tip.getAuthor() + ", " + tip.getHeadline());
         authorLabel.setText(tip.getAuthor());
         headlineLabel.setText(tip.getHeadline());
-        if (isArticle(tip)) { //TÄHÄN TARVITSEE METODIN JOKA TARKISTAA ONKO TIP KIRJA VAI ARTIKKELI
+        if (tip.getType() == 0) { //TÄHÄN TARVITSEE METODIN JOKA TARKISTAA ONKO TIP KIRJA VAI ARTIKKELI
             Article a = (Article) tip;
             tagsLabel.setText(appService.getAllTagsByArticle(a));
             url.setText(a.getUrl());
@@ -165,23 +165,28 @@ public class ViewTipSceneController implements Initializable {
      */
     @FXML
     public void handleTipDeleteButton(ActionEvent actionEvent) {
-        appService.deleteTip((Article) tip);
+        if(tip.getType() == 0) {
+            appService.deleteTip((Article)tip);
+        } else {
+            appService.deleteBook((Book)tip);
+        }
+        
         stage.close();
     }
     
     @FXML
     public void handleMarkReadButton(ActionEvent actionEvent) throws SQLException {
-        appService.markAsRead((Article) tip);
+        appService.markAsRead(tip);
         stage.close();
     }
     
     public void checkMarkedStatus() {
-        Article a = (Article) tip;
-        if(a.getDate() != null) {
+        if(tip.getDate() != null) {
             hbox.getChildren().remove(markReadButton);
         }
     }
     
+    /*
     public boolean isArticle(Tip t) {
         boolean r = false;
         try {
@@ -194,5 +199,6 @@ public class ViewTipSceneController implements Initializable {
         }
         return r;
     }
+*/
 
 }

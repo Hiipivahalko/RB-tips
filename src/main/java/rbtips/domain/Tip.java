@@ -6,12 +6,14 @@ public class Tip {
     private String author;
     private String tags;
     private String date;
+    private int type;
 
-    public Tip(String headline, String author, String tags) {
+    public Tip(String headline, String author, String tags,int type) {
         this.title = headline;
         this.author = author;
         this.tags = tags;
         this.date = null;
+        this.type = type;
     }
 
     public String getAuthor() {
@@ -36,5 +38,9 @@ public class Tip {
 
     public void setDate(String date) {
         this.date = date;
+    }
+    
+    public int getType() {
+        return type;
     }
 }

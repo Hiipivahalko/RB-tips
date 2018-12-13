@@ -10,14 +10,14 @@ public class Book extends Tip{
     
     
     public Book(String title, String author, String publish_date, String isbn){
-        super(title, author, "");
+        super(title, author, "", 1);
         this.isbn = isbn;
         this.author = author;
         this.publish_date = publish_date;
     }
     
     public Book(String title, String author, String publish_date, String isbn, String tags){
-        super(title, author, tags);
+        super(title, author, tags, 1);
         this.isbn = isbn;
         this.author = author;
         this.publish_date = publish_date;
@@ -43,9 +43,6 @@ public class Book extends Tip{
         return isbn;
     }
     
-    public String getType() {
-        return "book";
-    }
     
     @Override
     public String toString() {

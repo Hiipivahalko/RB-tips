@@ -354,13 +354,16 @@ public class AppService {
         }
     }
 
-    public void markAsRead(Article article) throws SQLException {
-        articleDao.markAsRead(articleDao.getIdByHeadline(article.getHeadline()));
+    public void markAsRead(Tip tip) throws SQLException {
+        if(tip.getType()==0){
+            articleDao.markAsRead(articleDao.getIdByHeadline(tip.getHeadline()));
+        } else {
+            bookDao.markAsRead(bookDao.getIdByHeadline(tip.getHeadline()));
+        }
+        
     }
     
-    public void markAsRead(Book book) throws SQLException {
-        articleDao.markAsRead(bookDao.getIdByHeadline(book.getHeadline()));
-    }
+    
     
     public Book getBookByIsbn(String isbn) throws IOException {
         return bookDao.getByIsbn(isbn);
