@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="287.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rbtips.ui.ViewTipSceneController">
     <children>
-      <VBox maxWidth="1.7976931348623157E308" prefHeight="254.0" prefWidth="426.0" spacing="10.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="vbox" maxWidth="1.7976931348623157E308" prefHeight="254.0" prefWidth="426.0" spacing="10.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
                 <Label fx:id="headlineLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="434.0" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabel">
                     <font>
@@ -29,6 +29,11 @@
                         <Font size="17.0" />
                     </font>
                 </Hyperlink>
+            <Label fx:id="bookLabel" text="Label">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
                 <Label fx:id="tagsLabel" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="361.0" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel">
                     <font>
                         <Font size="18.0" />

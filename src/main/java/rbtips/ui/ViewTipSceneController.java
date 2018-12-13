@@ -1,13 +1,9 @@
 package rbtips.ui;
 
-import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
@@ -20,6 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import rbtips.domain.AppService;
 import rbtips.domain.Article;
 import rbtips.domain.Book;
@@ -30,29 +27,23 @@ import rbtips.main.Main;
  * FXML Controller class
  *
  */
-public class ViewTipSceneController implements Initializable {
+public class ViewTipSceneController {
 
     private Main application;
     private AppService appService;
     private Stage stage;
     private Tip tip;
 
-    @FXML
-    HBox hbox;
-    @FXML
-    Label authorLabel;
-    @FXML
-    Label headlineLabel;
-    @FXML
-    Label timeStampLabel;
-    @FXML
-    Hyperlink url;
-    @FXML
-    Label tagsLabel;
-    @FXML
-    Button markReadButton;
-    @FXML
-    Button deleteTipButton;
+    @FXML HBox hbox;
+    @FXML VBox vbox;
+    @FXML Label authorLabel;
+    @FXML Label headlineLabel;
+    @FXML Label timeStampLabel;
+    @FXML Hyperlink url;
+    @FXML Label tagsLabel;
+    @FXML Label bookLabel;
+    @FXML Button markReadButton;
+    @FXML Button deleteTipButton;
 
     public void setApplication(Main application) {
         this.application = application;
@@ -118,19 +109,23 @@ public class ViewTipSceneController implements Initializable {
      */
     private void setTipInformation() throws SQLException {
         stage.setTitle(tip.getAuthor() + ", " + tip.getHeadline());
-        authorLabel.setText(tip.getAuthor());
-        headlineLabel.setText(tip.getHeadline());
-        if (tip.getType() == 0) { //TÄHÄN TARVITSEE METODIN JOKA TARKISTAA ONKO TIP KIRJA VAI ARTIKKELI
+        authorLabel.setText("Author: " + tip.getAuthor());
+        
+        if (tip.getType() == 0) {
             Article a = (Article) tip;
-            tagsLabel.setText(appService.getAllTagsByArticle(a));
+            headlineLabel.setText("Headline: " + tip.getHeadline());
+            tagsLabel.setText("Tags: " + appService.getAllTagsByArticle(a));
             url.setText(a.getUrl());
-            timeStampLabel.setText(a.getDate());
+            timeStampLabel.setText("Marked as read: " + a.getDate());
+            vbox.getChildren().remove(bookLabel);
             checkMarkedStatus();
         } else {
             Book b = (Book) tip;
+            headlineLabel.setText("Title: " + tip.getHeadline());
             tagsLabel.setText(appService.getAllTagsByBook(b));
-            url.setText(b.getIsbn() + ", publication year:" + b.getPublishDate());
+            bookLabel.setText("ISBN: " + b.getIsbn() + ", publication year:" + b.getPublishDate());
             timeStampLabel.setText(b.getDate());
+            vbox.getChildren().remove(url);
             checkMarkedStatus();
         }
 
@@ -146,17 +141,6 @@ public class ViewTipSceneController implements Initializable {
 //            e.printStackTrace();
 //        }
 //    }
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-//        
-//        if(timeStampLabel.getText()==null){
-//            hbox.getChildren().remove(markReadButton);
-//        }
-        // TODO
-    }
 
     /**
      * Delete Tip, button handler. Delete tip from database and software
@@ -185,20 +169,5 @@ public class ViewTipSceneController implements Initializable {
             hbox.getChildren().remove(markReadButton);
         }
     }
-    
-    /*
-    public boolean isArticle(Tip t) {
-        boolean r = false;
-        try {
-            Article a = (Article) t;
-            if (a.getType().equals("article")) {
-                r = true;
-            }
-        } catch (Exception e) {
-            r = false;
-        }
-        return r;
-    }
-*/
 
 }
