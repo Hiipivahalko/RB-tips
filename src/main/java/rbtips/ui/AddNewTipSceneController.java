@@ -84,10 +84,14 @@ public class AddNewTipSceneController implements Initializable {
     @FXML
     private void populate(ActionEvent event) throws IOException {
         if(selectBox.getValue().equals("Book")) {
-            Book b = appService.getBookByIsbn(isbn.getText());
-            headline.setText(b.getHeadline());
-            author.setText(b.getAuthor());
-            publicationYear.setText(b.getPublishDate());
+            try {
+                Book b = appService.getBookByIsbn(isbn.getText());
+                headline.setText(b.getHeadline());
+                author.setText(b.getAuthor());
+                publicationYear.setText(b.getPublishDate());
+            } catch (Exception e) {
+                System.out.println("Something went wrong");
+            }
         }
     }
 

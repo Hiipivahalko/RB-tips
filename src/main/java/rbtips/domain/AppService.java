@@ -231,7 +231,7 @@ public class AppService {
         return errors;
     }
     
-    private List<String> validateNewBookUserInputs(String headline, String author, String publish_date, String isbn) {
+    public List<String> validateNewBookUserInputs(String headline, String author, String publish_date, String isbn) {
         List<String> errors = new ArrayList<>();
 
         if (headline.length() < 5) {
