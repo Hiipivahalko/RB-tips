@@ -80,6 +80,8 @@ public class MainPageSceneController {
         String tagCondition = tagFilter.getText();
         //ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.searchHeadline(filterCondition));
         ObservableList<Tip> filteredArticleList = FXCollections.observableArrayList(appService.filterArticles(filterCondition, tagCondition));
+        ObservableList<Tip> filteredBookList = FXCollections.observableArrayList(appService.filterBooks(filterCondition, tagCondition));
+        filteredArticleList.addAll(filteredBookList);
         tableView.setItems(filteredArticleList);
     }
     
