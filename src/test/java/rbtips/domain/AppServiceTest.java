@@ -158,4 +158,25 @@ public class AppServiceTest {
     private void saveArticle() {
         app.saveArticle("Breaking news", "Journalist", "http://news.com", "news");
     }
+    
+    private void saveBook() {
+        app.saveBook("The Hobbit", "J. R. R. Tolkien", "2001", "0345445600", "tolkien");
+    }
+    
+    @Test
+    public void saveBookWorks() {
+        assertEquals(true, app.saveBook("The Hobbit", "J. R. R. Tolkien", "2001", "0345445600", "tolkien"));
+    }
+    
+    @Test
+    public void getAllBooksReturnsRightAmountOfSavedBooks() {
+        saveBook();
+        saveBook();
+        saveBook();
+        saveBook();
+        
+        ArrayList<Book> books = app.getAllBooks();
+        assertEquals(4, books.size());
+    }
+
 }

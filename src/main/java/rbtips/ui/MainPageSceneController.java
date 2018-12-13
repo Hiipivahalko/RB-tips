@@ -3,6 +3,8 @@ package rbtips.ui;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 import rbtips.main.Main;
 import rbtips.domain.*;
 
@@ -21,6 +24,7 @@ public class MainPageSceneController {
     private Main application;
     private AppService appService;
     private ObservableList<Tip> articleList;
+    private ObservableList<Tip> bookList;
 //    private ObservableList<Tag> tagList;
     private AddNewTipSceneController addNew;
     private ViewTipSceneController viewTip;
@@ -40,6 +44,8 @@ public class MainPageSceneController {
     
     public void setArticles() throws SQLException {
         this.articleList = FXCollections.observableArrayList(this.appService.getAllArticles());
+        this.bookList = FXCollections.observableArrayList(this.appService.getAllBooks());
+        this.articleList.addAll(bookList);
 //        this.tagList = FXCollections.observableArrayList(this.appService.getAllTagsByArticle());
         tableView.setItems(articleList);
     }

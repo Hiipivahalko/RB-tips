@@ -73,6 +73,10 @@ public class AddNewTipSceneController implements Initializable {
             if (appService.saveArticle(headline.getText(), author.getText(), url.getText(), tags.getText())) {
                 stage.close();
             }
+        } else if(selectBox.getValue().equals("Book")) {
+            if(appService.saveBook(headline.getText(), author.getText(), publicationYear.getText(), isbn.getText(), tags.getText())) {
+                stage.close();
+            }
         }
 
     }

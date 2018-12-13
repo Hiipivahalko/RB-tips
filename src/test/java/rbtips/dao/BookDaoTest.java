@@ -35,7 +35,7 @@ public class BookDaoTest {
     
     @Test
     public void rightTitle() {
-        assertEquals("The ultimate hitchhiker's guide", book.getTitle());
+        assertEquals("The ultimate hitchhiker's guide", book.getHeadline());
     }
     
     @Test
@@ -53,13 +53,20 @@ public class BookDaoTest {
         bookDao.create(new Book("TestHeadline345", "TestAuthor12", "1902", "1234557890"));
         ArrayList<Book> books = bookDao.getAll();
         assertEquals("1902", books.get(0).getPublishDate());
-        assertEquals("TestHeadline345", books.get(0).getTitle());
+        assertEquals("TestHeadline345", books.get(0).getHeadline());
     }
     
     @Test
     public void getAllWhenDatabaseIsEmpty() throws SQLException {
         ArrayList<Book> books = bookDao.getAll();
         assertTrue(books.isEmpty());
+    }
+    
+    @Test
+    public void searchByHeadlineWorks() throws SQLException {
+        bookDao.create(new Book("TestHeadline345", "TestAuthor12", "1902", "1234557890"));
+        ArrayList<Book> books = bookDao.searchHeadline("TestHeadline345", true);
+        assertEquals("1902", books.get(0).getPublishDate());
     }
     
     

@@ -2,13 +2,13 @@ package rbtips.domain;
 
 public class Tip {
 
-    private String headline;
+    private String title;
     private String author;
     private String tags;
     private String date;
 
     public Tip(String headline, String author, String tags) {
-        this.headline = headline;
+        this.title = headline;
         this.author = author;
         this.tags = tags;
         this.date = null;
@@ -19,7 +19,7 @@ public class Tip {
     }
 
     public String getHeadline() {
-        return headline;
+        return title;
     }
 
     public String getTags() {

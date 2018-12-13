@@ -1,5 +1,6 @@
 package rbtips.domain;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -271,7 +272,7 @@ public class AppService {
 
         ArrayList<String> tags = new ArrayList<>();
         try {
-            int id = bookDao.getIdByHeadline(b.getTitle());
+            int id = bookDao.getIdByHeadline(b.getHeadline());
             tags = tagDao.findBookTags(b);
 
         } catch (SQLException e) {
@@ -340,7 +341,7 @@ public class AppService {
         int bookId;
         try {
             ArrayList<Integer> tagIds = tagDao.findIdByName(tags);
-            bookId = articleDao.getIdByHeadline(book.getTitle());
+            bookId = articleDao.getIdByHeadline(book.getHeadline());
             for (int tagId : tagIds) {
                 articleTagDao.deleteUnions(bookId, tagId);
                 if (!articleTagDao.isThereStillMoreUnionsToTag(tagId)) {
@@ -358,6 +359,10 @@ public class AppService {
     }
     
     public void markAsRead(Book book) throws SQLException {
-        articleDao.markAsRead(bookDao.getIdByHeadline(book.getTitle()));
+        articleDao.markAsRead(bookDao.getIdByHeadline(book.getHeadline()));
+    }
+    
+    public Book getBookByIsbn(String isbn) throws IOException {
+        return bookDao.getByIsbn(isbn);
     }
 }

@@ -33,6 +33,7 @@ public class Database {
             stmt.execute("DROP TABLE Tag");
             stmt.execute("DROP TABLE ArticleTag");
             stmt.execute("DROP TABLE Book");
+            stmt.execute("DROP TABLE BookTag");
             createTables(stmt);
 
             stmt.close();
@@ -49,6 +50,7 @@ public class Database {
         stmt.execute(createTableBook());
         stmt.execute(createTableTag());
         stmt.execute(createTableArticleTag());
+        stmt.execute(createTableBookTag());
     }
 
     private String createTableArticles() {
@@ -99,7 +101,7 @@ public class Database {
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                 + " book_id INTEGER,"
                 + " tag_id INTEGER,"
-                + " FOREIGN KEY (article_id) REFERENCES Book(id),"
+                + " FOREIGN KEY (book_id) REFERENCES Book(id),"
                 + " FOREIGN KEY (tag_id) REFERENCES Tag(id)"
                 + ");";
     }

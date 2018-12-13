@@ -27,7 +27,7 @@ public class BookDao {
     public void create(Book book) throws SQLException {
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(headline, author, releaseYear, isbn) VALUES (?, ?, ?, ?)");
-        stmt.setString(1, book.getTitle());
+        stmt.setString(1, book.getHeadline());
         stmt.setString(2, book.getAuthor());
         stmt.setString(3, book.getPublishDate());
         stmt.setString(4, book.getIsbn());
@@ -152,7 +152,7 @@ public class BookDao {
         ArrayList<Book> books = new ArrayList<>();
 
         for (Book book : oldBooks) {
-            if (book.getTitle().toLowerCase().contains(headlineCondition.toLowerCase())) {
+            if (book.getHeadline().toLowerCase().contains(headlineCondition.toLowerCase())) {
                 books.add(book);
             }
         }

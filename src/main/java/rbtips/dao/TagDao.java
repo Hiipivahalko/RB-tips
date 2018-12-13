@@ -136,7 +136,7 @@ public class TagDao {
                     + ", Books, BookTag WHERE Book.headline = "
                     + "? and book.id = BookTag.book_id and BookTag.tag_id = Tag.id";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, book.getTitle());
+            stmt.setString(1, book.getHeadline());
 
             ResultSet rs = stmt.executeQuery();
 

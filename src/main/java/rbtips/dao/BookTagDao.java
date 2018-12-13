@@ -29,7 +29,7 @@ public class BookTagDao {
     }
 
     /**
-     * delete row from ArticleTag
+     * delete row from ArticleTags
      * @param bookId
      * @param tagId
      */
