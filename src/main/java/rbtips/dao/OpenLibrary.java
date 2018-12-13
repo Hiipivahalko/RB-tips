@@ -32,7 +32,7 @@ public class OpenLibrary {
         private Author[] authors;
         
         public String getTitle() {
-        return title;
+            return title;
         }
     
         public String getPublishDate() {
@@ -42,8 +42,8 @@ public class OpenLibrary {
         public String getAuthor() {
             this.author = "";
             for(Author a : authors) {
-                    author += a.getName() + ", ";
-                }
+                author += a.getName() + ", ";
+            }
             return author.substring(0, author.length() - 2);
         }
         
