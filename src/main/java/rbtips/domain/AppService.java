@@ -68,7 +68,7 @@ public class AppService {
             return false;
         }
     }
-    
+
     public boolean saveBook(String headline, String author, String publish_date, String isbn, String tagNames) {
         List<String> allErrors = validateNewBookUserInputs(headline, author, publish_date, isbn);
         ArrayList<Integer> tagIds;
@@ -116,7 +116,7 @@ public class AppService {
 
         return articles;
     }
-    
+
     public ArrayList<Book> searchBookHeadline(String headline) {
         ArrayList<Book> books = new ArrayList<>();
         try {
@@ -156,7 +156,7 @@ public class AppService {
 
         return articles;
     }
-    
+
     public ArrayList<Book> searchBookByTag(String tagNames) {
 
         ArrayList<Book> books = new ArrayList<>();
@@ -194,7 +194,7 @@ public class AppService {
         }
         return articles;
     }
-    
+
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         try {
@@ -230,7 +230,7 @@ public class AppService {
 
         return errors;
     }
-    
+
     public List<String> validateNewBookUserInputs(String headline, String author, String publish_date, String isbn) {
         List<String> errors = new ArrayList<>();
 
@@ -241,15 +241,15 @@ public class AppService {
         if (author.length() < 3) {
             errors.add("Author must have atleast tree characters");
         }
-        
-        if(publish_date.length() > 4 || publish_date.length() < 1) {
+
+        if (publish_date.length() > 4 || publish_date.length() < 1) {
             errors.add("Publish date must be a year");
         }
-        
-        if(isbn.length() != 10){
+
+        if (isbn.length() != 10) {
             errors.add("ISBN must have 10 characters without the lines between them");
         }
-        
+
         return errors;
     }
 
@@ -267,7 +267,7 @@ public class AppService {
         String tagsSeperateByComma = String.join(",", tags); // this convert ArrayList of Strings to one String and separate old strings by comma
         return tagsSeperateByComma;
     }
-    
+
     public String getAllTagsByBook(Book b) throws SQLException {
 
         ArrayList<String> tags = new ArrayList<>();
@@ -290,7 +290,7 @@ public class AppService {
 
         return articles;
     }
-    
+
     public ArrayList<Book> filterBooks(String headline, String tag) {
         ArrayList<Book> books = getAllBooks();
         books = bookDao.filterByHeadline(books, headline);
@@ -331,10 +331,9 @@ public class AppService {
             }
             articleDao.deleteArticle(articleId);
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
-    
+
     public void deleteBook(Book book) {
 
         String[] tags = splitTags(book.getTags());
@@ -350,21 +349,17 @@ public class AppService {
             }
             bookDao.deleteBook(bookId);
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     public void markAsRead(Tip tip) throws SQLException {
-        if(tip.getType()==0){
+        if (tip.getType() == 0) {
             articleDao.markAsRead(articleDao.getIdByHeadline(tip.getHeadline()));
         } else {
             bookDao.markAsRead(bookDao.getIdByHeadline(tip.getHeadline()));
         }
-        
     }
-    
-    
-    
+
     public Book getBookByIsbn(String isbn) throws IOException {
         return bookDao.getByIsbn(isbn);
     }

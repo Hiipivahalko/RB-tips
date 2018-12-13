@@ -21,7 +21,6 @@ public class Article extends Tip {
     public String getUrl() {
         return url;
     }
-    
 
     @Override
     public String toString() {
@@ -53,10 +52,12 @@ public class Article extends Tip {
     public void setTags(String tags) {
         super.setTags(tags);
     }*/
+    @Override
     public void setDate(String date) {
         this.date = date;
     }
 
+    @Override
     public String getDate() {
         return this.date;
     }

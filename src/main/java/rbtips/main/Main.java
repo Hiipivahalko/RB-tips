@@ -6,12 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import rbtips.dao.ArticleDao;
-import rbtips.dao.ArticleTagDao;
-import rbtips.dao.BookDao;
-import rbtips.dao.BookTagDao;
-import rbtips.dao.Database;
-import rbtips.dao.TagDao;
+import rbtips.dao.*;
 import rbtips.domain.AppService;
 import rbtips.ui.MainPageSceneController;
 

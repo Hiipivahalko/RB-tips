@@ -2,13 +2,13 @@ package rbtips.domain;
 
 public class Tip {
 
-    private String title;
-    private String author;
+    private final String title;
+    private final String author;
     private String tags;
     private String date;
-    private int type;
+    private final int type;
 
-    public Tip(String headline, String author, String tags,int type) {
+    public Tip(String headline, String author, String tags, int type) {
         this.title = headline;
         this.author = author;
         this.tags = tags;
@@ -39,7 +39,7 @@ public class Tip {
     public void setDate(String date) {
         this.date = date;
     }
-    
+
     public int getType() {
         return type;
     }

@@ -29,24 +29,32 @@ import rbtips.main.Main;
  */
 public class ViewTipSceneController {
 
-    private Main application;
     private AppService appService;
     private Stage stage;
     private Tip tip;
 
-    @FXML HBox hbox;
-    @FXML VBox vbox;
-    @FXML Label authorLabel;
-    @FXML Label headlineLabel;
-    @FXML Label timeStampLabel;
-    @FXML Hyperlink url;
-    @FXML Label tagsLabel;
-    @FXML Label bookLabel;
-    @FXML Button markReadButton;
-    @FXML Button deleteTipButton;
+    @FXML
+    HBox hbox;
+    @FXML
+    VBox vbox;
+    @FXML
+    Label authorLabel;
+    @FXML
+    Label headlineLabel;
+    @FXML
+    Label timeStampLabel;
+    @FXML
+    Hyperlink url;
+    @FXML
+    Label tagsLabel;
+    @FXML
+    Label bookLabel;
+    @FXML
+    Button markReadButton;
+    @FXML
+    Button deleteTipButton;
 
     public void setApplication(Main application) {
-        this.application = application;
     }
 
     public void setAppService(AppService appService) {
@@ -57,7 +65,6 @@ public class ViewTipSceneController {
         this.tip = tip;
     }
 
-    //TODO siisti metodi
     public void display(Parent root1) throws SQLException {
         stage = new Stage();
         setTipInformation();
@@ -71,7 +78,7 @@ public class ViewTipSceneController {
                         String url_open = url.getText();
                         java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
 
-                    } catch (Exception ex) {
+                    } catch (IOException ex) {
 
                     }
                 }
@@ -87,8 +94,6 @@ public class ViewTipSceneController {
         try {
             desktop.browse(new URI(url.getText()));
         } catch (IOException | URISyntaxException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
@@ -97,8 +102,6 @@ public class ViewTipSceneController {
         try {
             runtime.exec("xdg-open " + url.getText());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
@@ -110,7 +113,7 @@ public class ViewTipSceneController {
     private void setTipInformation() throws SQLException {
         stage.setTitle(tip.getAuthor() + ", " + tip.getHeadline());
         authorLabel.setText("Author: " + tip.getAuthor());
-        
+
         if (tip.getType() == 0) {
             Article a = (Article) tip;
             headlineLabel.setText("Headline: " + tip.getHeadline());
@@ -131,17 +134,6 @@ public class ViewTipSceneController {
 
     }
 
-//    @FXML
-//    public void handleClickLink(ActionEvent event) throws Exception {
-//        try {
-//            Desktop.getDesktop().browse(new URL(url.getText()).toURI());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     /**
      * Delete Tip, button handler. Delete tip from database and software
      *
@@ -149,23 +141,23 @@ public class ViewTipSceneController {
      */
     @FXML
     public void handleTipDeleteButton(ActionEvent actionEvent) {
-        if(tip.getType() == 0) {
-            appService.deleteTip((Article)tip);
+        if (tip.getType() == 0) {
+            appService.deleteTip((Article) tip);
         } else {
-            appService.deleteBook((Book)tip);
+            appService.deleteBook((Book) tip);
         }
-        
+
         stage.close();
     }
-    
+
     @FXML
     public void handleMarkReadButton(ActionEvent actionEvent) throws SQLException {
         appService.markAsRead(tip);
         stage.close();
     }
-    
+
     public void checkMarkedStatus() {
-        if(tip.getDate() != null) {
+        if (tip.getDate() != null) {
             hbox.getChildren().remove(markReadButton);
         }
     }
