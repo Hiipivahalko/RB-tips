@@ -18,7 +18,7 @@ public class OpenLibrary {
         
         JsonBook jsonBook = mapper.fromJson(jsonText, JsonBook.class);
         
-        Book book = new Book(jsonBook.title, jsonBook.getAuthor(), jsonBook.publish_date, jsonBook.isbn);
+        Book book = new Book(jsonBook.title, jsonBook.getAuthor(), jsonBook.getPublishDate(), jsonBook.isbn);
         book.setIsbn(isbn);
         
         return book;
@@ -36,7 +36,9 @@ public class OpenLibrary {
         }
     
         public String getPublishDate() {
-            return publish_date;
+            if(publish_date.length() == 4) return publish_date;
+            
+            return publish_date.substring(publish_date.length()-4);
         }
     
         public String getAuthor() {
