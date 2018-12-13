@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
@@ -16,10 +17,15 @@
             <children>
             <ComboBox fx:id="selectBox" maxWidth="1.7976931348623157E308" onAction="#changeView" prefHeight="27.0" prefWidth="393.0" VBox.vgrow="ALWAYS" />
                 <Label fx:id="messageLabel" prefHeight="17.0" prefWidth="354.0" text="Fill" />
+            <HBox maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="577.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="isbn" prefHeight="27.0" prefWidth="307.0" promptText="ISBN" />
+                  <Button fx:id="findButton" mnemonicParsing="false" onAction="#populate" prefHeight="27.0" prefWidth="76.0" text="Find" />
+               </children>
+            </HBox>
                 <TextField fx:id="headline" promptText="Headline" />
                 <TextField fx:id="author" promptText="Author" />
                 <TextField fx:id="url" promptText="URL" />
-            <TextField fx:id="isbn" promptText="ISBN" />
             <TextField fx:id="publicationYear" promptText="Publication year" />
                 <TextArea fx:id="tags" prefHeight="58.0" prefWidth="346.0" promptText="Tags" />
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />

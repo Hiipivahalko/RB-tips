@@ -80,6 +80,16 @@ public class AddNewTipSceneController implements Initializable {
         }
 
     }
+    
+    @FXML
+    private void populate(ActionEvent event) throws IOException {
+        if(selectBox.getValue().equals("Book")) {
+            Book b = appService.getBookByIsbn(isbn.getText());
+            headline.setText(b.getHeadline());
+            author.setText(b.getAuthor());
+            publicationYear.setText(b.getPublishDate());
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,7 +106,7 @@ public class AddNewTipSceneController implements Initializable {
             setIsbnAndPublicationYearFields();
 //            vbox.getChildren().addAll(isbn, publicationYear);
 //            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
-//            Collections.swap(list, 5, list.size()-2);
+//            Collections.swap(list, 3, 8);
 //            Collections.swap(list, 6, list.size()-1);
 //            vbox.getChildren().removeAll(list);
 //            vbox.getChildren().addAll(list);
@@ -107,6 +117,7 @@ public class AddNewTipSceneController implements Initializable {
 
         }
         if (selectBox.getValue().equals("Article")) {
+//            ObservableList<Node> list = FXCollections.observableArrayList(vbox.getChildren());
             System.out.println("article chosen");
             setIsbnAndPublicationYearFields();
         }

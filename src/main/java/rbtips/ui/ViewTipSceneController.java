@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import rbtips.domain.AppService;
 import rbtips.domain.Article;
+import rbtips.domain.Book;
 import rbtips.domain.Tip;
 import rbtips.main.Main;
 
@@ -119,11 +120,20 @@ public class ViewTipSceneController implements Initializable {
         stage.setTitle(tip.getAuthor() + ", " + tip.getHeadline());
         authorLabel.setText(tip.getAuthor());
         headlineLabel.setText(tip.getHeadline());
-        Article a = (Article) tip;
-        tagsLabel.setText(appService.getAllTagsByArticle(a));
-        url.setText(a.getUrl());
-        timeStampLabel.setText(a.getDate());
-        checkMarkedStatus();
+        if (isArticle(tip)) { //TÄHÄN TARVITSEE METODIN JOKA TARKISTAA ONKO TIP KIRJA VAI ARTIKKELI
+            Article a = (Article) tip;
+            tagsLabel.setText(appService.getAllTagsByArticle(a));
+            url.setText(a.getUrl());
+            timeStampLabel.setText(a.getDate());
+            checkMarkedStatus();
+        } else {
+            Book b = (Book) tip;
+            tagsLabel.setText(appService.getAllTagsByBook(b));
+            url.setText(b.getIsbn() + ", publication year:" + b.getPublishDate());
+            timeStampLabel.setText(b.getDate());
+            checkMarkedStatus();
+        }
+
     }
 
 //    @FXML
@@ -170,6 +180,19 @@ public class ViewTipSceneController implements Initializable {
         if(a.getDate() != null) {
             hbox.getChildren().remove(markReadButton);
         }
+    }
+    
+    public boolean isArticle(Tip t) {
+        boolean r = false;
+        try {
+            Article a = (Article) t;
+            if (a.getType().equals("article")) {
+                r = true;
+            }
+        } catch (Exception e) {
+            r = false;
+        }
+        return r;
     }
 
 }
