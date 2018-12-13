@@ -63,7 +63,7 @@ public class BookDao {
     public void markAsRead(int bookId) throws SQLException {
         try {
             Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + "SET date = (?)"
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Book SET date = (?)"
                     + " WHERE id = (?)");
             stmt.setString(1, createTimeStamp());
             stmt.setInt(2, bookId);
