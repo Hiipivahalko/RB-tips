@@ -21,6 +21,10 @@ public class Article extends Tip {
     public String getUrl() {
         return url;
     }
+    
+    public String getType() {
+        return "article";
+    }
 
     @Override
     public String toString() {

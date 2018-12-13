@@ -43,7 +43,9 @@ public class Book extends Tip{
         return isbn;
     }
     
-    
+    public String getType() {
+        return "book";
+    }
     
     @Override
     public String toString() {
