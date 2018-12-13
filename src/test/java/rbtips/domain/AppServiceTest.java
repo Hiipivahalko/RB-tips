@@ -14,6 +14,8 @@ public class AppServiceTest {
     TagDao tagDao;
     ArticleTagDao articleTagDao;
     ArticleDao articleDao;
+    BookDao bookDao;
+    BookTagDao bookTagDao;
 
     @Before
     public void setUp() throws Exception {
@@ -21,7 +23,9 @@ public class AppServiceTest {
         articleDao = new ArticleDao(db, "Articles");
         tagDao = new TagDao(db, "Tag");
         articleTagDao = new ArticleTagDao(db, "ArticleTag");
-        app = new AppService(articleDao, tagDao, articleTagDao);
+        bookDao = new BookDao(db, "Book");
+        bookTagDao = new BookTagDao(db, "BookTag");
+        app = new AppService(articleDao, bookDao, tagDao, articleTagDao, bookTagDao);
 
         db.initializeDatabase();
     }

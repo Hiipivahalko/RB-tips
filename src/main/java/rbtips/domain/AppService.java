@@ -7,19 +7,25 @@ import java.util.List;
 
 import rbtips.dao.ArticleDao;
 import rbtips.dao.ArticleTagDao;
+import rbtips.dao.BookDao;
+import rbtips.dao.BookTagDao;
 import rbtips.dao.TagDao;
 
 public class AppService {
     //Sovelluslogiikkaluokka, näitä metodeja kutsutaan UI:sta
 
     private final ArticleDao articleDao;
+    private final BookDao bookDao;
     private final TagDao tagDao;
     private final ArticleTagDao articleTagDao;
+    private final BookTagDao bookTagDao;
 
-    public AppService(ArticleDao articleDao, TagDao tagDao, ArticleTagDao articleTagDao) {
+    public AppService(ArticleDao articleDao, BookDao bookDao, TagDao tagDao, ArticleTagDao articleTagDao, BookTagDao bookTagDao) {
         this.articleDao = articleDao;
         this.tagDao = tagDao;
         this.articleTagDao = articleTagDao;
+        this.bookDao = bookDao;
+        this.bookTagDao = bookTagDao;
     }
 
     /**
@@ -61,6 +67,37 @@ public class AppService {
             return false;
         }
     }
+    
+    public boolean saveBook(String headline, String author, String publish_date, String isbn, String tagNames) {
+        List<String> allErrors = validateNewBookUserInputs(headline, author, publish_date, isbn);
+        ArrayList<Integer> tagIds;
+
+        if (allErrors.isEmpty()) {
+            try {
+                Book book = new Book(headline, author, publish_date, isbn, tagNames);
+                bookDao.create(book);
+                int bookId =bookDao.getIdByHeadline(headline);
+
+                String[] tags = splitTags(tagNames);
+                tagDao.addTagsIfNotAlreadyExist(tags);
+                tagIds = tagDao.findIdByName(tags);
+                for (int id : tagIds) {
+                    bookTagDao.create(bookId, id);
+                }
+
+                return true;
+            } catch (SQLException e) {
+                System.out.println("Something went wrong when creating new Book :(");
+                return false;
+            }
+        } else {
+            System.out.println("Book is not saved to RB-tips because some errors at input:\n");
+            for (String error : allErrors) {
+                System.out.println(error);
+            }
+            return false;
+        }
+    }
 
     /**
      * Search articles in the database with matching headline
@@ -77,6 +114,17 @@ public class AppService {
         }
 
         return articles;
+    }
+    
+    public ArrayList<Book> searchBookHeadline(String headline) {
+        ArrayList<Book> books = new ArrayList<>();
+        try {
+            books = bookDao.searchHeadline(headline, false);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return books;
     }
 
     /**
@@ -107,6 +155,29 @@ public class AppService {
 
         return articles;
     }
+    
+    public ArrayList<Book> searchBookByTag(String tagNames) {
+
+        ArrayList<Book> books = new ArrayList<>();
+
+        try {
+            String[] tags = splitTags(tagNames);
+            System.out.println(Arrays.toString(tags));
+            for (String tag : tags) {
+                ArrayList<Book> temp = bookDao.searchBookByTags(tag);
+
+                for (Book book : temp) {
+                    if (!books.contains(book)) {
+                        books.add(book);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+        }
+
+        return books;
+    }
 
     /**
      * Find all articles at database and return it
@@ -121,6 +192,16 @@ public class AppService {
 
         }
         return articles;
+    }
+    
+    public ArrayList<Book> getAllBooks() {
+        ArrayList<Book> books = new ArrayList<>();
+        try {
+            books = bookDao.getAll();
+        } catch (SQLException e) {
+
+        }
+        return books;
     }
 
     /**
@@ -148,6 +229,28 @@ public class AppService {
 
         return errors;
     }
+    
+    private List<String> validateNewBookUserInputs(String headline, String author, String publish_date, String isbn) {
+        List<String> errors = new ArrayList<>();
+
+        if (headline.length() < 5) {
+            errors.add("Headline must have atleast five characters");
+        }
+
+        if (author.length() < 3) {
+            errors.add("Author must have atleast tree characters");
+        }
+        
+        if(publish_date.length() > 4 || publish_date.length() < 1) {
+            errors.add("Publish date must be a year");
+        }
+        
+        if(isbn.length() != 10){
+            errors.add("ISBN must have 10 characters without the lines between them");
+        }
+        
+        return errors;
+    }
 
     public String getAllTagsByArticle(Article a) throws SQLException {
 
@@ -163,6 +266,21 @@ public class AppService {
         String tagsSeperateByComma = String.join(",", tags); // this convert ArrayList of Strings to one String and separate old strings by comma
         return tagsSeperateByComma;
     }
+    
+    public String getAllTagsByBook(Book b) throws SQLException {
+
+        ArrayList<String> tags = new ArrayList<>();
+        try {
+            int id = bookDao.getIdByHeadline(b.getTitle());
+            tags = tagDao.findBookTags(b);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+        String tagsSeperateByComma = String.join(",", tags); // this convert ArrayList of Strings to one String and separate old strings by comma
+        return tagsSeperateByComma;
+    }
 
     public ArrayList<Article> filterArticles(String headline, String tag) {
         ArrayList<Article> articles = getAllArticles();
@@ -170,6 +288,14 @@ public class AppService {
         articles = articleDao.filterByTags(articles, tag);
 
         return articles;
+    }
+    
+    public ArrayList<Book> filterBooks(String headline, String tag) {
+        ArrayList<Book> books = getAllBooks();
+        books = bookDao.filterByHeadline(books, headline);
+        books = bookDao.filterByTags(books, tag);
+
+        return books;
     }
 
     /**
@@ -207,8 +333,31 @@ public class AppService {
             e.printStackTrace();
         }
     }
+    
+    public void deleteBook(Book book) {
+
+        String[] tags = splitTags(book.getTags());
+        int bookId;
+        try {
+            ArrayList<Integer> tagIds = tagDao.findIdByName(tags);
+            bookId = articleDao.getIdByHeadline(book.getTitle());
+            for (int tagId : tagIds) {
+                articleTagDao.deleteUnions(bookId, tagId);
+                if (!articleTagDao.isThereStillMoreUnionsToTag(tagId)) {
+                    tagDao.deleteTag(tagId);
+                }
+            }
+            articleDao.deleteArticle(bookId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void markAsRead(Article article) throws SQLException {
         articleDao.markAsRead(articleDao.getIdByHeadline(article.getHeadline()));
+    }
+    
+    public void markAsRead(Book book) throws SQLException {
+        articleDao.markAsRead(bookDao.getIdByHeadline(book.getTitle()));
     }
 }

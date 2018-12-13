@@ -2,6 +2,8 @@
 package rbtips.dao;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,17 +16,16 @@ import rbtips.domain.Book;
 public class BookDaoTest {
     
     BookDao bookDao;
-    Database db;
+    Database database;
     Book book;
     
-    public BookDaoTest() {
-        db = new Database("jdbc:sqlite:test.db");
-        bookDao = new BookDao(db, "Book");
-    }
     
     
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
+        database = new Database("jdbc:sqlite:test.db");
+        bookDao = new BookDao(database, "Book");
+        database.initializeDatabase();
         book = bookDao.getByIsbn("0517226952");
     }
     
@@ -39,13 +40,29 @@ public class BookDaoTest {
     
     @Test
     public void rightPublish_date() {
-        assertEquals("2005", book.getPublish_date());
+        assertEquals("2005", book.getPublishDate());
     }
     
     @Test
     public void rightAuthors() {
         assertEquals("Douglas Adams", book.getAuthor());
     }
+    
+    @Test
+    public void creatingBookWorks() throws Exception {
+        bookDao.create(new Book("TestHeadline345", "TestAuthor12", "1902", "1234557890"));
+        ArrayList<Book> books = bookDao.getAll();
+        assertEquals("1902", books.get(0).getPublishDate());
+        assertEquals("TestHeadline345", books.get(0).getTitle());
+    }
+    
+    @Test
+    public void getAllWhenDatabaseIsEmpty() throws SQLException {
+        ArrayList<Book> books = bookDao.getAll();
+        assertTrue(books.isEmpty());
+    }
+    
+    
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

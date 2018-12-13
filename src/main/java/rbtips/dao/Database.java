@@ -93,6 +93,17 @@ public class Database {
                 + ");";
     }
     
+    private String createTableBookTag() {
+        return "CREATE TABLE IF NOT EXISTS"
+                + " BookTag("
+                + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                + " book_id INTEGER,"
+                + " tag_id INTEGER,"
+                + " FOREIGN KEY (article_id) REFERENCES Book(id),"
+                + " FOREIGN KEY (tag_id) REFERENCES Tag(id)"
+                + ");";
+    }
+    
     
 
 }

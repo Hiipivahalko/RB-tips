@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import rbtips.domain.Article;
+import rbtips.domain.Book;
 
 import rbtips.domain.Tag;
 
@@ -110,6 +111,32 @@ public class TagDao {
                     + "? and articles.id = ArticleTag.article_id and ArticleTag.tag_id = Tag.id";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, article.getHeadline());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                tags.add(rs.getString(1));
+            }
+
+            stmt.close();
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+        return tags;
+    }
+    
+    public ArrayList<String> findBookTags(Book book) {
+        ArrayList<String> tags = new ArrayList<>();
+
+        try {
+            Connection conn = db.getConnection();
+            String query = "SELECT tag.name FROM "
+                    + tableName
+                    + ", Books, BookTag WHERE Book.headline = "
+                    + "? and book.id = BookTag.book_id and BookTag.tag_id = Tag.id";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, book.getTitle());
 
             ResultSet rs = stmt.executeQuery();
 

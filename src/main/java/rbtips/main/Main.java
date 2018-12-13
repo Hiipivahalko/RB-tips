@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import rbtips.dao.ArticleDao;
 import rbtips.dao.ArticleTagDao;
+import rbtips.dao.BookDao;
+import rbtips.dao.BookTagDao;
 import rbtips.dao.Database;
 import rbtips.dao.TagDao;
 import rbtips.domain.AppService;
@@ -23,6 +25,8 @@ public class Main extends Application {
     private Scene mainPageScene;
     private Stage primaryStage;
     private MainPageSceneController mainPageController;
+    private BookDao bookDao;
+    private BookTagDao bookTagDao;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,7 +38,9 @@ public class Main extends Application {
         this.articleDao = new ArticleDao(db, "Articles");
         this.articleTagDao = new ArticleTagDao(db, "ArticleTag");
         this.tagDao = new TagDao(db, "Tag");
-        this.appService = new AppService(articleDao, tagDao, articleTagDao);
+        this.bookDao = new BookDao(db, "Book");
+        this.bookTagDao = new BookTagDao(db, "BookTag");
+        this.appService = new AppService(articleDao, bookDao, tagDao, articleTagDao, bookTagDao);
 
         FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/MainPageScene.fxml"));
         Parent mainPagePane = mainPageLoader.load();

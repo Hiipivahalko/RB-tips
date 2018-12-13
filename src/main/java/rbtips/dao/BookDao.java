@@ -2,15 +2,16 @@ package rbtips.dao;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import rbtips.domain.Book;
 
 public class BookDao {
     
-    private Database db;
-    private String tableName;
-    private TagDao tagDao;
-    private OpenLibrary olib;
+    private final Database db;
+    private final String tableName;
+    private final TagDao tagDao;
+    private final OpenLibrary olib;
     
     public BookDao(Database db, String tableName){
         this.db = db;
@@ -28,7 +29,7 @@ public class BookDao {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + "(headline, author, releaseYear, isbn) VALUES (?, ?, ?, ?)");
         stmt.setString(1, book.getTitle());
         stmt.setString(2, book.getAuthor());
-        stmt.setString(2, book.getPublish_date());
+        stmt.setString(3, book.getPublishDate());
         stmt.setString(4, book.getIsbn());
         stmt.executeUpdate();
         stmt.close();
@@ -58,6 +59,139 @@ public class BookDao {
         return books;
     }
     
+    //Sama kuin Articlella
+    public void markAsRead(int bookId) throws SQLException {
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + "SET date = (?)"
+                    + " WHERE id = (?)");
+            stmt.setString(1, createTimeStamp());
+            stmt.setInt(2, bookId);
+            stmt.execute();
+
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     
+    //Sama kuin Articlella
+    public String createTimeStamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String ts = sdf.format(timestamp);
+        return ts;
+    }
     
+    //Sama kuin Articlella
+    public int getIdByHeadline(String headline) throws SQLException {
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT *  FROM " + tableName + " WHERE headline = (?)");
+        stmt.setString(1, headline);
+        ResultSet rs = stmt.executeQuery();
+
+        int id = rs.getInt("id");
+
+        stmt.close();
+        rs.close();
+        conn.close();
+        return id;
+    }
+    
+    public ArrayList<Book> searchHeadline(String headline, boolean StricSearch) throws SQLException {
+        ArrayList<Book> books = new ArrayList<>();
+        Connection conn = db.getConnection();
+        PreparedStatement stmt;
+        String queryString;
+        if (StricSearch) {
+            stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline = (?) ");
+            queryString = headline;
+        } else {
+            stmt = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE headline LIKE (?) ");
+            queryString = "%" + headline + "%";
+        }
+
+        stmt.setString(1, queryString);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Book book = new Book(rs.getString("headline"), rs.getString("author"), rs.getString("releaseYear"), rs.getString("isbn"));
+            books.add(book);
+        }
+
+        stmt.close();
+        rs.close();
+        conn.close();
+
+        return books;
+    }
+    
+    public ArrayList<Book> searchBookByTags(String tag) throws SQLException {
+        ArrayList<Book> books = new ArrayList<>();
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("select book.headline from book,tag,booktag"
+                + " where tag.name = (?) and tag.id = booktag.tag_id and articletag.article_id = articles.id");
+        stmt.setString(1, tag);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String headline = rs.getString(1);
+            books.add(searchHeadline(headline, true).get(0));
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        return books;
+    }
+    
+    public ArrayList<Book> filterByHeadline(ArrayList<Book> oldBooks, String headlineCondition) {
+        ArrayList<Book> books = new ArrayList<>();
+
+        for (Book book : oldBooks) {
+            if (book.getTitle().toLowerCase().contains(headlineCondition.toLowerCase())) {
+                books.add(book);
+            }
+        }
+        return books;
+    }
+    
+    public ArrayList<Book> filterByTags(ArrayList<Book> oldBooks, String tags) {
+        if (tags.isEmpty()) {
+            return oldBooks;
+        }
+
+        String[] allTags = tags.replaceAll("\\s", "").split(",");
+
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book b : oldBooks) {
+            String[] bookTags = b.getTags().replaceAll("\\s", "").split(",");
+            for (String tag : allTags) {
+                for (String articleTag : bookTags) {
+                    if (articleTag.toLowerCase().equals(tag.toLowerCase())) {
+                        books.add(b);
+                    }
+                }
+            }
+        }
+        return books;
+    }
+    
+    public void deleteArticle(int bookId) {
+
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE id = ?");
+            stmt.setInt(1, bookId);
+
+            stmt.execute();
+            
+        } catch (Exception e) {
+            System.out.println("Error Message -> " + e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+    }
 }

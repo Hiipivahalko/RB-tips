@@ -12,15 +12,19 @@ import rbtips.domain.AppService;
 
 import static org.junit.Assert.*;
 import rbtips.dao.ArticleTagDao;
+import rbtips.dao.BookDao;
+import rbtips.dao.BookTagDao;
 import rbtips.domain.Article;
 
 public class Stepdefs {
 
     Database db = new Database("jdbc:sqlite:testDb.db");
-    ArticleDao dao = new ArticleDao(db, "Articles");
+    ArticleDao articleDao = new ArticleDao(db, "Articles");
     ArticleTagDao articleTagDao = new ArticleTagDao(db, "ArticleTag");
     TagDao tagDao = new TagDao(db, "Tag");
-    AppService app = new AppService(dao, tagDao, articleTagDao);
+    BookDao bookDao = new BookDao(db, "Book");
+    BookTagDao bookTagDao = new BookTagDao(db, "BookTag");
+    AppService app = new AppService(articleDao, bookDao, tagDao, articleTagDao, bookTagDao);
     IOStub io = new IOStub(new String[1]);
     UIStub ui = new UIStub(io, app);
 
