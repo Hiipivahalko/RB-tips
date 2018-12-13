@@ -77,7 +77,7 @@ public class AppService {
             try {
                 Book book = new Book(headline, author, publish_date, isbn, tagNames);
                 bookDao.create(book);
-                int bookId =bookDao.getIdByHeadline(headline);
+                int bookId = bookDao.getIdByHeadline(headline);
 
                 String[] tags = splitTags(tagNames);
                 tagDao.addTagsIfNotAlreadyExist(tags);
@@ -341,14 +341,14 @@ public class AppService {
         int bookId;
         try {
             ArrayList<Integer> tagIds = tagDao.findIdByName(tags);
-            bookId = articleDao.getIdByHeadline(book.getHeadline());
+            bookId = bookDao.getIdByHeadline(book.getHeadline());
             for (int tagId : tagIds) {
                 articleTagDao.deleteUnions(bookId, tagId);
                 if (!articleTagDao.isThereStillMoreUnionsToTag(tagId)) {
                     tagDao.deleteTag(tagId);
                 }
             }
-            articleDao.deleteArticle(bookId);
+            bookDao.deleteBook(bookId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

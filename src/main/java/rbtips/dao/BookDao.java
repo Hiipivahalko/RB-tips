@@ -47,8 +47,8 @@ public class BookDao {
 
         while (rs.next()) {
             Book book = new Book(rs.getString("headline"), rs.getString("author"), rs.getString("releaseYear"), rs.getString("isbn"));
-            //book.setDate(rs.getString("date"));
-            //book.setTags(String.join(",", tagDao.findBookTags(book)));
+            book.setDate(rs.getString("date"));
+            book.setTags(String.join(",", tagDao.findBookTags(book)));
             books.add(book);
         }
 
@@ -131,7 +131,7 @@ public class BookDao {
         ArrayList<Book> books = new ArrayList<>();
         Connection conn = db.getConnection();
         PreparedStatement stmt = conn.prepareStatement("select book.headline from book,tag,booktag"
-                + " where tag.name = (?) and tag.id = booktag.tag_id and articletag.article_id = articles.id");
+                + " where tag.name = (?) and tag.id = booktag.tag_id and booktag.book_id = book.id");
         stmt.setString(1, tag);
 
         ResultSet rs = stmt.executeQuery();
@@ -170,8 +170,8 @@ public class BookDao {
         for (Book b : oldBooks) {
             String[] bookTags = b.getTags().replaceAll("\\s", "").split(",");
             for (String tag : allTags) {
-                for (String articleTag : bookTags) {
-                    if (articleTag.toLowerCase().equals(tag.toLowerCase())) {
+                for (String bookTag : bookTags) {
+                    if (bookTag.toLowerCase().equals(tag.toLowerCase())) {
                         books.add(b);
                     }
                 }
@@ -180,7 +180,7 @@ public class BookDao {
         return books;
     }
     
-    public void deleteArticle(int bookId) {
+    public void deleteBook(int bookId) {
 
         try {
             Connection conn = db.getConnection();

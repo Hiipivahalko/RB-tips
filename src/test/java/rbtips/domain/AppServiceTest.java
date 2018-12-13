@@ -60,6 +60,13 @@ public class AppServiceTest {
         ArrayList<Article> articles = app.searchTag("news");
         assertEquals("Breaking news", articles.get(0).getHeadline());
     }
+    
+    @Test
+    public void searchBookByTagsWorksCorrectly() {
+        saveBook();
+        ArrayList<Book> books = app.searchBookByTag("tolkien");
+        assertEquals("The Hobbit", books.get(0).getHeadline());
+    }
 
     @Test
     public void filterTagsReturnCorrectArticles() throws SQLException {
@@ -177,6 +184,22 @@ public class AppServiceTest {
         
         ArrayList<Book> books = app.getAllBooks();
         assertEquals(4, books.size());
+    }
+    
+    @Test
+    public void deleteBookWorks() {
+        saveBook();
+        saveBook();
+        ArrayList<Book> books = app.getAllBooks();
+        assertEquals(2, books.size());
+        app.deleteBook(books.get(0));
+        books = app.getAllBooks();
+        assertEquals(1, books.size());
+    }
+    
+    @Test
+    public void wrongInputWhenSavingBook() {
+        assertFalse(app.saveBook("o", "a", "a", "a", "a"));
     }
 
 }
