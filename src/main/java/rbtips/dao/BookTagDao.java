@@ -41,11 +41,7 @@ public class BookTagDao {
             stmt.setInt(1, bookId);
             stmt.setInt(2, tagId);
 
-            if (stmt.execute()) {
-                stmt.close();
-                conn.close();
-            }
-
+            stmt.execute();
             stmt.close();
             conn.close();
 

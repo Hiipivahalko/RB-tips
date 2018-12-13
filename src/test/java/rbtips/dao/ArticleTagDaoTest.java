@@ -67,6 +67,10 @@ public class ArticleTagDaoTest {
     }
 
     @Test
-    public void isThereStillMoreUnionsToTag() {
+    public void isThereStillMoreUnionsToTag() throws SQLException {
+        atd.create(1, 1);
+        assertTrue(atd.isThereStillMoreUnionsToTag(1));
+        atd.deleteUnions(1, 1);
+        assertFalse(atd.isThereStillMoreUnionsToTag(1));
     }
 }

@@ -40,11 +40,7 @@ public class ArticleTagDao {
             stmt.setInt(1, articleId);
             stmt.setInt(2, tagId);
 
-            if (stmt.execute()) {
-                stmt.close();
-                conn.close();
-            }
-
+            stmt.execute();
             stmt.close();
             conn.close();
 
