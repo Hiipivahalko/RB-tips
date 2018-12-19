@@ -13,6 +13,7 @@ työpöytäsovellus lukuvinkkien listaamiseen.
   * Sprinttien Backlogit omilla välilehdillä
 * [Definition of Done](https://github.com/Hiipivahalko/RB-tips/blob/sprint3/documentation/definition_of_done.md)
 * [Käyttöohje](https://github.com/Hiipivahalko/RB-tips/blob/sprint3/documentation/user_manual.md)
+* [Loppuraportti](https://github.com/Hiipivahalko/RB-tips/blob/master/documentation/report.pdf)
 
 
 # Asennusohje
